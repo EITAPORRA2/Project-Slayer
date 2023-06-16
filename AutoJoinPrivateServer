@@ -1,5 +1,3 @@
-getgenv().PrivateServerCode = "6aJggDiCb9"
-
 local placeIDAtual = game.PlaceId
 local placeIDDesejado = 5956785391
 
