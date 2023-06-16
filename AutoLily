@@ -2,7 +2,7 @@ getgenv().TP = true
 getgenv().speed = 250
 getgenv().AutoRejoin = true -- Automatically rejoins when you kicked
 getgenv().delay = 0.5
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/AutoJoinPrivateServer"))
+loadstring(game:HttpGet("https://pastebin.com/raw/d3S2mbwL"))
 wait(0.5)
 
 function autoload()
