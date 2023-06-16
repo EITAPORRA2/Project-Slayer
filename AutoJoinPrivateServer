@@ -1,1 +1,19 @@
+getgenv().PrivateServerCode = "6aJggDiCb9"
 
+local placeIDAtual = game.PlaceId
+local placeIDDesejado = 5956785391
+
+if placeIDAtual == placeIDDesejado then
+    local args = {
+        [1] = "join",
+        [2] = PrivateServerCode,
+        [3] = 6152116144
+    }
+    
+    local replicatedStorage = game:GetService("ReplicatedStorage")
+    local handlePrivateServer = replicatedStorage:WaitForChild("handle_privateserver")
+
+    handlePrivateServer:InvokeServer(unpack(args))
+else
+    print("Você não está no local correto para realizar o teleporte.")
+end
