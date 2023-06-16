@@ -760,47 +760,224 @@ local AutoDungeonN = Main:CreateToggle({
 
 Misc:CreateLabel("Buffs")
 
-local AutoInvincible = Main:CreateToggle({
-    Name = "Invincible (Akaza BD)",
+local Button = Misc:CreateButton({
+    Name = "Wagon God (Activator)",
+    Callback = function()
+        local player = game:GetService("Players").LocalPlayer
+
+        local ohString1 = "AddQuest"
+        local ohString2 = "Players." .. player.Name .. ".PlayerGui.Npc_Dialogue.LocalScript.Functions"
+        local ohNumber3 = 18455.7521223
+        local ohInstance4 = game:GetService("ReplicatedStorage").Player_Data[player.Name].Quest
+        local ohTable5 = {
+            ["List"] = {
+                [1] = {
+                    ["Name"] = "Deliver wagon",
+                    ["Progress"] = {
+                        [1] = 0,
+                        [2] = 1
+                    }
+                }
+            },
+            ["Current"] = "Deliver grandpa Wagwon's wagon"
+        }
+
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohString2, ohNumber3, ohInstance4, ohTable5)
+
+        wait(0.4)
+
+        local player = game.Players.LocalPlayer
+        local wagonName = player.Name .. "'s Wagon"
+        local wagon = player.Character:FindFirstChild(wagonName)
+        if wagon then
+            wagon:Destroy()
+        end
+
+        wait(0.2)
+
+        local player = game.Players.LocalPlayer
+        local playerGui = player.PlayerGui
+        local quest = playerGui.Menu.Quest
+
+        if quest then
+            quest:Destroy()
+        end
+    end,
+})
+
+local ToggleSwampyEnabled = false
+local ToggleDreamEnabled = false
+local ToggleIceEnabled = false
+local ToggleSoundEnabled = false
+local ToggleShockWaveEnabled = false
+
+local AutoInvincibleSwampy = Misc:CreateToggle({
+    Name = "Invincible (Swampy)",
     CurrentValue = false,
-    Flag = "BuyExp",
     Callback = function(v)
-        _G.Invicinbility = v
+        ToggleSwampyEnabled = v
         
-        while _G.Invicinbility do
-            local A_1 = "skil_ting_asd"
-            local A_2 = game:GetService("Players").LocalPlayer
-            local A_3 = "akaza_bda_compass_needle"
-            local A_4 = 1
-            local Event = game:GetService("ReplicatedStorage").Remotes["To_Server"]["Handle_Initiate_S"]
-                Event:FireServer(A_1, A_2, A_3, A_4)
-                task.wait(0.5)
+        if ToggleSwampyEnabled then
+            ToggleDreamEnabled = false
+            ToggleIceEnabled = false
+            ToggleSoundEnabled = false
+            ToggleShockWaveEnabled = false
+            toggleInvincibleSwampy()
         end
     end
 })
 
-Misc:CreateToggle({
-    Name = "GodMode (Kamado)",
-    Flag = "GodMode (Kamado)",
-    Callback = function (bool)
-
-    if toggleActivated then
-        game:GetService("ReplicatedStorage").Remotes.heal_tang123asd:FireServer(true)
-    else
-        game:GetService("ReplicatedStorage").Remotes.heal_tang123asd:FireServer(false)
-    end
+local AutoInvincibleDream = Misc:CreateToggle({
+    Name = "Invincible (Dream)",
+    CurrentValue = false,
+    Callback = function(v)
+        ToggleDreamEnabled = v
+        
+        if ToggleDreamEnabled then
+            ToggleSwampyEnabled = false
+            ToggleIceEnabled = false
+            ToggleSoundEnabled = false
+            ToggleShockWaveEnabled = false
+            toggleInvincibleDream()
+        end
     end
 })
+
+local AutoInvincibleIce = Misc:CreateToggle({
+    Name = "Invincible (Ice)",
+    CurrentValue = false,
+    Callback = function(v)
+        ToggleIceEnabled = v
+        
+        if ToggleIceEnabled then
+            ToggleSwampyEnabled = false
+            ToggleDreamEnabled = false
+            ToggleSoundEnabled = false
+            ToggleShockWaveEnabled = false
+            toggleInvincibleIce()
+        end
+    end
+})
+
+local AutoInvincibleSound = Misc:CreateToggle({
+    Name = "Invincible (Sound)",
+    CurrentValue = false,
+    Callback = function(v)
+        ToggleSoundEnabled = v
+        
+        if ToggleSoundEnabled then
+            ToggleSwampyEnabled = false
+            ToggleDreamEnabled = false
+            ToggleIceEnabled = false
+            ToggleShockWaveEnabled = false
+            toggleInvincibleSound()
+        end
+    end
+})
+
+local AutoInvincibleShockWave = Misc:CreateToggle({
+    Name = "Invincible (ShockWave)",
+    CurrentValue = false,
+    Callback = function(v)
+        ToggleShockWaveEnabled = v
+        
+        if ToggleShockWaveEnabled then
+            ToggleSwampyEnabled = false
+            ToggleDreamEnabled = false
+            ToggleIceEnabled = false
+            ToggleSoundEnabled = false
+            toggleInvincibleShockWave()
+        end
+    end
+})
+
+function toggleInvincibleSwampy()
+    while ToggleSwampyEnabled do
+        local ohString1 = "skil_ting_asd"
+        local ohInstance2 = game:GetService("Players").LocalPlayer
+        local ohString3 = "swamp_bda_swamp_domain"
+        local ohNumber4 = 1
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+        task.wait(0.5)
+    end
+end
+
+function toggleInvincibleDream()
+    while ToggleDreamEnabled do
+        local args = {
+            [1] = "skil_ting_asd",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = "dream_bda_flesh_monster",
+            [4] = 1
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer(unpack(args))
+        task.wait(0.5)
+    end
+end
+
+function toggleInvincibleIce()
+    while ToggleIceEnabled do
+        local ohString1 = "skil_ting_asd"
+        local ohInstance2 = game:GetService("Players").LocalPlayer
+        local ohString3 = "ice_demon_art_bodhisatva"
+        local ohNumber4 = 1
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+        task.wait(0.5)
+    end
+end
+
+function toggleInvincibleSound()
+    while ToggleSoundEnabled do
+        local ohString1 = "skil_ting_asd"
+        local ohInstance2 = game:GetService("Players").LocalPlayer
+        local ohString3 = "sound_breathing_smoke_screen"
+        local ohNumber4 = 1
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+        task.wait(0.5)
+    end
+end
+
+function toggleInvincibleShockWave()
+    while ToggleShockWaveEnabled do
+        local A_1 = "skil_ting_asd"
+        local A_2 = game:GetService("Players").LocalPlayer
+        local A_3 = "akaza_bda_compass_needle"
+        local A_4 = 1
+        local Event = game:GetService("ReplicatedStorage").Remotes["To_Server"]["Handle_Initiate_S"]
+        Event:FireServer(A_1, A_2, A_3, A_4)
+        task.wait(0.5)
+    end
+end
+
+Misc:CreateToggle({
+    Name = "GodMode (Kamado)",
+    CurrentValue = false,
+    SectionParent = Settings,
+    Callback = function(v)
+        getgenv().god = v
+        if getgenv().god then
+            local ohBoolean1 = true
+
+            game:GetService("ReplicatedStorage").Remotes.heal_tang123asd:FireServer(ohBoolean1)
+        elseif not getgenv().god then
+            local ohBoolean1 = false
+
+            game:GetService("ReplicatedStorage").Remotes.heal_tang123asd:FireServer(ohBoolean1)
+        end
+end
+})
+
 Misc:CreateToggle({
     Name = "Inf Breath Regen",
-    Flag = "Inf Breath Regen",
     Callback = function (bool)
         if bool then
             toggleActive = true
             toggleBreathing()
         else
             toggleActive = false
-        end  
+        end
+    
     function toggleBreathing()
         if toggleActive then
             game:GetService("ReplicatedStorage").Remotes.regeneration_breathing_remote:FireServer(true)
@@ -812,9 +989,9 @@ Misc:CreateToggle({
     end
     end
 })
+
 Misc:CreateToggle({
     Name = "WarFans Buff",
-    Flag = "WarFans Buff",
     Callback = function (bool)
         toggleActivated = bool -- Atualiza o estado do toggle
 
@@ -830,6 +1007,7 @@ Misc:CreateToggle({
     end
     end
 })
+
 Misc:CreateToggle({
     Name = "Rengoku (Human)",
     Callback = function (bool)
@@ -849,17 +1027,20 @@ Misc:CreateToggle({
     end
     end
 })
+
 Misc:CreateToggle({
     Name = "GodSpeed (Human)",
-    Flag = "GodSpeed (Human)",
     Callback = function (bool)
         toggleActivated = bool -- Atualiza o estado do toggle
+
         local args = {
             [1] = toggleActivated
         }
+
         game:GetService("ReplicatedStorage").Remotes.thundertang123:FireServer(args[1])
     end
 })
+
 
 function Teleport(Position, Offset, Speed)
     local Distance = Client:DistanceFromCharacter(Position + (Offset or Vector3.zero))
