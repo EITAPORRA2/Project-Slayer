@@ -16,7 +16,7 @@ else
     local PlaceIDToExecute = 6152116144
     local TeleportPlaceID = 5956785391
     local CurrentPlaceID = game.PlaceId
-    local TimerDuration = 20 * 60
+    local TimerDuration = 0 * 6
 
     if CurrentPlaceID == PlaceIDToExecute then
         print("Executando o script no Place ID correto.")
