@@ -13,32 +13,27 @@ if placeIDAtual == placeIDDesejado then
 
     handlePrivateServer:InvokeServer(unpack(args))
 else
-    print("Você não está no local correto para realizar o teleporte.")
-end
+    local PlaceIDToExecute = 6152116144
+    local TeleportPlaceID = 5956785391
+    local CurrentPlaceID = game.PlaceId
+    local TimerDuration = 20 * 60
 
-wait(0.1)
+    if CurrentPlaceID == PlaceIDToExecute then
+        print("Executando o script no Place ID correto.")
 
-local PlaceIDToExecute = 6152116144
-local TeleportPlaceID = 5956785391
-local CurrentPlaceID = game.PlaceId
-local TimerDuration = 0 * 5  -- 30 minutos em segundos
+        print("Aguardando 20 minutos...")
+        wait(TimerDuration)
 
-if CurrentPlaceID == PlaceIDToExecute then
-    print("Executando o script no Place ID correto.")
-
-    -- Esperar 30 minutos
-    print("Aguardando 20 minutos...")
-    wait(TimerDuration)
-
-    -- Verificar se o Place ID ainda é o correto antes de teleportar
-    if game.PlaceId == PlaceIDToExecute then
-        -- Teleportar para o Place ID desejado
-        game:GetService("TeleportService"):Teleport(TeleportPlaceID)
-        print("Teleportado para o Place ID", TeleportPlaceID)
+        -- Verificar se o Place ID ainda é o correto antes de teleportar
+        if game.PlaceId == PlaceIDToExecute then
+            -- Teleportar para o Place ID desejado
+            game:GetService("TeleportService"):Teleport(TeleportPlaceID)
+            print("Teleportado para o Place ID", TeleportPlaceID)
+        else
+            print("O Place ID mudou. Não foi possível teleportar.")
+        end
     else
-        print("O Place ID mudou. Não foi possível teleportar.")
+        print("Este script só deve ser executado no Place ID", PlaceIDToExecute)
+        print("Encerrando a execução do script.")
     end
-else
-    print("Este script só deve ser executado no Place ID", PlaceIDToExecute)
-    print("Encerrando a execução do script.")
 end
