@@ -1,4 +1,4 @@
-local decalsyeeted = true -- Makes Your Game Ugly Asf but Fps Gain
+local decalsyeeted = true
 local g = game
 local w = g.Workspace
 local l = g.Lighting
