@@ -184,133 +184,42 @@ function findMob1()
     return closestChild
 end
 
-local NPCs = AutoBoss:CreateDropdown({
-    Name = "Select NPCs",
-    Options = mobs,
-    MultiSelection = false,
-    Flag = "Npcs",
-    SectionParent = Settings,
-    Callback = function(v)
-        getgenv().Selected = v.Name
-    end,
-})
+Skills = {
+    Z = false,
+    X = false,
+    C = false,
+    V = false,
+    B = false,
+    N = false,
+}
+local mod = require(game:GetService("ReplicatedStorage").Modules.Server["Skills_Modules_Handler"])
+getrenv()._G.handle_irregular = nil
+getrenv()._G.cuasdamsndasdasd = nil
+
+_G.cuasdamsndasdasd = function()
+    return
+end
+
+_G.handle_irregular = function()
+    return false
+end
+
+mod.Kick = function()
+    return
+end
+
+game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["Client_Global_utility"].Disabled = true
+game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["client_global_delete_script"].Disabled = true
+game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["Client_Global_utility"]:GetPropertyChangedSignal("Disabled"):Connect(function()
+    game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["Client_Global_utility"].Disabled = true
+    game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["client_global_delete_script"].Disabled = true
+end)
 
 value = "Above"
 mode = value
 
 AutoBoss:CreateToggle({
-    Name = "Auto Farm Selected NPCs",
-    Flag = "Auto Farm Selected NPCSS",
-    Callback = function (v)
-        getgenv().FarmSelectede = v
-        local Humanoid = character.Humanoid
-        local hrp = character:WaitForChild("HumanoidRootPart")
-        local mob = findMob()
-        while task.wait() do
-            if getgenv().FarmSelectede == false then return end
-            local mob = findMob()
-            if mobs == nil then
-                while task.wait() do
-                    task.wait()
-                    if getgenv().FarmSelectede == false then return end
-                    if findMob() ~= nil then break end
-                end
-            else
-                while wait() do
-                    task.wait()
-        
-                    if getgenv().FarmSelectede == false then return end
-        
-                    if mob and mob:FindFirstChild("Humanoid") ~= nil and mob:FindFirstChild("Humanoid").Health > 0 then
-                        local ehum = mob:WaitForChild("Humanoid")
-                        local character = player.Character
-                        local hrp = character:WaitForChild("HumanoidRootPart")
-                        
-                        if mode == "Above" then
-                            repeat
-                                task.wait()
-                                local character = player.Character
-                                local hrp = character:WaitForChild("HumanoidRootPart")
-                                local magnitude = (character.HumanoidRootPart.Position - mob:GetModelCFrame().Position).magnitude
-                                if magnitude > 20 then
-                                    moveto(mob:GetModelCFrame() * CFrame.new(0, tonumber(getgenv().dist), 0) * CFrame.Angles(math.rad(-90), 0, 0), 300)
-                                else
-                                    hrp.CFrame = mob:GetModelCFrame() * CFrame.new(0, tonumber(getgenv().dist), 0) * CFrame.Angles(math.rad(-90), 0, 0)
-                                end
-                            until not FarmSelectede or mob:FindFirstChild("Humanoid").Health <= 0
-                            noclipE:Disconnect()
-                        elseif mode == nil then
-                            game.StarterGui:SetCore()
-                        end
-                    else
-                        break
-                    end
-                end
-            end
-            task.wait()
-        end
-        
-    end
-})
-
-AutoBoss:CreateToggle({
-    Name = "Auto Farm All NPCs",
-    Flag = "Auto Farm All NPCs",
-    Callback = function (v)
-    getgenv().FarmAll = v
-    local Humanoid = character.Humanoid
-    local hrp = character:WaitForChild("HumanoidRootPart")
-    local mob = findMob1()
-    while task.wait() do
-        if getgenv().FarmAll == false then return end
-    
-        local mob = findMob1()
-        if mobs == nil then
-            while task.wait() do
-                task.wait()
-                if getgenv().FarmAll == false then return end
-                if findMob1() ~= nil then break end
-            end
-        else
-            while wait() do
-                task.wait()
-    
-                if getgenv().FarmAll == false then return end
-    
-                if mob and mob:FindFirstChild("Humanoid") ~= nil and mob:FindFirstChild("Humanoid").Health > 0 then
-                    local ehum = mob:WaitForChild("Humanoid")
-                    local character = player.Character
-                    local hrp = character:WaitForChild("HumanoidRootPart")
-                    
-                    if mode == "Above" then
-                        repeat
-                            task.wait()
-                            local character = player.Character
-                            local hrp = character:WaitForChild("HumanoidRootPart")
-                            local magnitude = (character.HumanoidRootPart.Position - mob:GetModelCFrame().Position).magnitude
-                            if magnitude > 20 then
-                                moveto(mob:GetModelCFrame() * CFrame.new(0, tonumber(getgenv().dist), 0) * CFrame.Angles(math.rad(-90), 0, 0), 300)
-                            else
-                                hrp.CFrame = mob:GetModelCFrame() * CFrame.new(0, tonumber(getgenv().dist), 0) * CFrame.Angles(math.rad(-90), 0, 0)
-                            end
-                        until not FarmAll or mob:FindFirstChild("Humanoid").Health <= 0
-                        noclipE:Disconnect()
-                    elseif mode == nil then
-                        game.StarterGui:SetCore()
-                    end
-                else
-                    break
-                end
-            end
-        end
-        task.wait()
-    end
-    
-    end
-})
-
-AutoBoss:CreateToggle({
-    Name = "Farm All Boss Method 1",
+    Name = "Farm All Boss",
     Callback = function (v)
         getgenv().FarmAllBosses = v
         local Humanoid = character.Humanoid
@@ -365,7 +274,7 @@ AutoBoss:CreateToggle({
 
 
 AutoBoss:CreateToggle({
-    Name = "Farm All Boss Method 2",
+    Name = "Farm All Boss (Above)",
     Callback = function (v)
         getgenv().FarmAllBosses = v
         local Humanoid = character.Humanoid
@@ -418,8 +327,61 @@ AutoBoss:CreateToggle({
     end
 })
 
+AutoBoss:CreateToggle({
+    Name = "Farm All Boss (Front)",
+    Callback = function (v)
+        getgenv().FarmAllBosses = v
+        local Humanoid = character.Humanoid
+        local hrp = character:WaitForChild("HumanoidRootPart")
+        while task.wait() do
+            if getgenv().FarmAllBosses == false then return end
 
-------------------KillAura--------------------
+            local mob = findBoss()
+            if mob == nil then
+                while task.wait() do
+                    task.wait()
+                    if getgenv().FarmAllBosses == false then return end
+                    if findBoss() ~= nil then break end
+                end
+            else
+                while wait() do
+                    task.wait()
+
+                    if getgenv().FarmAllBosses == false then return end
+
+                    if mob and mob:FindFirstChild("Humanoid") ~= nil and mob:FindFirstChild("Humanoid").Health > 0 then
+                        local ehum = mob:WaitForChild("Humanoid")
+                        local character = player.Character
+                        local hrp = character:WaitForChild("HumanoidRootPart")
+                        
+                        if mode == "Above" then
+                            repeat
+                                task.wait()
+                                local character = player.Character
+                                local hrp = character:WaitForChild("HumanoidRootPart")
+                                local magnitude = (character.HumanoidRootPart.Position - mob:GetModelCFrame().Position).magnitude
+                                if magnitude > 20 then
+                                    moveto(mob:GetModelCFrame() * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0), 300)
+                                    
+                                else
+                                    hrp.CFrame = mob:GetModelCFrame() * CFrame.new(0, 0, -8) * CFrame.Angles(0, math.rad(180), 0)
+
+                                end
+                            until not FarmAllBosses or mob:FindFirstChild("Humanoid").Health <= 0
+                            noclipE:Disconnect()
+                        elseif mode == nil then
+                            game.StarterGui:SetCore()
+                        end
+                    else
+                        break
+                    end
+                end
+            
+            end
+            task.wait()
+        end
+    end
+})
 
 killauraTab:CreateToggle({
     Name = "Fist",
@@ -428,13 +390,7 @@ killauraTab:CreateToggle({
         if bool then
             getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
     getgenv().method = "fist_combat" 
-    -- theres 5 methods of attacking, fist_combat - fist,
-    -- fans_combat_slash - war fans, 
-    -- claw_Combat_Slash - claws, 
-    -- Scythe_Combat_Slash - scythe, 
-    -- Sword_Combat_Slash - sword.
-    
-    -- // locals
+
     local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
     local Players = game:GetService("Players")
     local client = game:GetService("Players").LocalPlayer
@@ -2371,3 +2327,39 @@ Misc:CreateToggle({
         game:GetService("ReplicatedStorage").Remotes.thundertang123:FireServer(args[1])
     end
 })
+
+Misc:CreateLabel("AutoSkil")
+
+local AutoSkill = Misc:CreateToggle({
+    Name = "Enable Auto Skill",
+    CurrentValue = false,
+    SectionParent = Miscs,
+    Flag = "Skills",
+    Callback = function(value)
+        using_move = false
+        stop_kill_aura = false
+        _G.SkillMastery = value
+        while _G.SkillMastery and task.wait() do
+            for i,v in next, Skills do
+                if v then
+                    using_move = true
+                end
+                game:GetService("VirtualInputManager"):SendKeyEvent(v, i, false, game)
+                using_move = false
+                game:GetService("VirtualInputManager"):SendKeyEvent(false, i, false, game)
+            end
+        end
+    end,
+})
+
+for i,v in next, Skills do
+    local AutoUse = Misc:CreateToggle({
+        Name = "Auto " .. i,
+        CurrentValue = false,
+        SectionParent = Miscs,
+        Flag = "Skills",
+        Callback = function(value)
+            Skills[i] = value
+        end,
+    })
+end
