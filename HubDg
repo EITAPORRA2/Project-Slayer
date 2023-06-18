@@ -309,10 +309,9 @@ local Window = Rayfield:CreateWindow({
         FileName = "Project Slayer Dungeon"
     },
 })
-local Main = Window:CreateTab("Main", 4483362458)
-local Misc = Window:CreateTab("Misc", 4483362458)
-
-
+local Main = Window:CreateTab("Main")
+local Misc = Window:CreateTab("Misc")
+local arrow = Window:CreateTab("OP Auras")
 
 Misc:CreateToggle({
     Name = "Inf Block",
@@ -1456,3 +1455,139 @@ function StaminaRegenOrb()
     
     FindAndTeleportToOrb()
 end
+
+arrow:CreateToggle({
+    Name = "Arrow Bypass",
+    Callback = function(v)
+        _G.bypass = v
+    
+        bypass()
+    end
+    })
+
+    arrow:CreateToggle({
+        Name = "Arrow KA",
+        CurrentValue = false,
+        Callback = function(v)
+        _G.arrowka = v
+
+        arrowglobal()
+        end
+        
+        })
+
+        arrow:CreateToggle({
+            Name = "Thunder Bypass",
+            Callback = function(v)
+                _G.thunderbypass = v
+            
+                bypass1()
+            end
+            })
+        
+            arrow:CreateToggle({
+                Name = "Thunder KA",
+                CurrentValue = false,
+                Callback = function(v)
+                _G.thunderkillaura = v
+                
+                thunderglobal()
+                end
+                
+                })
+
+
+function arrowglobal()
+    if _G.arrowka then 
+        globalkill = true
+    else
+        globalkill = false
+    end
+
+    while globalkill do
+        local success, error = pcall(function()
+            local ohString1 = "arrow_knock_back_damage"
+            local ohInstance2 = game:GetService("Players").LocalPlayer
+            local ohCFrame3 = CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+            local ohInstance4 = findMob1()
+            local ohNumber5 = 999999999
+            local ohNumber6 = 999999999
+
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+        end)
+
+        if not success then
+        end
+
+        if someCondition then
+            isRunning = false
+        end
+
+        wait(0.15)
+    end
+end
+
+
+function bypass()
+    if _G.bypass then
+        loop = true
+    else
+        loop = false
+    end
+        while loop do
+                local ohString1 = "skil_ting_asd"
+                local ohInstance2 = game:GetService("Players").LocalPlayer
+                local ohString3 = "arrow_knock_back"
+                local ohNumber4 = 5
+
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohString3, ohNumber4)
+
+                wait(8)
+            end
+        end
+
+    function thunderglobal()
+        if _G.thunderkillaura then 
+            globalkill1 = true
+        else
+            globalkill1 = false
+        end
+    
+        while globalkill1 do
+            local success, error = pcall(function()
+                local ohString1 = "ricespiritdamage"
+                local ohInstance2 = game:GetService("Players").LocalPlayer
+                local ohCFrame3 = LP.Character.HumanoidRootPart.CFrame
+                local ohNumber4 = 60
+                
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohNumber4)
+            end)
+    
+            if not success then
+            end
+    
+            if someCondition then
+                isRunning = false
+            end
+    
+            wait(0.45)
+        end
+    end
+    
+    
+    function bypass1()
+        if _G.bypass1 then
+            loop = true
+        else
+            loop = false
+        end
+            while loop do
+                local ohString1 = "skil_ting_asd"
+                local ohInstance2 = game:GetService("Players").LocalPlayer
+                local ohString3 = "Thunderbreathingrapidslashes"
+                local ohNumber4 = 5
+                
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+                    wait(8)
+                end
+            end
