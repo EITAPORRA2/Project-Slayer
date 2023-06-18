@@ -1526,7 +1526,7 @@ function bypass()
             end
         end
 
- AutoBoss:CreateToggle({
+ Main:CreateToggle({
     Name = "Thunder Bypass",
     Callback = function(v)
         _G.thunderbypass = v
@@ -1534,7 +1534,7 @@ function bypass()
     end
 })
 
-AutoBoss:CreateToggle({
+Main:CreateToggle({
     Name = "Thunder KA",
     CurrentValue = false,
     Callback = function(v)
