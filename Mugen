@@ -298,19 +298,39 @@ local Button = Misc:CreateButton({
     end,
 })
 
+local vim = game:GetService('VirtualInputManager')
+local rs = game:GetService('RunService')
+local clash = false
+
+local function pressKey(key)
+    vim:SendKeyEvent(true, key, false, game)
+    wait()
+    vim:SendKeyEvent(false, key, false, game)
+end
+
+local function instanced()
+    while clash do
+        rs.Heartbeat:Wait(0.3)
+        pressKey(Enum.KeyCode[game.Players.LocalPlayer.PlayerGui["universal_client_scripts"].Clashing2["Clash_Ui2"].Holder:WaitForChild('Front').Text])
+    end
+end
+
+local Toggle = Misc:CreateToggle({
+    Name = "AutoClash",
+    CurrentValue = false,
+    Callback = function(Value)
+        clash = Value
+        if clash then
+            instanced()
+        end
+    end,
+})
+
 local ToggleSwampyEnabled = false
 local ToggleDreamEnabled = false
 local ToggleIceEnabled = false
 local ToggleSoundEnabled = false
 local ToggleShockWaveEnabled = false
-
-local toggle = Misc:CreateToggle({
-    Name = "Skip Clash",
-    Callback = function (v)
-        _G.skip = v
-        skipclash()
-    end
-})
 
 local AutoInvincibleSwampy = Misc:CreateToggle({
     Name = "Invincible (Swampy)",
@@ -711,22 +731,6 @@ spawn(function()
     end
 end)
 
-local vim = game:GetService('VirtualInputManager')
-local rs = game:GetService('RunService')
-local clash = false
-
-local function pressKey(key)
-vim:SendKeyEvent(true, key, false, game)
-wait()
-vim:SendKeyEvent(false, key, false, game)
-end
-
-local function instanced()
-while clash do
-rs.Heartbeat:Wait(0.3)
-pressKey(Enum.KeyCode[game.Players.LocalPlayer.PlayerGui["universal_client_scripts"].Clashing2["Clash_Ui2"].Holder:WaitForChild('Front').Text])
-end
-end
 
 local arrow = Window:CreateTab("OP Auras")
 
@@ -820,30 +824,6 @@ function bypass()
             end
         end
 
-function skipclash()
-    if _G.skip then
-        skip = true
-    else
-        skip = false
-    end
-
-    while skip do
-        local success, error = pcall(function()
-        local playerName = game.Players.LocalPlayer.Name 
-
-        local ohString1 = "Change_Value"
-        local ohInstance2 = workspace.Debree.clash_folder[playerName.."vsEnmu"][playerName]
-        local ohNumber3 = 10000
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohNumber3) 
-        wait(2)
-        end)
-
-        if not success then
-        end
-        wait(2)
-    end
-    end
 
     function thunderglobal()
         if _G.thunderkillaura then 
