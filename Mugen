@@ -304,35 +304,13 @@ local ToggleIceEnabled = false
 local ToggleSoundEnabled = false
 local ToggleShockWaveEnabled = false
 
-local vim = game:GetService('VirtualInputManager')
-local rs = game:GetService('RunService')
-local clash = false
-
-local function pressKey(key)
-    vim:SendKeyEvent(true, key, false, game)
-    wait()
-    vim:SendKeyEvent(false, key, false, game)
-end
-
-local function instanced()
-    while clash do
-        rs.Heartbeat:Wait(0.3)
-        pressKey(Enum.KeyCode[game.Players.LocalPlayer.PlayerGui["universal_client_scripts"].Clashing2["Clash_Ui2"].Holder:WaitForChild('Front').Text])
+local toggle = Misc:CreateToggle({
+    Name = "Skip Clash",
+    Callback = function (v)
+        _G.skip = v
+        skipclash()
     end
-end
-
-local Toggle = Misc:CreateToggle({
-    Name = "AutoClash",
-    CurrentValue = false,
-    Callback = function(Value)
-        clash = Value
-        if clash then
-            instanced()
-        end
-    end,
 })
-
-CurrentValue = false
 
 local AutoInvincibleSwampy = Misc:CreateToggle({
     Name = "Invincible (Swampy)",
@@ -772,6 +750,26 @@ arrow:CreateToggle({
         
         })
 
+        arrow:CreateToggle({
+            Name = "Thunder Bypass",
+            Callback = function(v)
+                _G.thunderbypass = v
+            
+                bypass1()
+            end
+            })
+        
+            arrow:CreateToggle({
+                Name = "Thunder KA",
+                CurrentValue = false,
+                Callback = function(v)
+                _G.thunderkillaura = v
+                
+                thunderglobal()
+                end
+                
+                })
+
 
 function arrowglobal()
     if _G.arrowka then 
@@ -822,66 +820,76 @@ function bypass()
             end
         end
 
-arrow:CreateToggle({
-    Name = "Thunder Bypass",
-    Callback = function(v)
-        _G.thunderbypass = v
-        thunderbypass()
-    end
-})
-
-arrow:CreateToggle({
-    Name = "Thunder KA",
-    CurrentValue = false,
-    Callback = function(v)
-        _G.thunderkillaura = v
-        thunderglobal()
-    end
-})
-
-function thunderbypass()
-    if _G.thunderbypass then
-        loop = true
+function skipclash()
+    if _G.skip then
+        skip = true
     else
-        loop = false
-    end
-    
-    while loop do
-local ohString1 = "skil_ting_asd"
-local ohInstance2 = game:GetService("Players").LocalPlayer
-local ohString3 = "Thunderbreathingrapidslashes"
-local ohNumber4 = 5
-
-game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
-        wait(8)
-    end
-end
-
-function thunderglobal()
-    if _G.thunderkillaura then 
-        globalkill1 = true
-    else
-        globalkill1 = false
+        skip = false
     end
 
-    while globalkill1 do
+    while skip do
         local success, error = pcall(function()
-        local LP = game:GetService("Players").LocalPlayer
-local ohString1 = "ricespiritdamage"
-local ohInstance2 = game:GetService("Players").LocalPlayer
-local ohCFrame3 = LP.Character.HumanoidRootPart.CFrame
-local ohNumber4 = 60
+        local playerName = game.Players.LocalPlayer.Name 
 
-game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohNumber4)
+        local ohString1 = "Change_Value"
+        local ohInstance2 = workspace.Debree.clash_folder[playerName.."vsEnmu"][playerName]
+        local ohNumber3 = 10000
+
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohNumber3) 
+        wait(2)
         end)
 
         if not success then
         end
-
-        if someCondition then
-            isRunning = false
-        end
-
-        wait(0.45)
+        wait(2)
     end
-end
+    end
+
+    function thunderglobal()
+        if _G.thunderkillaura then 
+            globalkill1 = true
+        else
+            globalkill1 = false
+        end
+    
+        while globalkill1 do
+            local success, error = pcall(function()
+                local ohString1 = "ricespiritdamage"
+                local ohInstance2 = game:GetService("Players").LocalPlayer
+                local ohCFrame3 = LP.Character.HumanoidRootPart.CFrame
+                local ohNumber4 = 60
+                
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohNumber4)
+            end)
+    
+            if not success then
+            end
+    
+            if someCondition then
+                isRunning = false
+            end
+    
+            wait(0.45)
+        end
+    end
+    
+    
+    function bypass1()
+        if _G.bypass1 then
+            loop = true
+        else
+            loop = false
+        end
+            while loop do
+                local ohString1 = "skil_ting_asd"
+                local ohInstance2 = game:GetService("Players").LocalPlayer
+                local ohString3 = "Thunderbreathingrapidslashes"
+                local ohNumber4 = 5
+                
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+                    wait(8)
+                end
+            end
+    
+                local playerName = game.Players.LocalPlayer.Name 
+        
