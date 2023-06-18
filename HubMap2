@@ -13,10 +13,12 @@ local Window = Rayfield:CreateWindow({
 
     local AutoBoss = Window:CreateTab("Auto Farm Boss")
     local killauraTab = Window:CreateTab("KillAura")
+    local ArrowGKA = Window:CreateTab("ArrowAura")
     local Misc = Window:CreateTab("Misc")
     local TeleportTween2 = Window:CreateTab("Tween TP")
     local Teleports2 = Window:CreateTab("Insta TP")
-
+    
+local player = game:GetService("Players").LocalPlayer;
 local UIS = game:GetService("UserInputService")
 local VirtualUser = game:GetService("VirtualUser")
 local VIM =game:GetService("VirtualInputManager")
@@ -2175,3 +2177,412 @@ for i,v in next, Skills do
         end,
     })
 end
+
+local Toggle = ArrowGKA:CreateToggle({
+    Name = "Bypass",
+    CurrentValue = false,
+    Callback = function(Value)
+        _G.bypass = Value
+ 
+        if _G.bypass then
+            while _G.bypass do
+                local ohString1 = "skil_ting_asd"
+                local ohInstance2 = game:GetService("Players").LocalPlayer
+                local ohString3 = "arrow_knock_back"
+                local ohNumber4 = 5
+ 
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohString3, ohNumber4)
+ 
+                wait(8)
+            end
+        end
+    end,
+ })
+ 
+local Toggle = ArrowGKA:CreateToggle({
+    Name = "Inosuke",
+    CurrentValue = false,
+    Callback = function(Value)
+        isRunning = Value -- Atualiza o estado de execução com o valor do toggle
+ 
+        if isRunning then
+            while isRunning do
+                local success, error = pcall(function()
+                    local ohString1 = "arrow_knock_back_damage"
+                    local ohInstance2 = game:GetService("Players").LocalPlayer
+                    local ohCFrame3 = CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                    local ohInstance4 = game:GetService("Workspace").Mobs.Bosses.Inosuke.Inosuke
+                    local ohNumber5 = 999999999
+                    local ohNumber6 = 999999999
+ 
+                    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+                end)
+ 
+                if not success then
+                    -- Lida com erros, se houver
+                end
+ 
+                if someCondition then
+                    isRunning = false
+                end
+ 
+                wait(0.001)
+            end
+        end
+    end,
+ })
+
+ local Toggle = ArrowGKA:CreateToggle({
+    Name = "Muichiro",
+    CurrentValue = false,
+    Callback = function(Value)
+        isRunning = Value
+ 
+        if isRunning then
+            while isRunning do
+                local success, error = pcall(function()
+                    local ohString1 = "arrow_knock_back_damage"
+                    local ohInstance2 = game:GetService("Players").LocalPlayer
+                    local ohCFrame3 = CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                    local ohInstance4 = game:GetService("Workspace").Mobs.Bosses.Muichiro["Muichiro Tokito"]
+                    local ohNumber5 = 999999999
+                    local ohNumber6 = 999999999
+ 
+                    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+                end)
+ 
+                if not success then
+                end
+ 
+                if someCondition then
+                    isRunning = false
+                end
+ 
+                wait(0.001)
+            end
+        end
+    end,
+ })
+
+ local Toggle = ArrowGKA:CreateToggle({
+    Name = "Sound Trainer",
+    CurrentValue = false,
+    Callback = function(Value)
+        isRunning = Value
+ 
+        if isRunning then
+            while isRunning do
+                local success, error = pcall(function()
+                    local ohString1 = "arrow_knock_back_damage"
+                    local ohInstance2 = game:GetService("Players").LocalPlayer
+                    local ohCFrame3 = CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                    local ohInstance4 = game:GetService("Workspace").Mobs.Bosses["Sound_Trainee"]["Sound Trainee"]["Sound Trainee"]
+                    local ohNumber5 = 999999999
+                    local ohNumber6 = 999999999
+ 
+                    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+                end)
+ 
+                if not success then
+                end
+ 
+                if someCondition then
+                    isRunning = false
+                end
+ 
+                wait(0.001)
+            end
+        end
+    end,
+ })
+
+ local Toggle = ArrowGKA:CreateToggle({
+    Name = "Snow Trainer",
+    CurrentValue = false,
+    Callback = function(Value)
+        isRunning = Value
+ 
+        if isRunning then
+            while isRunning do
+                local success, error = pcall(function()
+                    local ohString1 = "arrow_knock_back_damage"
+                    local ohInstance2 = game:GetService("Players").LocalPlayer
+                    local ohCFrame3 = CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                    local ohInstance4 = game:GetService("Workspace").Mobs.Bosses["Snow_Trainee"]["Snow Trainee"]["Snow Trainee"]
+                    local ohNumber5 = 999999999
+                    local ohNumber6 = 999999999
+ 
+                    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+                end)
+ 
+                if not success then
+                end
+ 
+                if someCondition then
+                    isRunning = false
+                end
+ 
+                wait(0.001)
+            end
+        end
+    end,
+ })
+
+ local Toggle = ArrowGKA:CreateToggle({
+    Name = "Swampy",
+    CurrentValue = false,
+    Callback = function(Value)
+        isRunning = Value
+ 
+        if isRunning then
+            while isRunning do
+                local success, error = pcall(function()
+                    local ohString1 = "arrow_knock_back_damage"
+                    local ohInstance2 = game:GetService("Players").LocalPlayer
+                    local ohCFrame3 = CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                    local ohInstance4 = game:GetService("Workspace").Mobs.Bosses.Swampy.Swampy
+                    local ohNumber5 = 999999999
+                    local ohNumber6 = 999999999
+ 
+                    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+                end)
+ 
+                if not success then
+                end
+ 
+                if someCondition then
+                    isRunning = false
+                end
+ 
+                wait(0.001)
+            end
+        end
+    end,
+ })
+
+ local Toggle = ArrowGKA:CreateToggle({
+    Name = "Renpeke",
+    CurrentValue = false,
+    Callback = function(Value)
+        isRunning = Value
+ 
+        if isRunning then
+            while isRunning do
+                local success, error = pcall(function()
+                    local ohString1 = "arrow_knock_back_damage"
+                    local ohInstance2 = game:GetService("Players").LocalPlayer
+                    local ohCFrame3 = CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                    local ohInstance4 = game:GetService("Workspace").Mobs.Bosses["Flame Trainee"].Renpeke
+                    local ohNumber5 = 999999999
+                    local ohNumber6 = 999999999
+ 
+                    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+                end)
+ 
+                if not success then
+                end
+ 
+                if someCondition then
+                    isRunning = false
+                end
+ 
+                wait(0.001)
+            end
+        end
+    end,
+ })
+
+ local Toggle = ArrowGKA:CreateToggle({
+    Name = "Akeza",
+    CurrentValue = false,
+    Callback = function(Value)
+        isRunning = Value
+ 
+        if isRunning then
+            while isRunning do
+                local success, error = pcall(function()
+                    local ohString1 = "arrow_knock_back_damage"
+                    local ohInstance2 = game:GetService("Players").LocalPlayer
+                    local ohCFrame3 = CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                    local ohInstance4 = game:GetService("Workspace").Mobs.Bosses.Akaza.Akeza
+                    local ohNumber5 = 999999999
+                    local ohNumber6 = 999999999
+ 
+                    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+                end)
+ 
+                if not success then
+                end
+ 
+                if someCondition then
+                    isRunning = false
+                end
+ 
+                wait(0.001)
+            end
+        end
+    end,
+ })
+
+ local Toggle = ArrowGKA:CreateToggle({
+    Name = "Rengoku",
+    CurrentValue = false,
+    Callback = function(Value)
+        isRunning = Value
+ 
+        if isRunning then
+            while isRunning do
+                local success, error = pcall(function()
+                    local ohString1 = "arrow_knock_back_damage"
+                    local ohInstance2 = game:GetService("Players").LocalPlayer
+                    local ohCFrame3 = CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                    local ohInstance4 = game:GetService("Workspace").Mobs.Bosses.Rengoku.Rengoku
+                    local ohNumber5 = 999999999
+                    local ohNumber6 = 999999999
+ 
+                    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+                end)
+ 
+                if not success then
+                end
+ 
+                if someCondition then
+                    isRunning = false
+                end
+ 
+                wait(0.001)
+            end
+        end
+    end,
+ })
+
+ local Toggle = ArrowGKA:CreateToggle({
+    Name = "Tengen",
+    CurrentValue = false,
+    Callback = function(Value)
+        isRunning = Value
+ 
+        if isRunning then
+            while isRunning do
+                local success, error = pcall(function()
+                    local ohString1 = "arrow_knock_back_damage"
+                    local ohInstance2 = game:GetService("Players").LocalPlayer
+                    local ohCFrame3 = CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                    local ohInstance4 = game:GetService("Workspace").Mobs.Bosses.Tengen.Tengen
+                    local ohNumber5 = 999999999
+                    local ohNumber6 = 999999999
+ 
+                    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+                end)
+ 
+                if not success then
+                end
+ 
+                if someCondition then
+                    isRunning = false
+                end
+ 
+                wait(0.001)
+            end
+        end
+    end,
+ })
+
+ local Toggle = ArrowGKA:CreateToggle({
+    Name = "Douma",
+    CurrentValue = false,
+    Callback = function(Value)
+        isRunning = Value
+ 
+        if isRunning then
+            while isRunning do
+                local success, error = pcall(function()
+                    local ohString1 = "arrow_knock_back_damage"
+                    local ohInstance2 = game:GetService("Players").LocalPlayer
+                    local ohCFrame3 = CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                    local ohInstance4 = game:GetService("Workspace").Mobs.Bosses.Douma.Douma
+                    local ohNumber5 = 999999999
+                    local ohNumber6 = 999999999
+ 
+                    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+                end)
+ 
+                if not success then
+                end
+ 
+                if someCondition then
+                    isRunning = false
+                end
+ 
+                wait(0.001)
+            end
+        end
+    end,
+ })
+
+             AutoBoss:CreateToggle({
+            Name = "Thunder Bypass",
+            Callback = function(v)
+                _G.thunderbypass = v
+            
+                bypass1()
+            end
+            })
+        
+            AutoBoss:CreateToggle({
+                Name = "Thunder Aura",
+                CurrentValue = false,
+                Callback = function(v)
+                _G.thunderkillaura = v
+                
+                thunderglobal()
+                end
+                
+                })
+
+                
+    function thunderglobal()
+        if _G.thunderkillaura then 
+            globalkill1 = true
+        else
+            globalkill1 = false
+        end
+    
+        while globalkill1 do
+            local success, error = pcall(function()
+                local ohString1 = "ricespiritdamage"
+                local ohInstance2 = game:GetService("Players").LocalPlayer
+                local ohCFrame3 = LP.Character.HumanoidRootPart.CFrame
+                local ohNumber4 = 60
+                
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohNumber4)
+            end)
+    
+            if not success then
+            end
+    
+            if someCondition then
+                isRunning = false
+            end
+    
+            wait(0.45)
+        end
+    end
+    
+    
+    function bypass1()
+        if _G.bypass1 then
+            loop = true
+        else
+            loop = false
+        end
+            while loop do
+                local ohString1 = "skil_ting_asd"
+                local ohInstance2 = game:GetService("Players").LocalPlayer
+                local ohString3 = "Thunderbreathingrapidslashes"
+                local ohNumber4 = 5
+                
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+                    wait(8)
+                end
+            end
