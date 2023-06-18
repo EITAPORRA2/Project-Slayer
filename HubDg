@@ -1475,27 +1475,7 @@ arrow:CreateToggle({
         end
         
         })
-
-        arrow:CreateToggle({
-            Name = "Thunder Bypass",
-            Callback = function(v)
-                _G.thunderbypass = v
-            
-                bypass1()
-            end
-            })
         
-            arrow:CreateToggle({
-                Name = "Thunder KA",
-                CurrentValue = false,
-                Callback = function(v)
-                _G.thunderkillaura = v
-                
-                thunderglobal()
-                end
-                
-                })
-
 
 function arrowglobal()
     if _G.arrowka then 
@@ -1546,48 +1526,66 @@ function bypass()
             end
         end
 
-    function thunderglobal()
-        if _G.thunderkillaura then 
-            globalkill1 = true
-        else
-            globalkill1 = false
-        end
-    
-        while globalkill1 do
-            local success, error = pcall(function()
-                local ohString1 = "ricespiritdamage"
-                local ohInstance2 = game:GetService("Players").LocalPlayer
-                local ohCFrame3 = LP.Character.HumanoidRootPart.CFrame
-                local ohNumber4 = 60
-                
-                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohNumber4)
-            end)
-    
-            if not success then
-            end
-    
-            if someCondition then
-                isRunning = false
-            end
-    
-            wait(0.45)
-        end
+ AutoBoss:CreateToggle({
+    Name = "Thunder Bypass",
+    Callback = function(v)
+        _G.thunderbypass = v
+        thunderbypass()
+    end
+})
+
+AutoBoss:CreateToggle({
+    Name = "Thunder KA",
+    CurrentValue = false,
+    Callback = function(v)
+        _G.thunderkillaura = v
+        thunderglobal()
+    end
+})
+
+function thunderbypass()
+    if _G.thunderbypass then
+        loop = true
+    else
+        loop = false
     end
     
-    
-    function bypass1()
-        if _G.bypass1 then
-            loop = true
-        else
-            loop = false
+    while loop do
+local ohString1 = "skil_ting_asd"
+local ohInstance2 = game:GetService("Players").LocalPlayer
+local ohString3 = "Thunderbreathingrapidslashes"
+local ohNumber4 = 5
+
+game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+        wait(8)
+    end
+end
+
+function thunderglobal()
+    if _G.thunderkillaura then 
+        globalkill1 = true
+    else
+        globalkill1 = false
+    end
+
+    while globalkill1 do
+        local success, error = pcall(function()
+        local LP = game:GetService("Players").LocalPlayer
+local ohString1 = "ricespiritdamage"
+local ohInstance2 = game:GetService("Players").LocalPlayer
+local ohCFrame3 = LP.Character.HumanoidRootPart.CFrame
+local ohNumber4 = 60
+
+game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohNumber4)
+        end)
+
+        if not success then
         end
-            while loop do
-                local ohString1 = "skil_ting_asd"
-                local ohInstance2 = game:GetService("Players").LocalPlayer
-                local ohString3 = "Thunderbreathingrapidslashes"
-                local ohNumber4 = 5
-                
-                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
-                    wait(8)
-                end
-            end
+
+        if someCondition then
+            isRunning = false
+        end
+
+        wait(0.45)
+    end
+end
