@@ -223,6 +223,35 @@ local AutoMugen = Main:CreateToggle({
     end
 })
 
+local Button = Main:CreateButton({
+    Name = "Skip Core",
+    Callback = function()
+local Handle_Initiate_S = game.ReplicatedStorage.Remotes.To_Server.Handle_Initiate_S
+
+Handle_Initiate_S:FireServer(
+    "arrow_knock_back_damage",
+    game.Players.LocalPlayer.Character, 
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,
+    workspace.Map.DreamWorld["Dream Core"], 
+    0/0,
+    0/0
+)        
+    end,
+ })
+
+ local Button = Main:CreateButton({
+    Name = "Skip Civilian",
+    Callback = function()
+        local Handle_Initiate_S = game.ReplicatedStorage.Remotes.To_Server.Handle_Initiate_S
+Handle_Initiate_S:FireServer("skil_ting_asd", game.Players.LocalPlayer, "arrow_knock_back", 5)
+for i,v in next, workspace:GetDescendants() do 
+    if v.Name:find("Civilian") and v:IsA("Model") then 
+        Handle_Initiate_S:FireServer("arrow_knock_back_damage", game.Players.LocalPlayer.Character, game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame, v, 0/0, 0/0)
+    end 
+end 
+
+    end,
+ })
 
 local Button = Misc:CreateButton({
     Name = "Wagon God (Activator)",
@@ -275,13 +304,35 @@ local ToggleIceEnabled = false
 local ToggleSoundEnabled = false
 local ToggleShockWaveEnabled = false
 
-local toggle = Misc:CreateToggle({
-    Name = "Skip Clash",
-    Callback = function (v)
-        _G.skip = v
-        skipclash()
+local vim = game:GetService('VirtualInputManager')
+local rs = game:GetService('RunService')
+local clash = false
+
+local function pressKey(key)
+    vim:SendKeyEvent(true, key, false, game)
+    wait()
+    vim:SendKeyEvent(false, key, false, game)
+end
+
+local function instanced()
+    while clash do
+        rs.Heartbeat:Wait(0.3)
+        pressKey(Enum.KeyCode[game.Players.LocalPlayer.PlayerGui["universal_client_scripts"].Clashing2["Clash_Ui2"].Holder:WaitForChild('Front').Text])
     end
+end
+
+local Toggle = Misc:CreateToggle({
+    Name = "AutoClash",
+    CurrentValue = false,
+    Callback = function(Value)
+        clash = Value
+        if clash then
+            instanced()
+        end
+    end,
 })
+
+CurrentValue = false
 
 local AutoInvincibleSwampy = Misc:CreateToggle({
     Name = "Invincible (Swampy)",
@@ -791,31 +842,6 @@ function bypass()
             end
         end
 
-function skipclash()
-    if _G.skip then
-        skip = true
-    else
-        skip = false
-    end
-
-    while skip do
-        local success, error = pcall(function()
-        local playerName = game.Players.LocalPlayer.Name 
-
-        local ohString1 = "Change_Value"
-        local ohInstance2 = workspace.Debree.clash_folder[playerName.."vsEnmu"][playerName]
-        local ohNumber3 = 10000
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohNumber3) 
-        wait(2)
-        end)
-
-        if not success then
-        end
-        wait(2)
-    end
-    end
-
     function thunderglobal()
         if _G.thunderkillaura then 
             globalkill1 = true
@@ -862,3 +888,4 @@ function skipclash()
                 end
             end
     
+                local playerName = game.Players.LocalPlayer.Name 
