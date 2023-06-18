@@ -2522,328 +2522,170 @@ local Toggle = ArrowGKA:CreateToggle({
     end,
  })
 
-             AutoBoss:CreateToggle({
-            Name = "Thunder Bypass",
-            Callback = function(v)
-                _G.thunderbypass = v
-            
-                bypass1()
-            end
-            })
-        
-            AutoBoss:CreateToggle({
-                Name = "Thunder Aura",
-                CurrentValue = false,
-                Callback = function(v)
-                _G.thunderkillaura = v
-                
-                thunderglobal()
-                end
-                
-                })
+ AutoBoss:CreateToggle({
+    Name = "Thunder Bypass",
+    Callback = function(v)
+        _G.thunderbypass = v
+        thunderbypass()
+    end
+})
 
-                
-    function thunderglobal()
-        if _G.thunderkillaura then 
-            globalkill1 = true
-        else
-            globalkill1 = false
-        end
-    
-        while globalkill1 do
-            local success, error = pcall(function()
-                local ohString1 = "ricespiritdamage"
-                local ohInstance2 = game:GetService("Players").LocalPlayer
-                local ohCFrame3 = LP.Character.HumanoidRootPart.CFrame
-                local ohNumber4 = 60
-                
-                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohNumber4)
-            end)
-    
-            if not success then
-            end
-    
-            if someCondition then
-                isRunning = false
-            end
-    
-            wait(0.45)
-        end
+AutoBoss:CreateToggle({
+    Name = "Thunder KA",
+    CurrentValue = false,
+    Callback = function(v)
+        _G.thunderkillaura = v
+        thunderglobal()
+    end
+})
+
+function thunderbypass()
+    if _G.thunderbypass then
+        loop = true
+    else
+        loop = false
     end
     
-    
-    function bypass1()
-        if _G.bypass1 then
-            loop = true
-        else
-            loop = false
-        end
-            while loop do
-                local ohString1 = "skil_ting_asd"
-                local ohInstance2 = game:GetService("Players").LocalPlayer
-                local ohString3 = "Thunderbreathingrapidslashes"
-                local ohNumber4 = 5
-                
-                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
-                    wait(8)
-                end
-            end
+    while loop do
+local ohString1 = "skil_ting_asd"
+local ohInstance2 = game:GetService("Players").LocalPlayer
+local ohString3 = "Thunderbreathingrapidslashes"
+local ohNumber4 = 5
 
-            local LP = game:GetService("Players").LocalPlayer
-            local runLoop = false
-            
+game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+        wait(8)
+    end
+end
+
+function thunderglobal()
+    if _G.thunderkillaura then 
+        globalkill1 = true
+    else
+        globalkill1 = false
+    end
+
+    while globalkill1 do
+        local success, error = pcall(function()
+        local LP = game:GetService("Players").LocalPlayer
+local ohString1 = "ricespiritdamage"
+local ohInstance2 = game:GetService("Players").LocalPlayer
+local ohCFrame3 = LP.Character.HumanoidRootPart.CFrame
+local ohNumber4 = 60
+
+game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohNumber4)
+        end)
+
+        if not success then
+        end
+
+        if someCondition then
+            isRunning = false
+        end
+
+        wait(0.45)
+    end
+end
+       
+            local Toggle = ArrowGKA2:CreateToggle({
+                Name = "Inosuke",
+                CurrentValue = false,
+                Callback = function(value)
+                    runLoop = value
+                    if runLoop then
+                        while runLoop do
+                            local success, error = pcall(function()
+                                invokeServer("Arrow_knock_back_throw", LP, workspace.LeossinDaRossa12.HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
+                                invokeServer("Arrow_knock_back_throw", LP, workspace.LeossinDaRossa12.HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
+                                invokeServer("Koketsu_arrow_damage", workspace.LeossinDaRossa12, workspace.Debree["LeossinDaRossa12's arrow"], LP.Character.HumanoidRootPart.CFrame, game:GetService("Workspace").Mobs.Bosses.Inosuke.Inosuke, 0)
+                                invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), game:GetService("Workspace").Mobs.Bosses.Inosuke.Inosuke, 999999999, 999999999)
+                            end)
+                            
+                            if not success then
+                            end
+                            
+                            wait(0.005)
+                        end
+                    end
+                end,
+            })
+
             local function invokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
             end
             
-local Toggle = ArrowGKA2:CreateToggle({
-    Name = "Inosuke",
-    CurrentValue = false,
-    Callback = function(value)
-        runLoop = value
-        if runLoop then
-            while runLoop do
-                local success, error = pcall(function()
-                    local playerName = game.Players.LocalPlayer.Name
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    local propertyName = playerName .. "'s arrow"
-                    invokeServer("Koketsu_arrow_damage", workspace[playerName], workspace.Debree[propertyName], LP.Character.HumanoidRootPart.CFrame, game:GetService("Workspace").Mobs.Bosses.Inosuke.Inosuke, 0)
-                    invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), game:GetService("Workspace").Mobs.Bosses.Inosuke.Inosuke, 999999999, 999999999)
-                end)
-                
-                if not success then
-                end
-                
-                wait(0.005)
+            local Toggle = ArrowGKA2:CreateToggle({
+                Name = "Muichiro",
+                CurrentValue = false,
+                Callback = function(value)
+                    runLoop = value
+                    if runLoop then
+                        while runLoop do
+                            local success, error = pcall(function()
+                                invokeServer("Arrow_knock_back_throw", LP, workspace.LeossinDaRossa12.HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
+                                invokeServer("Arrow_knock_back_throw", LP, workspace.LeossinDaRossa12.HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
+                                invokeServer("Koketsu_arrow_damage", workspace.LeossinDaRossa12, workspace.Debree["LeossinDaRossa12's arrow"], LP.Character.HumanoidRootPart.CFrame, game:GetService("Workspace").Mobs.Bosses.Muichiro["Muichiro Tokito"], 0)
+                                invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), game:GetService("Workspace").Mobs.Bosses.Muichiro["Muichiro Tokito"], 999999999, 999999999)
+                            end)
+                            
+                            if not success then
+                            end
+                            
+                            wait(0.005)
+                        end
+                    end
+                end,
+            })
+
+            local function invokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
             end
-        end
-    end,
-})
             
+            local Toggle = ArrowGKA2:CreateToggle({
+                Name = "Sound Traineer",
+                CurrentValue = false,
+                Callback = function(value)
+                    runLoop = value
+                    if runLoop then
+                        while runLoop do
+                            local success, error = pcall(function()
+                                invokeServer("Arrow_knock_back_throw", LP, workspace.LeossinDaRossa12.HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
+                                invokeServer("Arrow_knock_back_throw", LP, workspace.LeossinDaRossa12.HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
+                                invokeServer("Koketsu_arrow_damage", workspace.LeossinDaRossa12, workspace.Debree["LeossinDaRossa12's arrow"], LP.Character.HumanoidRootPart.CFrame, game:GetService("Workspace").Mobs.Bosses["Sound_Trainee"]["Sound Trainee"]["Sound Trainee"], 0)
+                                invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), game:GetService("Workspace").Mobs.Bosses["Sound_Trainee"]["Sound Trainee"]["Sound Trainee"], 999999999, 999999999)
+                            end)
+                            
+                            if not success then
+                            end
+                            
+                            wait(0.005)
+                        end
+                    end
+                end,
+            })
 
-local Toggle = ArrowGKA2:CreateToggle({
-    Name = "Muichiro",
-    CurrentValue = false,
-    Callback = function(value)
-        runLoop = value
-        if runLoop then
-            while runLoop do
-                local success, error = pcall(function()
-                    local playerName = game.Players.LocalPlayer.Name
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    local propertyName = playerName .. "'s arrow"
-                    invokeServer("Koketsu_arrow_damage", workspace[playerName], workspace.Debree[propertyName], LP.Character.HumanoidRootPart.CFrame, game:GetService("Workspace").Mobs.Bosses.Muichiro["Muichiro Tokito"], 0)
-                    invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), game:GetService("Workspace").Mobs.Bosses.Muichiro["Muichiro Tokito"], 999999999, 999999999)
-                end)
-                
-                if not success then
-                end
-                
-                wait(0.005)
+            local function invokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
             end
-        end
-    end,
-})
-
-local Toggle = ArrowGKA2:CreateToggle({
-    Name = "Sound Trainer",
-    CurrentValue = false,
-    Callback = function(value)
-        runLoop = value
-        if runLoop then
-            while runLoop do
-                local success, error = pcall(function()
-                    local playerName = game.Players.LocalPlayer.Name
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    local propertyName = playerName .. "'s arrow"
-                    invokeServer("Koketsu_arrow_damage", workspace[playerName], workspace.Debree[propertyName], LP.Character.HumanoidRootPart.CFrame, game:GetService("Workspace").Mobs.Bosses["Sound_Trainee"]["Sound Trainee"]["Sound Trainee"], 0)
-                    invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), game:GetService("Workspace").Mobs.Bosses["Sound_Trainee"]["Sound Trainee"]["Sound Trainee"], 999999999, 999999999)
-                end)
-                
-                if not success then
-                end
-                
-                wait(0.005)
-            end
-        end
-    end,
-})
-
-
-local Toggle = ArrowGKA2:CreateToggle({
-    Name = "Snow Trainer",
-    CurrentValue = false,
-    Callback = function(value)
-        runLoop = value
-        if runLoop then
-            while runLoop do
-                local success, error = pcall(function()
-                    local playerName = game.Players.LocalPlayer.Name
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    local propertyName = playerName .. "'s arrow"
-                    invokeServer("Koketsu_arrow_damage", workspace[playerName], workspace.Debree[propertyName], LP.Character.HumanoidRootPart.CFrame, game:GetService("Workspace").Mobs.Bosses["Snow_Trainee"]["Snow Trainee"]["Snow Trainee"], 0)
-                    invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), game:GetService("Workspace").Mobs.Bosses["Snow_Trainee"]["Snow Trainee"]["Snow Trainee"], 999999999, 999999999)
-                end)
-                
-                if not success then
-                end
-                
-                wait(0.005)
-            end
-        end
-    end,
-})
-
-local Toggle = ArrowGKA2:CreateToggle({
-    Name = "Swampy",
-    CurrentValue = false,
-    Callback = function(value)
-        runLoop = value
-        if runLoop then
-            while runLoop do
-                local success, error = pcall(function()
-                    local playerName = game.Players.LocalPlayer.Name
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    local propertyName = playerName .. "'s arrow"
-                    invokeServer("Koketsu_arrow_damage", workspace[playerName], workspace.Debree[propertyName], LP.Character.HumanoidRootPart.CFrame, game:GetService("Workspace").Mobs.Bosses.Swampy.Swampy, 0)
-                    invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), game:GetService("Workspace").Mobs.Bosses.Swampy.Swampy, 999999999, 999999999)
-                end)
-                
-                if not success then
-                end
-                
-                wait(0.005)
-            end
-        end
-    end,
-})
-
-local Toggle = ArrowGKA2:CreateToggle({
-    Name = "Renpeke",
-    CurrentValue = false,
-    Callback = function(value)
-        runLoop = value
-        if runLoop then
-            while runLoop do
-                local success, error = pcall(function()
-                    local playerName = game.Players.LocalPlayer.Name
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    local propertyName = playerName .. "'s arrow"
-                    invokeServer("Koketsu_arrow_damage", workspace[playerName], workspace.Debree[propertyName], LP.Character.HumanoidRootPart.CFrame, game:GetService("Workspace").Mobs.Bosses["Flame Trainee"].Renpeke, 0)
-                    invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), game:GetService("Workspace").Mobs.Bosses["Flame Trainee"].Renpeke, 999999999, 999999999)
-                end)
-                
-                if not success then
-                end
-                
-                wait(0.005)
-            end
-        end
-    end,
-})
-
-local Toggle = ArrowGKA2:CreateToggle({
-    Name = "Akeza",
-    CurrentValue = false,
-    Callback = function(value)
-        runLoop = value
-        if runLoop then
-            while runLoop do
-                local success, error = pcall(function()
-                    local playerName = game.Players.LocalPlayer.Name
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    local propertyName = playerName .. "'s arrow"
-                    invokeServer("Koketsu_arrow_damage", workspace[playerName], workspace.Debree[propertyName], LP.Character.HumanoidRootPart.CFrame, game:GetService("Workspace").Mobs.Bosses.Akaza.Akeza, 0)
-                    invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), game:GetService("Workspace").Mobs.Bosses.Akaza.Akeza, 999999999, 999999999)
-                end)
-                
-                if not success then
-                end
-                
-                wait(0.005)
-            end
-        end
-    end,
-})
-
-local Toggle = ArrowGKA2:CreateToggle({
-    Name = "Rengoku",
-    CurrentValue = false,
-    Callback = function(value)
-        runLoop = value
-        if runLoop then
-            while runLoop do
-                local success, error = pcall(function()
-                    local playerName = game.Players.LocalPlayer.Name
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    local propertyName = playerName .. "'s arrow"
-                    invokeServer("Koketsu_arrow_damage", workspace[playerName], workspace.Debree[propertyName], LP.Character.HumanoidRootPart.CFrame, game:GetService("Workspace").Mobs.Bosses.Rengoku.Rengoku, 0)
-                    invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), game:GetService("Workspace").Mobs.Bosses.Rengoku.Rengoku, 999999999, 999999999)
-                end)
-                
-                if not success then
-                end
-                
-                wait(0.005)
-            end
-        end
-    end,
-})
-
-local Toggle = ArrowGKA2:CreateToggle({
-    Name = "Tengay",
-    CurrentValue = false,
-    Callback = function(value)
-        runLoop = value
-        if runLoop then
-            while runLoop do
-                local success, error = pcall(function()
-                    local playerName = game.Players.LocalPlayer.Name
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    local propertyName = playerName .. "'s arrow"
-                    invokeServer("Koketsu_arrow_damage", workspace[playerName], workspace.Debree[propertyName], LP.Character.HumanoidRootPart.CFrame, game:GetService("Workspace").Mobs.Bosses.Tengen.Tengen, 0)
-                    invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), game:GetService("Workspace").Mobs.Bosses.Tengen.Tengen, 999999999, 999999999)
-                end)
-                
-                if not success then
-                end
-                
-                wait(0.005)
-            end
-        end
-    end,
-})
-
-local Toggle = ArrowGKA2:CreateToggle({
-    Name = "Douma",
-    CurrentValue = false,
-    Callback = function(value)
-        runLoop = value
-        if runLoop then
-            while runLoop do
-                local success, error = pcall(function()
-                    local playerName = game.Players.LocalPlayer.Name
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
-                    local propertyName = playerName .. "'s arrow"
-                    invokeServer("Koketsu_arrow_damage", workspace[playerName], workspace.Debree[propertyName], LP.Character.HumanoidRootPart.CFrame, game:GetService("Workspace").Mobs.Bosses.Douma.Douma, 0)
-                    invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), game:GetService("Workspace").Mobs.Bosses.Douma.Douma, 999999999, 999999999)
-                end)
-                
-                if not success then
-                end
-                
-                wait(0.005)
-            end
-        end
-    end,
-})
+            
+            local Toggle = ArrowGKA2:CreateToggle({
+                Name = "Muichiro",
+                CurrentValue = false,
+                Callback = function(value)
+                    runLoop = value
+                    if runLoop then
+                        while runLoop do
+                            local success, error = pcall(function()
+                                invokeServer("Arrow_knock_back_throw", LP, workspace.LeossinDaRossa12.HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
+                                invokeServer("Arrow_knock_back_throw", LP, workspace.LeossinDaRossa12.HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
+                                invokeServer("Koketsu_arrow_damage", workspace.LeossinDaRossa12, workspace.Debree["LeossinDaRossa12's arrow"], LP.Character.HumanoidRootPart.CFrame, game:GetService("Workspace").Mobs.Bosses["Snow_Trainee"]["Snow Trainee"]["Snow Trainee"], 0)
+                                invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), game:GetService("Workspace").Mobs.Bosses.Muichiro["Muichiro Tokito"], 999999999, 999999999)
+                            end)
+                            
+                            if not success then
+                            end
+                            
+                            wait(0.005)
+                        end
+                    end
+                end,
+            })
