@@ -13,7 +13,7 @@ local placeID5 = 11468034852
                 elseif game.PlaceId == placeID4 then
                     loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubDg"))()
                 elseif game.PlaceId == placeID5 then
-                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMugen"))()
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Mugen"))()
                 else
                     error("Place ID inválido.")
                 end
