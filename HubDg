@@ -1545,8 +1545,7 @@ function bypass()
                 wait(8)
             end
         end
-
- Main:CreateToggle({
+Misc:CreateToggle({
     Name = "Thunder Bypass",
     Callback = function(v)
         _G.thunderbypass = v
@@ -1554,7 +1553,7 @@ function bypass()
     end
 })
 
-Main:CreateToggle({
+Misc:CreateToggle({
     Name = "Thunder KA",
     CurrentValue = false,
     Callback = function(v)
@@ -1606,6 +1605,6 @@ game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireSer
             isRunning = false
         end
 
-        wait(0.45)
+        wait(0.65)
     end
 end
