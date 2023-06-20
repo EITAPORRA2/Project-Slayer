@@ -2234,6 +2234,26 @@ function toggleInvincibleShockWave()
     end
 end
 
+local Toggle = Misc:CreateToggle({
+   Name = "Water Invencible",
+   CurrentValue = false,
+   Callback = function(enabled)
+      if enabled then
+         WaterGod = true
+         while WaterGod do
+            local ohString1 = "skil_ting_asd"
+            local ohInstance2 = game:GetService("Players").LocalPlayer
+            local ohString3 = "Water_fall_basin"
+            local ohNumber4 = 1
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+            task.wait(0.5)
+         end
+      else
+         WaterGod = false
+      end
+   end,
+})
+
 Misc:CreateToggle({
     Name = "GodMode (Kamado)",
     CurrentValue = false,
