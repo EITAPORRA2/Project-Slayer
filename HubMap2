@@ -1860,6 +1860,49 @@ local Toggle = Misc:CreateToggle({
 })
 
 CurrentValue = false
+
+local playerName = game.Players.LocalPlayer.Name
+
+local function changeValue(instance, value)
+    local args = {"Change_Value", instance, value}
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(unpack(args))
+end
+
+local function changeColorSmoothly(instance, targetValue, duration)
+    local initialValue = instance.Value
+    local step = (targetValue - initialValue) / (duration / 0.01)
+    local currentTime = 0
+
+    while currentTime < duration do
+        instance.Value = instance.Value + step
+        changeValue(instance, instance.Value)
+        wait(0.01)
+        currentTime = currentTime + 0.01
+    end
+end
+
+local skinColor = game:GetService("ReplicatedStorage").Player_Data[playerName].Customization.Skin_Color
+
+local toggleEnabled = false
+
+local function toggleScript()
+    toggleEnabled = not toggleEnabled
+    if toggleEnabled then
+        spawn(function()
+            while toggleEnabled do
+                changeColorSmoothly(skinColor.R, math.random(), 0.15)
+                changeColorSmoothly(skinColor.G, math.random(), 0.15)
+                changeColorSmoothly(skinColor.B, math.random(), 0.15) 
+            end
+        end)
+    end
+end
+
+local Toggle = Misc:CreateToggle({
+    Name = "RGB Skin",
+    CurrentValue = false,
+    Callback = toggleScript,
+})
  
 Misc:CreateLabel("Buffs")
 
