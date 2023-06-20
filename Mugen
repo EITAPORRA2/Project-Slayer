@@ -472,7 +472,27 @@ function toggleInvincibleShockWave()
 end
 
 local Toggle = Misc:CreateToggle({
-   Name = "Water Invencible",
+   Name = "Invencible (Scythe)",
+   CurrentValue = false,
+   Callback = function(enabled)
+      if enabled then
+         ScytheGod = true
+         while ScytheGod do
+local ohString1 = "skil_ting_asd"
+local ohInstance2 = game:GetService("Players").LocalPlayer
+local ohString3 = "scythe_asteroid_reap"
+local ohNumber4 = 1
+game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+            task.wait(0.5)
+         end
+      else
+         ScytheGod = false
+      end
+   end,
+})
+
+local Toggle = Misc:CreateToggle({
+   Name = "Invencible(Water)",
    CurrentValue = false,
    Callback = function(enabled)
       if enabled then
