@@ -2948,3 +2948,44 @@ local Toggle = ArrowGKA2:CreateToggle({
     end,
 })
 
+local Toggle = FarmAll:CreateToggle({
+    Name = "Farm All (Arrow 1)",
+    CurrentValue = false,
+    Callback = function(v)
+    _G.arrowka1 = v
+
+    arrowglobal1()
+    end
+    
+    })
+
+function arrowglobal1()
+    if _G.arrowka1 then 
+        globalkill2 = true
+    else
+        globalkill2 = false
+    end
+
+    while globalkill2 do
+        local success, error = pcall(function()
+            local ohString1 = "arrow_knock_back_damage"
+            local ohInstance2 = game:GetService("Players").LocalPlayer
+            local ohCFrame3 = CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+            local ohInstance4 = findMob1()
+            local ohNumber5 = 999999999
+            local ohNumber6 = 999999999
+
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+        end)
+
+        if not success then
+        end
+
+        if someCondition then
+            isRunning = false
+        end
+
+        wait(0.15)
+    end
+end
+
