@@ -2989,3 +2989,36 @@ function arrowglobal1()
     end
 end
 
+local Toggle = FarmAll:CreateToggle({
+    Name = "Farm All (Arrow 2)",
+    CurrentValue = false,
+    Callback = function(v)
+        _G.arrowka2 = v
+        arrowglobal2()
+    end
+})
+
+function arrowglobal2()
+    if _G.arrowka2 then 
+        globalkill3 = true
+    else
+        globalkill3 = false
+    end
+
+    while globalkill3 do
+        local success, error = pcall(function()
+            local playerName = game.Players.LocalPlayer.Name
+            local LP = game:GetService("Players").LocalPlayer
+            invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
+            invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
+            local propertyName = playerName .. "'s arrow"
+            invokeServer("Koketsu_arrow_damage", workspace[playerName], workspace.Debree[propertyName], LP.Character.HumanoidRootPart.CFrame, findMob1(), 0)
+            invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), findMob1(), 999999999, 999999999)
+        end)
+
+        if not success then
+        end
+
+        wait(0.005)
+    end
+end
