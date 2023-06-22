@@ -14,6 +14,7 @@ local Window = Rayfield:CreateWindow({
     local AutoBoss = Window:CreateTab("Auto Farm Boss")
     local FarmAll = Window:CreateTab("Auto Farm All")
     local killauraTab = Window:CreateTab("KillAura")
+    local Bypasses = Window:CreateTab("Bypass")
     local ArrowGKA = Window:CreateTab("ArrowAura")
     local ArrowGKA2 = Window:CreateTab("ArrowAura2")
 
@@ -391,6 +392,17 @@ AutoBoss:CreateToggle({
 
 ------------------KillAura--------------------
 killauraTab:CreateToggle({
+    Name = "Thunder Aura",
+    CurrentValue = false,
+    Callback = function(v)
+        _G.thunderkillaura = v
+        thunderglobal()
+    end
+})
+
+killauraTab:CreateLabel("KillAura Safe")
+
+killauraTab:CreateToggle({
     Name = "Fist",
     Flag = "",
     Callback = function (bool)
@@ -660,7 +672,7 @@ killauraTab:CreateToggle({
     end
 })
 
-killauraTab:CreateLabel("KillAura OP (CAN KICK)")
+killauraTab:CreateLabel("KillAura OP")
 
 killauraTab:CreateToggle({
     Name = "Fist",
@@ -2264,8 +2276,8 @@ for i,v in next, Skills do
     })
 end
 
-local Toggle = ArrowGKA:CreateToggle({
-    Name = "Bypass",
+local Toggle = Bypasses:CreateToggle({
+    Name = "Bypass Arrow",
     CurrentValue = false,
     Callback = function(Value)
         _G.bypass = Value
@@ -2607,20 +2619,11 @@ local Toggle = ArrowGKA:CreateToggle({
  })
 
 
-killauraTab:CreateToggle({
+Bypasses:CreateToggle({
     Name = "Thunder Bypass",
     Callback = function(v)
         _G.thunderbypass = v
         thunderbypass()
-    end
-})
-
-killauraTab:CreateToggle({
-    Name = "Thunder KA",
-    CurrentValue = false,
-    Callback = function(v)
-        _G.thunderkillaura = v
-        thunderglobal()
     end
 })
 
