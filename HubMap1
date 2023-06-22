@@ -12,7 +12,12 @@ local Window = Rayfield:CreateWindow({
     }})
 
     local AutoBoss = Window:CreateTab("Auto Farm Boss")
+    local FarmAll = Window:CreateTab("Auto Farm All")
     local killauraTab = Window:CreateTab("KillAura")
+    local Bypasses = Window:CreateTab("Bypass")
+    local ArrowGKA = Window:CreateTab("ArrowAura")
+    local ArrowGKA2 = Window:CreateTab("ArrowAura2")
+
     local Misc = Window:CreateTab("Misc")
     local TeleportTween1 = Window:CreateTab("Tween TP")
     local Teleports1 = Window:CreateTab("Insta TP ")
@@ -2446,3 +2451,114 @@ for i,v in next, Skills do
         end,
     })
 end
+
+local Toggle = FarmAll:CreateToggle({
+
+   Name = "Auto Eat Soul",
+   CurrentValue = false,
+   Callback = function(enabled)
+      while enabled do
+         pcall(function()
+            workspace.Debree.Soul.Handle.Eatthedamnsoul:FireServer()
+         end)
+         wait(0.1)
+      end
+   end,
+})
+
+local Toggle = FarmAll:CreateToggle({
+    Name = "Farm All (Arrow 1)",
+    CurrentValue = false,
+    Callback = function(v)
+    _G.arrowka1 = v
+
+    arrowglobal1()
+    end
+    
+    })
+
+function arrowglobal1()
+    if _G.arrowka1 then 
+        globalkill2 = true
+    else
+        globalkill2 = false
+    end
+
+    while globalkill2 do
+        local success, error = pcall(function()
+            local ohString1 = "arrow_knock_back_damage"
+            local ohInstance2 = game:GetService("Players").LocalPlayer
+            local ohCFrame3 = CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+            local ohInstance4 = findMob1()
+            local ohNumber5 = 999999999
+            local ohNumber6 = 999999999
+
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+        end)
+
+        if not success then
+        end
+
+        if someCondition then
+            isRunning = false
+        end
+
+        wait(0.15)
+    end
+end
+
+local Toggle = FarmAll:CreateToggle({
+    Name = "Farm All (Arrow 2)",
+    CurrentValue = false,
+    Callback = function(v)
+        _G.arrowka2 = v
+        arrowglobal2()
+    end
+})
+
+function arrowglobal2()
+    if _G.arrowka2 then 
+        globalkill3 = true
+    else
+        globalkill3 = false
+    end
+
+    while globalkill3 do
+        local success, error = pcall(function()
+            local playerName = game.Players.LocalPlayer.Name
+            local LP = game:GetService("Players").LocalPlayer
+            invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
+            invokeServer("Arrow_knock_back_throw", LP, workspace[playerName].HumanoidRootPart, LP.Character.HumanoidRootPart.CFrame, nil, 0.0)
+            local propertyName = playerName .. "'s arrow"
+            invokeServer("Koketsu_arrow_damage", workspace[playerName], workspace.Debree[propertyName], LP.Character.HumanoidRootPart.CFrame, findMob1(), 0)
+            invokeServer("arrow_knock_back_damage", game:GetService("Players").LocalPlayer, CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1), findMob1(), 999999999, 999999999)
+        end)
+
+        if not success then
+        end
+
+        wait(0.005)
+    end
+end
+
+local Toggle = Bypasses:CreateToggle({
+    Name = "Bypass Arrow",
+    CurrentValue = false,
+    Callback = function(Value)
+        _G.bypass = Value
+ 
+        if _G.bypass then
+            while _G.bypass do
+                local ohString1 = "skil_ting_asd"
+                local ohInstance2 = game:GetService("Players").LocalPlayer
+                local ohString3 = "arrow_knock_back"
+                local ohNumber4 = 5
+ 
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohString3, ohNumber4)
+ 
+                wait(8)
+            end
+        end
+    end,
+ })
+
