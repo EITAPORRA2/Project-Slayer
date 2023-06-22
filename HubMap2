@@ -12,6 +12,7 @@ local Window = Rayfield:CreateWindow({
     }})
 
     local AutoBoss = Window:CreateTab("Auto Farm Boss")
+    local FarmAll = Window:CreateTab("Auto Farm All")
     local killauraTab = Window:CreateTab("KillAura")
     local ArrowGKA = Window:CreateTab("ArrowAura")
     local ArrowGKA2 = Window:CreateTab("ArrowAura2")
@@ -2676,7 +2677,22 @@ end
             local function invokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
             end
-            
+
+local Toggle = FarmAll:CreateToggle({
+
+   Name = "Auto Eat Soul",
+   CurrentValue = false,
+   Callback = function(enabled)
+      while enabled do
+         pcall(function()
+            workspace.Debree.Soul.Handle.Eatthedamnsoul:FireServer()
+         end)
+         wait(0.1)
+      end
+   end,
+})
+
+
 local Toggle = ArrowGKA2:CreateToggle({
     Name = "Inosuke",
     CurrentValue = false,
@@ -2928,3 +2944,4 @@ local Toggle = ArrowGKA2:CreateToggle({
         end
     end,
 })
+
