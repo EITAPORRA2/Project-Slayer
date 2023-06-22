@@ -127,22 +127,6 @@ function Attack1()
     end
 end
 
-local Orbs = {
-    "InstaKill",
-    "HealthRegen",
-    "StaminaRegen",
-    "BloodMoney",
-    "DoublePoints",
-}
-
-function ClaimOrbs()
-    for i, Orb in next, Map:GetChildren() do
-        if table.find(Orbs, Orb.Name) then
-            pcall(Teleport, Orb:FindFirstChildOfClass("MeshPart").CFrame.Position, nil, 256)
-        end
-    end
-end
-
 function CreateInstance(Class, Properties)
     local Instance = Instance.new(Class)
 
@@ -169,6 +153,21 @@ function findMob1()
     return closestChild
 end
 
+local Orbs = {
+    "InstaKill",
+    "HealthRegen",
+    "StaminaRegen",
+    "BloodMoney",
+    "DoublePoints",
+}
+
+function ClaimOrbs()
+    for i, Orb in next, Map:GetChildren() do
+        if table.find(Orbs, Orb.Name) then
+            pcall(Teleport, Orb:FindFirstChildOfClass("MeshPart").CFrame.Position, nil, 256)
+        end
+    end
+end
 
 local enabled = true
 local walkSpeed = 100
@@ -290,15 +289,6 @@ local BodyAngularVelocity = CreateInstance("BodyAngularVelocity", {MaxTorque = V
 
 local Rayfield = loadstring(game:HttpGet('https://pastebin.com/raw/MUE0dHLN'))()
 
-function antafk()
-    local bb = game:GetService("VirtualUser")
-        game:GetService("Players").LocalPlayer.Idled:Connect(function()
-            bb:CaptureController()
-            bb:ClickButton2(Vector2.new())
-        end)
-    end
-antafk()
-
 local Window = Rayfield:CreateWindow({
     Name = "Universe Hub",
     LoadingTitle = "Loading Universe",
@@ -311,7 +301,9 @@ local Window = Rayfield:CreateWindow({
 })
 local Main = Window:CreateTab("Main")
 local Misc = Window:CreateTab("Misc")
+local Bypasses = Window:CreateTab("Bypass")
 local arrow = Window:CreateTab("OP Auras")
+local AutoOrb = Window:CreateTab("Auto ORB")
 
 Misc:CreateToggle({
     Name = "Inf Block",
@@ -372,6 +364,26 @@ Misc:CreateToggle({
             Client.Character.Humanoid.Health = 0
         end
     end
+})
+
+function antiafk()
+    local bb = game:GetService("VirtualUser")
+        game:GetService("Players").LocalPlayer.Idled:Connect(function()
+            bb:CaptureController()
+            bb:ClickButton2(Vector2.new())
+        end)
+    end
+antiafk()
+
+local Button = Main:CreateButton({
+    Name = "Anti AFK",
+    Callback = function()
+        local bb = game:GetService("VirtualUser")
+        game:GetService("Players").LocalPlayer.Idled:Connect(function()
+            bb:CaptureController()
+            bb:ClickButton2(Vector2.new())
+        end)
+    end,
 })
 
 Main:CreateToggle({
@@ -645,60 +657,56 @@ Main:CreateToggle({
 })
 
 Main:CreateLabel("Auto DG")
-local AutoDungeonN = Main:CreateToggle({
-    Name = "Auto Dungeon 1",
-    CurrentValue = false,
-    Flag = "DungeonN", 
-    Callback = function(v)
-        getgenv().FarmAll = v
-        local Humanoid = Client.Character.Humanoid
-        local hrp = Client.Character:WaitForChild("HumanoidRootPart")
-        while task.wait() do
-            if getgenv().FarmAll == false then return end
 
-            local mob = findMob1()
-            if mobs == nil then
+        local AutoDungeonN = Main:CreateToggle({
+            Name = "Auto Dungeon",
+            CurrentValue = false,
+            Flag = "DungeonN", 
+            SectionParent = Method2,
+            Callback = function(v)
+                getgenv().FarmAll = v
+                local Humanoid = Client.Character.Humanoid
+                local hrp = Client.Character:WaitForChild("HumanoidRootPart")
                 while task.wait() do
-                    task.wait()
                     if getgenv().FarmAll == false then return end
-                    if findMob1() ~= nil then break end
-                end
-            else
-                while wait() do
-                    task.wait()
-
-                    if getgenv().FarmAll == false then return end
-
-                    if mob and mob:FindFirstChild("Humanoid") ~= nil and mob:FindFirstChild("Humanoid").Health > 0 then
-                        local ehum = mob:WaitForChild("Humanoid")
-                        local character = Client.Character
-                        local hrp = character:WaitForChild("HumanoidRootPart")
-                        
-
-                            repeat
-                                task.wait()
+        
+                    local mob = findMob1()
+                    if mobs == nil then
+                        while task.wait() do
+                            task.wait()
+                            if getgenv().FarmAll == false then return end
+                            if findMob1() ~= nil then break end
+                        end
+                    else
+                        while wait() do
+                            task.wait()
+        
+                            if getgenv().FarmAll == false then return end
+        
+                            if mob and mob:FindFirstChild("Humanoid") ~= nil and mob:FindFirstChild("Humanoid").Health > 0 then
+                                local ehum = mob:WaitForChild("Humanoid")
                                 local character = Client.Character
                                 local hrp = character:WaitForChild("HumanoidRootPart")
-                                local magnitude = (character.HumanoidRootPart.Position - mob:GetModelCFrame().Position).Magnitude
-                                    moveto(mob:GetModelCFrame() * CFrame.new(0, 0, -tonumber(5)) * CFrame.Angles(0, math.rad(180), 0), 300)
+                                
+
+                                    repeat
+                                        task.wait()
+                                        local character = Client.Character
+                                        local hrp = character:WaitForChild("HumanoidRootPart")
+                                        local magnitude = (character.HumanoidRootPart.Position - mob:GetModelCFrame().Position).Magnitude
+                                            moveto(mob:GetModelCFrame() * CFrame.new(0, 0, -tonumber(5)) * CFrame.Angles(0, math.rad(180), 0), 300)
 
 
-                            until not FarmAll or not mob or mob:FindFirstChild("Humanoid").Health <= 0 
-
-                            intakillorb()
-                            HealthRegenOrb()
-                            DoublePointsOrb()
-                            BloodMoneyOrb()
-                            StaminaRegenOrb()
-                    else
-                        break
+                                    until not FarmAll or not mob or mob:FindFirstChild("Humanoid").Health <= 0 
+                            else
+                                break
+                            end
+                        end
                     end
+                    task.wait()
                 end
             end
-            task.wait()
-        end
-    end
-})
+        })
 
 local AutoDungeonN = Main:CreateToggle({
     Name = "Auto Dungeon 2",
@@ -736,25 +744,16 @@ local AutoDungeonN = Main:CreateToggle({
                             local magnitude = (character.HumanoidRootPart.Position - mob:GetModelCFrame().Position).Magnitude
                             moveto(mob:GetModelCFrame() * CFrame.new(0, tonumber(8), 0) * CFrame.Angles(math.rad(-90), 0, 0), 300)
  
-                        until not FarmAll or not mob or mob:FindFirstChild("Humanoid").Health <= 0 
-                        
-                        intakillorb()
-                        HealthRegenOrb()
-                        DoublePointsOrb()
-                        BloodMoneyOrb()
-                        StaminaRegenOrb()
- 
-                    else
-                        break
+                                    until not FarmAll or not mob or mob:FindFirstChild("Humanoid").Health <= 0 
+                            else
+                                break
+                            end
+                        end
                     end
+                    task.wait()
                 end
             end
-            task.wait()
-        end
- 
- end
- })
- 
+        })
 
 
 Misc:CreateLabel("Buffs")
@@ -1219,284 +1218,7 @@ Event:FireServer(A_1)
 end
 cuzinpreto()
 
-function intakillorb()
-    
-    local RunService = game:GetService("RunService")
-    local Players = game:GetService("Players")
-    local Player = Players.LocalPlayer
-    local Character = Player.Character
-    local HumanoidRootPart = Character.HumanoidRootPart
-    
-    local function FindAndTeleportToOrb()
-        local Map = game:GetService("Workspace").Map
-        local OrbName = "InstaKill"
-    
-        local Orb = Map:FindFirstChild(OrbName)
-        if Orb then
-            local Sphere = Orb:FindFirstChildOfClass("MeshPart")
-            if Sphere then
-                local TeleportSpeed = 250
-                local NextFrame = RunService.Heartbeat
-    
-                local function ImprovedTeleport(Target)
-                    if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                        Target = Target.Position
-                    elseif typeof(Target) == "CFrame" then
-                        Target = Target.Position
-                    end
-    
-                    local StartingPosition = HumanoidRootPart.Position
-                    local PositionDelta = Target - StartingPosition
-                    local StartTime = tick()
-                    local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-    
-                    repeat
-                        NextFrame:Wait()
-                        local Delta = tick() - StartTime
-                        local Progress = math.min(Delta / TotalDuration, 1)
-                        local MappedPosition = StartingPosition + PositionDelta * Progress
-                        HumanoidRootPart.Velocity = Vector3.new()
-                        HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-                    until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-    
-                    HumanoidRootPart.Anchored = false
-                    HumanoidRootPart.CFrame = CFrame.new(Target)
-                end
-    
-                ImprovedTeleport(Sphere.Position)
-            else
-                return
-            end
-        else
-            return
-        end
-    end
-    
-    FindAndTeleportToOrb()
-end
-
-function HealthRegenOrb()
-
-    local RunService = game:GetService("RunService")
-    local Players = game:GetService("Players")
-    local Player = Players.LocalPlayer
-    local Character = Player.Character
-    local HumanoidRootPart = Character.HumanoidRootPart
-    
-    local function FindAndTeleportToOrb()
-        local Map = game:GetService("Workspace").Map
-        local OrbName = "HealthRegen"
-    
-        local Orb = Map:FindFirstChild(OrbName)
-        if Orb then
-            local Sphere = Orb:FindFirstChildOfClass("MeshPart")
-            if Sphere then
-                local TeleportSpeed = 250
-                local NextFrame = RunService.Heartbeat
-    
-                local function ImprovedTeleport(Target)
-                    if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                        Target = Target.Position
-                    elseif typeof(Target) == "CFrame" then
-                        Target = Target.Position
-                    end
-    
-                    local StartingPosition = HumanoidRootPart.Position
-                    local PositionDelta = Target - StartingPosition
-                    local StartTime = tick()
-                    local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-    
-                    repeat
-                        NextFrame:Wait()
-                        local Delta = tick() - StartTime
-                        local Progress = math.min(Delta / TotalDuration, 1)
-                        local MappedPosition = StartingPosition + PositionDelta * Progress
-                        HumanoidRootPart.Velocity = Vector3.new()
-                        HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-                    until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-    
-                    HumanoidRootPart.Anchored = false
-                    HumanoidRootPart.CFrame = CFrame.new(Target)
-                end
-    
-                ImprovedTeleport(Sphere.Position)
-            else
-                return
-            end
-        else
-            return
-        end
-    end
-    
-    FindAndTeleportToOrb()
-end
-function BloodMoneyOrb()
-
-    local RunService = game:GetService("RunService")
-    local Players = game:GetService("Players")
-    local Player = Players.LocalPlayer
-    local Character = Player.Character
-    local HumanoidRootPart = Character.HumanoidRootPart
-    
-    local function FindAndTeleportToOrb()
-        local Map = game:GetService("Workspace").Map
-        local OrbName = "BloodMoney"
-    
-        local Orb = Map:FindFirstChild(OrbName)
-        if Orb then
-            local Sphere = Orb:FindFirstChildOfClass("MeshPart")
-            if Sphere then
-                local TeleportSpeed = 250
-                local NextFrame = RunService.Heartbeat
-    
-                local function ImprovedTeleport(Target)
-                    if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                        Target = Target.Position
-                    elseif typeof(Target) == "CFrame" then
-                        Target = Target.Position
-                    end
-    
-                    local StartingPosition = HumanoidRootPart.Position
-                    local PositionDelta = Target - StartingPosition
-                    local StartTime = tick()
-                    local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-    
-                    repeat
-                        NextFrame:Wait()
-                        local Delta = tick() - StartTime
-                        local Progress = math.min(Delta / TotalDuration, 1)
-                        local MappedPosition = StartingPosition + PositionDelta * Progress
-                        HumanoidRootPart.Velocity = Vector3.new()
-                        HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-                    until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-    
-                    HumanoidRootPart.Anchored = false
-                    HumanoidRootPart.CFrame = CFrame.new(Target)
-                end
-    
-                ImprovedTeleport(Sphere.Position)
-            else
-                return
-            end
-        else
-            return
-        end
-    end
-    
-    FindAndTeleportToOrb()
-end
-function DoublePointsOrb()
-
-    local RunService = game:GetService("RunService")
-    local Players = game:GetService("Players")
-    local Player = Players.LocalPlayer
-    local Character = Player.Character
-    local HumanoidRootPart = Character.HumanoidRootPart
-    
-    local function FindAndTeleportToOrb()
-        local Map = game:GetService("Workspace").Map
-        local OrbName = "DoublePoints"
-    
-        local Orb = Map:FindFirstChild(OrbName)
-        if Orb then
-            local Sphere = Orb:FindFirstChildOfClass("MeshPart")
-            if Sphere then
-                local TeleportSpeed = 250
-                local NextFrame = RunService.Heartbeat
-    
-                local function ImprovedTeleport(Target)
-                    if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                        Target = Target.Position
-                    elseif typeof(Target) == "CFrame" then
-                        Target = Target.Position
-                    end
-    
-                    local StartingPosition = HumanoidRootPart.Position
-                    local PositionDelta = Target - StartingPosition
-                    local StartTime = tick()
-                    local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-    
-                    repeat
-                        NextFrame:Wait()
-                        local Delta = tick() - StartTime
-                        local Progress = math.min(Delta / TotalDuration, 1)
-                        local MappedPosition = StartingPosition + PositionDelta * Progress
-                        HumanoidRootPart.Velocity = Vector3.new()
-                        HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-                    until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-    
-                    HumanoidRootPart.Anchored = false
-                    HumanoidRootPart.CFrame = CFrame.new(Target)
-                end
-    
-                ImprovedTeleport(Sphere.Position)
-            else
-                return
-            end
-        else
-            return
-        end
-    end
-    
-    FindAndTeleportToOrb()
-end
-function StaminaRegenOrb()
-
-    local RunService = game:GetService("RunService")
-    local Players = game:GetService("Players")
-    local Player = Players.LocalPlayer
-    local Character = Player.Character
-    local HumanoidRootPart = Character.HumanoidRootPart
-    
-    local function FindAndTeleportToOrb()
-        local Map = game:GetService("Workspace").Map
-        local OrbName = "StaminaRegen"
-    
-        local Orb = Map:FindFirstChild(OrbName)
-        if Orb then
-            local Sphere = Orb:FindFirstChildOfClass("MeshPart")
-            if Sphere then
-                local TeleportSpeed = 250
-                local NextFrame = RunService.Heartbeat
-    
-                local function ImprovedTeleport(Target)
-                    if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                        Target = Target.Position
-                    elseif typeof(Target) == "CFrame" then
-                        Target = Target.Position
-                    end
-    
-                    local StartingPosition = HumanoidRootPart.Position
-                    local PositionDelta = Target - StartingPosition
-                    local StartTime = tick()
-                    local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-    
-                    repeat
-                        NextFrame:Wait()
-                        local Delta = tick() - StartTime
-                        local Progress = math.min(Delta / TotalDuration, 1)
-                        local MappedPosition = StartingPosition + PositionDelta * Progress
-                        HumanoidRootPart.Velocity = Vector3.new()
-                        HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-                    until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-    
-                    HumanoidRootPart.Anchored = false
-                    HumanoidRootPart.CFrame = CFrame.new(Target)
-                end
-    
-                ImprovedTeleport(Sphere.Position)
-            else
-                return
-            end
-        else
-            return
-        end
-    end
-    
-    FindAndTeleportToOrb()
-end
-
-arrow:CreateToggle({
+Bypasses:CreateToggle({
     Name = "Arrow Bypass",
     Callback = function(v)
         _G.bypass = v
@@ -1565,7 +1287,7 @@ function bypass()
                 wait(8)
             end
         end
-Misc:CreateToggle({
+Bypasses:CreateToggle({
     Name = "Thunder Bypass",
     Callback = function(v)
         _G.thunderbypass = v
@@ -1573,7 +1295,7 @@ Misc:CreateToggle({
     end
 })
 
-Misc:CreateToggle({
+arrow:CreateToggle({
     Name = "Thunder KA",
     CurrentValue = false,
     Callback = function(v)
@@ -1628,3 +1350,157 @@ game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireSer
         wait(0.65)
     end
 end
+
+AutoOrb:CreateToggle({
+    Name = "Orb StaminaRegen",
+    Callback = function (v)
+        _G.regenstamina = v
+        regenstaminaa()
+    end
+})
+
+AutoOrb:CreateToggle({
+    Name = "Orb InstaKill",
+    Callback = function (v)
+        _G.instakir = v
+        instakilll()
+    end
+})
+
+AutoOrb:CreateToggle({
+    Name = "Orb Blood Money",
+    Callback = function (v)
+        _G.bloodporra = v
+        bloodporraa()
+    end
+})
+
+AutoOrb:CreateToggle({
+    Name = "Orb Health Regen",
+    Callback = function (v)
+        _G.regencu = v
+        reggencuu()
+    end
+})
+
+AutoOrb:CreateToggle({
+    Name = "Orb Double Points",
+    Callback = function (v)
+        _G.dablesperma = v
+        dablespermaa()
+    end
+})
+
+
+
+function regenstaminaa()
+    if _G.regenstamina then
+        locall = true
+    else
+        locall = false
+    end
+
+    while locall do
+        local success, erro = pcall(function ()
+            
+    local targetObject = game:GetService("Workspace").Map.StaminaRegen.Sphere
+    local myObject = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+
+    if targetObject and myObject then
+        local targetCFrame = myObject.CFrame
+        targetObject.CFrame = targetCFrame
+    end
+
+        end)
+        wait(1)
+    end
+end
+
+function instakilll()
+    if _G.instakir then
+        locall2 = true
+    else
+        locall2 = false
+    end
+
+    while locall2 do
+        local success, erro = pcall(function ()
+        local targetObject = game:GetService("Workspace").Map.InstaKill["Sphere.003"]
+        local myObject = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+
+        if targetObject and myObject then
+            local targetCFrame = myObject.CFrame
+            targetObject.CFrame = targetCFrame
+        end
+        end)
+        wait(1)
+    end
+end
+
+function bloodporraa()
+    if _G.bloodporra then
+        locall3 = true
+    else
+        locall3 = false
+    end
+
+    while locall3 do
+        local success, erro = pcall(function ()
+            local targetObject = game:GetService("Workspace").Map.BloodMoney["Sphere.009"]
+            local myObject = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+            
+            if targetObject and myObject then
+                local targetCFrame = myObject.CFrame
+                targetObject.CFrame = targetCFrame
+            end
+        end)
+        wait(1)
+    end
+end
+
+function reggencuu()
+    if _G.regencu then
+        locall4 = true
+    else
+        locall4 = false
+    end
+
+    while locall4 do
+        local success, erro = pcall(function ()
+            local targetObject = game:GetService("Workspace").Map.HealthRegen["Sphere.007"]
+            local myObject = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+            
+            if targetObject and myObject then
+                local targetCFrame = myObject.CFrame
+                targetObject.CFrame = targetCFrame
+            end
+        end)
+        wait(1)
+    end
+end
+
+function dablespermaa()
+    if _G.dablesperma then
+        locall5 = true
+    else
+        locall5 = false
+    end
+
+    while locall5 do
+        local success, erro = pcall(function ()
+            local targetObject = game:GetService("Workspace").Map.DoublePoints["Sphere.012"]
+            local myObject = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+            
+            if targetObject and myObject then
+                local targetCFrame = myObject.CFrame
+                targetObject.CFrame = targetCFrame
+            end
+        end)
+        wait(1)
+    end
+end
+
+
+--Safe Place
+
+--"6426.42822, -26.7734604, -952.144653, -1, 0, 0, 0, 1, 0, 0, 0, -1"
