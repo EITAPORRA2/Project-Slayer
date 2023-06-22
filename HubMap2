@@ -2685,14 +2685,10 @@ local Toggle = FarmAll:CreateToggle({
 
    Name = "Auto Eat Soul",
    CurrentValue = false,
-   Callback = function(enabled)
-      while enabled do
-         pcall(function()
-            workspace.Debree.Soul.Handle.Eatthedamnsoul:FireServer()
-         end)
-         wait(0.1)
-      end
-   end,
+   Callback = function(v)
+    _G.Eat = v
+    eatsoul()
+   end
 })
 
 
@@ -3021,4 +3017,18 @@ function arrowglobal2()
 
         wait(0.005)
     end
+end
+
+function eatsoul()
+    if _G.Eat then
+        eatt = true
+    else
+        eatt = false
+    end
+    while eatt do
+        pcall(function()
+           workspace.Debree.Soul.Handle.Eatthedamnsoul:FireServer(true)
+        end)
+        wait(0.1)
+     end
 end
