@@ -1,3 +1,38 @@
+function Intro()
+    local assetIDs = {
+        "7534312676",
+        "8964489645",
+        "5009915812",
+        "7212066712",
+        "9605261863",
+        "8425069728",
+        "11818627075",
+        "12624371138",
+        "12641976501",
+        "12623079321",
+        "10491133376",
+        "13510696209",
+        "6338864674",
+        "11176073582",
+        "10111107788",
+        "8073107254"
+    }
+    
+    local randomIndex = math.random(1, #assetIDs)
+    local selectedAssetID = assetIDs[randomIndex]
+    
+    local ohTable1 = {
+    ["Profile_Image"] = "https://www.roblox.com/asset-thumbnail/image?assetId=" .. selectedAssetID .. "&width=420&height=420&format=png",
+        ["Text"] = "<AnimateStepFrequency=3><AnimateStepTime=.0005><TextScale=.5><AnimateStyle=Fade>Universe Hub Loading<AnimateStyle=/><TextScale=/><AnimateStepTime=/><AnimateStepFrequency=/>",
+        ["Additional_Text"] = "Welcome to the Universe Hub!",
+        ["Duration"] = 4,
+        ["custom_image_size"] = UDim2.new(1.1, 0, 1.1, 0)
+    }
+    
+    game:GetService("Players").LocalPlayer.PlayerGui.text_notification:Fire(ohTable1)
+end
+Intro()
+
 function antiafk()
     local bb = game:GetService("VirtualUser")
         game:GetService("Players").LocalPlayer.Idled:Connect(function()
@@ -1837,6 +1872,32 @@ TeleportTween1:CreateButton({
     end
 })
 
+local shouldTeleport = false 
+
+local Toggle = Misc:CreateToggle({
+   Name = "Auto Rejoin",
+   CurrentValue = false,
+   Callback = function(enabled)
+       shouldTeleport = enabled
+   end,
+})
+
+repeat wait() until game.CoreGui:FindFirstChild('RobloxPromptGui')
+
+local lp, po, ts = game:GetService('Players').LocalPlayer, game.CoreGui.RobloxPromptGui.promptOverlay, game:GetService('TeleportService')
+
+po.ChildAdded:connect(function(a)
+    if a.Name == 'ErrorPrompt' then
+        repeat
+            if shouldTeleport then
+                ts:Teleport(5956785391)
+                wait(4)
+            else
+                break
+            end
+        until false
+    end
+end)
 
 Misc:CreateButton({
     Name = "GamePass Unlocker",
