@@ -294,8 +294,8 @@ local Window = Rayfield:CreateWindow({
     LoadingTitle = "Loading Universe",
     LoadingSubtitle = "Feito com o bumbum",
     ConfigurationSaving = {
-        Enabled = false,
-        FolderName = "Cu", -- Create a custom folder for your hub/game
+        Enabled = true,
+        FolderName = "Universe Hub", -- Create a custom folder for your hub/game
         FileName = "Project Slayer Dungeon"
     },
 })
