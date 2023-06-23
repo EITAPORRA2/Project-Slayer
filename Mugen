@@ -124,7 +124,6 @@ local Distance = Main:CreateSlider({
     Increment = 1,
     Suffix = "Studs",
     CurrentValue = 7,
-    Flag = "Distance",
     SectionParent = Settings,
     Callback = function(v)
     dist = v
@@ -134,7 +133,6 @@ local Distance = Main:CreateSlider({
 local AutoMugen = Main:CreateToggle({
     Name = "AutoMugen",
     CurrentValue = false,
-    Flag = "Mugen", 
     SectionParent = Farm,
     Callback = function(v)
         getgenv().FarmAll = v
@@ -575,7 +573,6 @@ Misc:CreateToggle({
 
 killauraTab:CreateToggle({
     Name = "Safe Aura (Boss)",
-    Flag = "",
     Callback = function (bool)
         if bool then
             getgenv().killaura = true
@@ -719,7 +716,6 @@ killauraTab:CreateToggle({
 
 Main:CreateToggle({
     Name = "AutoCollect",
-    Flag = "AutoCollect",
     CurrentValue = false,
     Callback = function(Value)
         getgenv().AutoCollectChest = Value
