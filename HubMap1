@@ -931,7 +931,7 @@ killauraTab:CreateToggle({
 })
 
 Teleports1:CreateButton({
-    Name = "Muzan",
+    Name = "Muzan(Old Insta)",
     Callback = function ()
         local Muzan = game:GetService("Workspace").Muzan
 local SpawnPosition = Muzan.SpawnPos.Value
@@ -940,113 +940,487 @@ local SpawnPosition = Muzan.SpawnPos.Value
 })
 
 Teleports1:CreateButton({
-    Name = "Zapiwara Mountain",
-    Callback = function ()
-        LP.Character.HumanoidRootPart.CFrame = CFrame.new(-365.617981, 425.857422, -2303.92285, -0.351566792, -6.70503529e-13, 0.93616277, 9.77098068e-13, 1, 1.08316502e-12, -0.93616277, 1.2955277e-12, -0.351566792) 
-    end
+        Name = "ButtlerFly Mansion",
+        Callback = function ()
+local ohString1 = "horseguy_txt"
+local ohString2 = "Horse guy"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
+
+
+wait(0.2)
+
+local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+local ohNumber2 = 40317.308733599995
+local ohString3 = "Butterfly Mension"
+
+game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
+wait(0.2)
+
+local ohString1 = "Butterfly Mansion"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
+        end
 })
-    Teleports1:CreateButton({
-        Name = "Meditate",
+
+
+
+Teleports1:CreateButton({
+        Name = "Kiribating Village",
+        Callback = function ()
+local ohString1 = "horseguy_txt"
+local ohString2 = "Horse guy"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
+
+wait(0.2)
+
+local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+local ohNumber2 = 40622.1543921
+local ohString3 = "Kiribating Village"
+
+game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
+wait(0.2)
+
+local ohString1 = "Kiribating Village"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
+        end
+})
+
+
+
+
+
+Teleports1:CreateButton({
+    Name = "Zapiwara Cave",
+      Callback = function ()
+local ohString1 = "horseguy_txt"
+local ohString2 = "Horse guy"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
+
+wait(0.2)
+
+local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+local ohNumber2 = 41236.0080252
+local ohString3 = "Zapiwara Cave"
+
+game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
+wait(0.2)
+
+local ohString1 = "Zapiwara Cave"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
+        end
+})
+
+
+
+Teleports1:CreateButton({
+        Name = "Zapiwara Mountain",
+        Callback = function ()
+local ohString1 = "horseguy_txt"
+local ohString2 = "Horse guy"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
+
+wait(0.2)
+
+local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+local ohNumber2 = 41263.3104857
+local ohString3 = "Zapiwara Mountain"
+
+game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
+wait(0.2)
+
+local ohString1 = "Zapiwara Mountain"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
+        end
+})
+
+Teleports1:CreateButton({
+        Name = "Ushumaru Village",
+        Callback = function ()
+local ohString1 = "horseguy_txt"
+local ohString2 = "Horse guy"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
+
+
+wait(0.2)
+
+local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+local ohNumber2 = 41285.6572932
+local ohString3 = "Ushumaru Village"
+
+game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
+wait(0.2)
+
+local ohString1 = "Ushumaru Village"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
+        end
+})
+
+Teleports1:CreateButton({
+        Name = "Waroru Cave",
+        Callback = function ()
+local ohString1 = "horseguy_txt"
+local ohString2 = "Horse guy"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
+
+
+wait(0.2)
+
+local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+local ohNumber2 = 41311.0238902
+local ohString3 = "Waroru Cave"
+
+game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
+wait(0.2)
+
+local ohString1 = "Waroru Cave"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
+        end
+})
+
+Teleports1:CreateButton({
+        Name = "Kabiwaru Village",
+        Callback = function ()
+local ohString1 = "horseguy_txt"
+local ohString2 = "Horse guy"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
+
+
+wait(0.2)
+
+local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+local ohNumber2 = 41333.432399799996
+local ohString3 = "Kabiwaru Village"
+
+game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
+wait(0.2)
+
+local ohString1 = "Kabiwaru Village"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
+        end
+})
+
+Teleports1:CreateButton({
+        Name = "Abubu Cave",
+        Callback = function ()
+local ohString1 = "horseguy_txt"
+local ohString2 = "Horse guy"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
+
+
+wait(0.2)
+
+local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+local ohNumber2 = 41350.4449346
+local ohString3 = "Abubu Cave"
+
+game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
+wait(0.2)
+
+local ohString1 = "Abubu Cave"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
+        end
+})
+
+Teleports1:CreateButton({
+        Name = "Final Selection",
+        Callback = function ()
+local ohString1 = "horseguy_txt"
+local ohString2 = "Horse guy"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
+
+
+wait(0.2)
+
+local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+local ohNumber2 = 41370.952711599995
+local ohString3 = "Final Selection"
+
+game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
+
+wait(0.2)
+
+local ohString1 = "Final Selection"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
+        end
+})
+
+Teleports1:CreateButton({
+        Name = "Ouwbayashi Home",
+        Callback = function ()
+local ohString1 = "horseguy_txt"
+local ohString2 = "Horse guy"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
+
+
+wait(0.2)
+
+local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+local ohNumber2 = 41388.9518367
+local ohString3 = "Ouwbayashi Home"
+
+game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
+wait(0.2)
+
+local ohString1 = "Ouwbayashi Home"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
+        end
+})
+
+Teleports1:CreateButton({
+        Name = "Dangerous Woods",
+        Callback = function ()
+local ohString1 = "horseguy_txt"
+local ohString2 = "Horse guy"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
+
+
+wait(0.2)
+
+local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+local ohNumber2 = 41411.7517876
+local ohString3 = "Dangerous Woods"
+
+game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
+wait(0.2)
+
+local ohString1 = "Dangerous Woods"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
+        end
+})
+
+Teleports1:CreateButton({
+        Name = "Dungeon",
+        Callback = function ()
+local ohString1 = "horseguy_txt"
+local ohString2 = "Horse guy"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
+
+
+wait(0.2)
+
+local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
+local ohNumber2 = 41432.3210538
+local ohString3 = "Dungeon"
+
+game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
+wait(0.2)
+
+local ohString1 = "Dungeon"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
+
+wait(0.2)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
+        end
+})
+
+Teleports1:CreateButton({
+        Name = "Meditate(Old Insta)",
         Callback = function ()
             LP.Character.HumanoidRootPart.CFrame = CFrame.new(2814.46948, 317.022034, -3861.58765, 0.414847195, 0, -0.909891069, 0, 1, 0, 0.909891069, 0, 0.414847195)
         end
 })
 
 Teleports1:CreateButton({
-    Name = "Split Bouder",
+    Name = "Split Bouder(Old Insta)",
     Callback = function ()
         LP.Character.HumanoidRootPart.CFrame = CFrame.new(919.366699, 275.050903, -3040.896, 0.991291702, 0, 0.131684288, 0, 1, 0, -0.131684288, 0, 0.991291702)
     end
 })
 
 Teleports1:CreateButton({
-    Name = "Waroru Cave",
-    Callback = function ()
-        LP.Character.HumanoidRootPart.CFrame = CFrame.new(683.164062, 261.426819, -2401.41797, 0.137014925, -3.46316149e-08, 0.990568995, 6.38769482e-09, 1, 3.4077793e-08, -0.990568995, 1.65828595e-09, 0.137014925)
-    end
-})
-Teleports1:CreateButton({
-    Name = "Ushumaru Village",
-    Callback = function ()
-        LP.Character.HumanoidRootPart.CFrame = CFrame.new(-90.0373688, 354.723511, -3170.00439, 0.817297578, -1.0121405e-08, 0.576215804, 3.12666586e-08, 1, -2.6782951e-08, -0.576215804, 3.99059843e-08, 0.817297578)
-    end
-})
-Teleports1:CreateButton({
-    Name = "Ouwbayashi Home",
-    Callback = function ()
-        LP.Character.HumanoidRootPart.CFrame = CFrame.new(1593.49072, 315.983917, -4618.15088, -0.795035839, -1.09234e-08, -0.606562734, 1.19429622e-09, 1, -1.95740828e-08, 0.606562734, -1.62865081e-08, -0.795035839)
-    end
-})
-Teleports1:CreateButton({
-    Name = "Kabiwaru Village",
-    Callback = function ()
-        LP.Character.HumanoidRootPart.CFrame = CFrame.new(2037.20203, 315.908813, -2956.77539, -0.795035839, -1.09234e-08, -0.606562734, 1.19429622e-09, 1, -1.95740828e-08, 0.606562734, -1.62865081e-08, -0.795035839)
-    end
-})
-Teleports1:CreateButton({
-    Name = "Zapiwara Cave",
-    Callback = function ()
-        LP.Character.HumanoidRootPart.CFrame = CFrame.new(-8.2838707, 275.944641, -2414.72607, -0.795035779, -1.09233964e-08, -0.606562555, 1.19429289e-09, 1, -1.95740775e-08, 0.606562555, -1.62865046e-08, -0.795035779)
-    end
-})
-Teleports1:CreateButton({
-    Name = "Dangerous Woods",
-    Callback = function ()
-        LP.Character.HumanoidRootPart.CFrame = CFrame.new(4061.43677, 342.289581, -3928.90332, -0.795035839, -1.09233973e-08, -0.606562614, 1.19429444e-09, 1, -1.95740775e-08, 0.606562614, -1.62865064e-08, -0.795035839)
-    end
-})
-Teleports1:CreateButton({
-    Name = "Final Selection",
-    Callback = function ()
-        LP.Character.HumanoidRootPart.CFrame = CFrame.new(5200.76709, 365.949982, -2425.61646, -0.795035779, -1.09233964e-08, -0.606562555, 1.19429289e-09, 1, -1.95740775e-08, 0.606562555, -1.62865046e-08, -0.795035779)
-    end
-})
-Teleports1:CreateButton({
-    Name = "Kiribating Village",
-    Callback = function ()
-        LP.Character.HumanoidRootPart.CFrame = CFrame.new(-40.3280869, 282.282745, -1623.75159, -0.795035839, -1.09233991e-08, -0.606562614, 1.19429266e-09, 1, -1.95740792e-08, 0.606562614, -1.62865046e-08, -0.795035839)
-    end
-})
-Teleports1:CreateButton({
-    Name = "Butterfly Mansion",
-    Callback = function ()
-        LP.Character.HumanoidRootPart.CFrame = CFrame.new(3022.90869, 316.075623, -3928.17261, -0.795035779, -1.09233982e-08, -0.606562555, 1.19429144e-09, 1, -1.95740775e-08, 0.606562555, -1.62865046e-08, -0.795035779)
-    end
-})
-Teleports1:CreateButton({
-    Name = "Abubu Cave",
-    Callback = function ()
-        LP.Character.HumanoidRootPart.CFrame = CFrame.new(1044.44873, 276.190704, -3483.0647, -0.795035839, -1.09233991e-08, -0.606562614, 1.19429266e-09, 1, -1.95740792e-08, 0.606562614, -1.62865046e-08, -0.795035839)
-    end
-})
-Teleports1:CreateButton({
-    Name = "Water Trainer",
+    Name = "Water Trainer(Old Insta)",
     Callback = function ()
         LP.Character.HumanoidRootPart.CFrame = CFrame.new(705.209229, 261.426819, -2409.51587, -0.566798735, -5.48522401e-08, -0.641887605, -7.38932258e-08, 1, 2.8182352e-09, 0.641887605, 4.95921633e-08, -0.566798735)
     end
 })
 Teleports1:CreateButton({
-    Name = "Insect Trainer",
+    Name = "Insect Trainer(Old Insta)",
     Callback = function ()
         LP.Character.HumanoidRootPart.CFrame = CFrame.new(2873.81177, 316.95871, -3917.9397, 0.40715313, 4.81208531e-08, 0.91335988, -8.85969982e-08, 1, -1.31911939e-08, -0.91335988, -7.55501048e-08, 0.40715313)
     end
 })
 Teleports1:CreateButton({
-    Name = "Thunder Trainer",
+    Name = "Thunder Trainer(Old Insta)",
     Callback = function ()
         LP.Character.HumanoidRootPart.CFrame = CFrame.new(-322.369507, 426.857788, -2384.4021, 0.361198723, -4.49157973e-08, -0.932488859, 1.14233451e-07, 1, -3.91942434e-09, 0.932488859, -1.05105727e-07, 0.361198723)
     end
 })
 
 Teleports1:CreateButton({
-    Name = "Wind Trainer",
+    Name = "Wind Trainer(Old Insta)",
     Callback = function ()
         LP.Character.HumanoidRootPart.CFrame = CFrame.new(1792.31458, 334.338989, -3521.31104, 0.862527311, -5.19402583e-08, -0.506010473, 8.30083167e-08, 1, 3.88463874e-08, 0.506010473, -7.55091492e-08, 0.862527311)
     end
 })
 
+
+
 Teleports1:CreateButton({
-    Name = "BackRooms",
+    Name = "BackRooms(Old Insta)",
     Callback = function ()
         local player = game.Players.LocalPlayer
 if player then
@@ -1055,7 +1429,7 @@ end
     end
 })
 
-Teleports1:CreateButton({
+TeleportTween1:CreateButton({
     Name = "TP Muzan",
     Callback = function ()
         local RunService = game:GetService("RunService")
@@ -1872,6 +2246,54 @@ TeleportTween1:CreateButton({
     end
 })
 
+Misc:CreateButton({
+    Name = "GamePass Unlocker",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+
+    local gamepass1 = Instance.new("StringValue")
+    local gamepass3 = Instance.new("StringValue")
+    local gamepass4 = Instance.new("StringValue")
+    local gamepass5 = Instance.new("StringValue")
+    gamepass1.Name = "18589360"
+    gamepass3.Name = "18710993"
+    gamepass4.Name = "19241624"
+    gamepass5.Name = "46503236"
+    gamepass1.Parent = player.gamepasses
+    gamepass3.Parent = player.gamepasses
+    gamepass4.Parent = player.gamepasses
+    gamepass5.Parent = player.gamepasses
+
+    --18589360 = Concentração Total Gamepass Z
+    --18710993 = Disable Uniform
+    --19241624 = Gourd Durability Viewer Z
+    --46503236 = Skip Spin Z
+
+    end
+})
+
+Misc:CreateButton({
+    Name = "Horse Guy (10 Sec)",
+    Callback = function()
+local ohString1 = "horseguy_txt"
+local ohString2 = "Horse guy"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
+
+wait(10)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
+
+wait(0.5)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
+
+wait(0.5)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
+    end
+})
+
 local shouldTeleport = false 
 
 local Toggle = Misc:CreateToggle({
@@ -1899,31 +2321,6 @@ po.ChildAdded:connect(function(a)
     end
 end)
 
-Misc:CreateButton({
-    Name = "GamePass Unlocker",
-    Callback = function()
-        local player = game.Players.LocalPlayer
-
-    local gamepass1 = Instance.new("StringValue")
-    local gamepass3 = Instance.new("StringValue")
-    local gamepass4 = Instance.new("StringValue")
-    local gamepass5 = Instance.new("StringValue")
-    gamepass1.Name = "18589360"
-    gamepass3.Name = "18710993"
-    gamepass4.Name = "19241624"
-    gamepass5.Name = "46503236"
-    gamepass1.Parent = player.gamepasses
-    gamepass3.Parent = player.gamepasses
-    gamepass4.Parent = player.gamepasses
-    gamepass5.Parent = player.gamepasses
-
-    --18589360 = Concentração Total Gamepass Z
-    --18710993 = Disable Uniform
-    --19241624 = Gourd Durability Viewer Z
-    --46503236 = Skip Spin Z
-
-    end
-})
 
 Misc:CreateToggle({
     Name = "AutoCollect",
