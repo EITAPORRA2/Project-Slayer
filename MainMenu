@@ -6,7 +6,9 @@ local Window = Rayfield:CreateWindow({
     LoadingSubtitle = "Feito com bumbum",
     ConfigurationSaving = {
         Enabled = true,
-
+        FolderName = "Universe Hub", -- Create a custom folder for your hub/game
+        FileName = "Project Slayer Menu",
+        Rayfield:LoadConfiguration()
     }})
 
     local Auto = Window:CreateTab("Auto")
