@@ -7,7 +7,7 @@ local Window = Rayfield:CreateWindow({
     ConfigurationSaving = {
         Enabled = true,
         FolderName = "Universe Hub", -- Create a custom folder for your hub/game
-        FileName = "Project Slayer",
+        FileName = "Project Slayer Map2",
         Rayfield:LoadConfiguration()
     }})
 
