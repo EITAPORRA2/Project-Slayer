@@ -1,5 +1,13 @@
 repeat wait() until game:IsLoaded()
 
+function antiafk()
+    local bb = game:GetService("VirtualUser")
+        game:GetService("Players").LocalPlayer.Idled:Connect(function()
+            bb:CaptureController()
+            bb:ClickButton2(Vector2.new())
+        end)
+    end
+antiafk()
 
 local Player = game:GetService("Players").LocalPlayer;
 local player = game:GetService("Players").LocalPlayer;
@@ -364,26 +372,6 @@ Misc:CreateToggle({
             Client.Character.Humanoid.Health = 0
         end
     end
-})
-
-function antiafk()
-    local bb = game:GetService("VirtualUser")
-        game:GetService("Players").LocalPlayer.Idled:Connect(function()
-            bb:CaptureController()
-            bb:ClickButton2(Vector2.new())
-        end)
-    end
-antiafk()
-
-local Button = Main:CreateButton({
-    Name = "Anti AFK",
-    Callback = function()
-        local bb = game:GetService("VirtualUser")
-        game:GetService("Players").LocalPlayer.Idled:Connect(function()
-            bb:CaptureController()
-            bb:ClickButton2(Vector2.new())
-        end)
-    end,
 })
 
 Main:CreateToggle({
