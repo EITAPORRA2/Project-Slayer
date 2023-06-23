@@ -1,3 +1,12 @@
+function antiafk()
+    local bb = game:GetService("VirtualUser")
+        game:GetService("Players").LocalPlayer.Idled:Connect(function()
+            bb:CaptureController()
+            bb:ClickButton2(Vector2.new())
+        end)
+    end
+antiafk()
+
 local Rayfield = loadstring(game:HttpGet('https://pastebin.com/raw/MUE0dHLN'))()
 
 local Window = Rayfield:CreateWindow({
@@ -1853,17 +1862,6 @@ Misc:CreateButton({
     --46503236 = Skip Spin Z
 
     end
-})
-
-local Button = Misc:CreateButton({
-    Name = "Anti AFK",
-    Callback = function()
-        local bb = game:GetService("VirtualUser")
-        game:GetService("Players").LocalPlayer.Idled:Connect(function()
-            bb:CaptureController()
-            bb:ClickButton2(Vector2.new())
-        end)
-    end,
 })
 
 Misc:CreateToggle({
