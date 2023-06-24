@@ -364,6 +364,37 @@ local Toggle = Misc:CreateToggle({
     end,
 })
 
+local toggle = false -- Inicialmente desligado
+
+local function executeScript()
+    local ohString1 = "Change_Value"
+    local playerName = game.Players.LocalPlayer.Name
+        ohInstance2 = workspace.Debree.clash_folder[playerName .."vsEnmu"][playerName]
+        local ohNumber3 = 300
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohNumber3)
+
+end
+
+local function toggleLoop()
+    while true do
+        if toggle then
+            executeScript()
+        end
+        wait(8)
+    end
+end
+
+spawn(toggleLoop) -- Iniciar o loop em uma thread separada
+
+local Toggle = Misc:CreateToggle({
+    Name = "Insta Clash",
+    CurrentValue = false,
+    Callback = function(value)
+        toggle = value
+    end,
+})
+
+
 local ToggleSwampyEnabled = false
 local ToggleDreamEnabled = false
 local ToggleIceEnabled = false
@@ -946,4 +977,3 @@ game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireSer
         wait(0.65)
     end
 end
-        
