@@ -48,12 +48,7 @@ local Window = Rayfield:CreateWindow({
     Name = "Universe Hub",
     LoadingTitle = "Loading Universe",
     LoadingSubtitle = "Feito com bumbum",
-    ConfigurationSaving = {
-        Enabled = true,
-        FolderName = "Universe Hub", -- Create a custom folder for your hub/game
-        FileName = "Project Slayer Map2",
-        Rayfield:LoadConfiguration()
-    }})
+})
 
     local AutoBoss = Window:CreateTab("Auto Farm Boss")
     local FarmAll = Window:CreateTab("Auto Farm All")
