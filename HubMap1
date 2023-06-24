@@ -48,7 +48,7 @@ local Window = Rayfield:CreateWindow({
     LoadingSubtitle = "Feito com bumbum",
     ConfigurationSaving = {
         Enabled = true,
-        FolderName = "Universe Hub", -- Create a custom folder for your hub/game
+        FolderName = "Universe Hub",
         FileName = "Project Slayer Map 1",
         Rayfield:LoadConfiguration()
     })
@@ -59,7 +59,6 @@ local Window = Rayfield:CreateWindow({
     local Bypasses = Window:CreateTab("Bypass")
     local ArrowGKA = Window:CreateTab("ArrowAura")
     local ArrowGKA2 = Window:CreateTab("ArrowAura2")
-
     local Misc = Window:CreateTab("Misc")
     local TeleportTween1 = Window:CreateTab("Tween TP")
     local Teleports1 = Window:CreateTab("Insta TP ")
@@ -940,438 +939,136 @@ local SpawnPosition = Muzan.SpawnPos.Value
 Teleports1:CreateButton({
         Name = "ButtlerFly Mansion",
         Callback = function ()
-local ohString1 = "horseguy_txt"
-local ohString2 = "Horse guy"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
-
-
-wait(0.2)
 
 local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
 local ohNumber2 = 40317.308733599995
 local ohString3 = "Butterfly Mension"
 
 game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
-wait(0.2)
-
-local ohString1 = "Butterfly Mansion"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
         end
 })
-
-
 
 Teleports1:CreateButton({
         Name = "Kiribating Village",
         Callback = function ()
-local ohString1 = "horseguy_txt"
-local ohString2 = "Horse guy"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
-
-wait(0.2)
-
 local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
 local ohNumber2 = 40622.1543921
 local ohString3 = "Kiribating Village"
-
-game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
-wait(0.2)
-
-local ohString1 = "Kiribating Village"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
         end
 })
-
-
-
-
 
 Teleports1:CreateButton({
     Name = "Zapiwara Cave",
       Callback = function ()
-local ohString1 = "horseguy_txt"
-local ohString2 = "Horse guy"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
-
-wait(0.2)
 
 local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
 local ohNumber2 = 41236.0080252
 local ohString3 = "Zapiwara Cave"
 
 game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
-wait(0.2)
-
-local ohString1 = "Zapiwara Cave"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
         end
 })
-
-
 
 Teleports1:CreateButton({
         Name = "Zapiwara Mountain",
         Callback = function ()
-local ohString1 = "horseguy_txt"
-local ohString2 = "Horse guy"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
-
-wait(0.2)
 
 local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
 local ohNumber2 = 41263.3104857
 local ohString3 = "Zapiwara Mountain"
 
 game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
-wait(0.2)
-
-local ohString1 = "Zapiwara Mountain"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
         end
 })
 
 Teleports1:CreateButton({
         Name = "Ushumaru Village",
         Callback = function ()
-local ohString1 = "horseguy_txt"
-local ohString2 = "Horse guy"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
-
-
-wait(0.2)
-
 local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
 local ohNumber2 = 41285.6572932
 local ohString3 = "Ushumaru Village"
 
 game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
-wait(0.2)
 
-local ohString1 = "Ushumaru Village"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
         end
 })
 
 Teleports1:CreateButton({
         Name = "Waroru Cave",
         Callback = function ()
-local ohString1 = "horseguy_txt"
-local ohString2 = "Horse guy"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
-
-
-wait(0.2)
 
 local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
 local ohNumber2 = 41311.0238902
 local ohString3 = "Waroru Cave"
 
 game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
-wait(0.2)
-
-local ohString1 = "Waroru Cave"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
         end
 })
 
 Teleports1:CreateButton({
         Name = "Kabiwaru Village",
         Callback = function ()
-local ohString1 = "horseguy_txt"
-local ohString2 = "Horse guy"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
-
-
-wait(0.2)
 
 local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
 local ohNumber2 = 41333.432399799996
 local ohString3 = "Kabiwaru Village"
 
 game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
-wait(0.2)
-
-local ohString1 = "Kabiwaru Village"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
         end
 })
 
 Teleports1:CreateButton({
         Name = "Abubu Cave",
         Callback = function ()
-local ohString1 = "horseguy_txt"
-local ohString2 = "Horse guy"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
-
-
-wait(0.2)
-
 local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
 local ohNumber2 = 41350.4449346
 local ohString3 = "Abubu Cave"
 
 game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
-wait(0.2)
-
-local ohString1 = "Abubu Cave"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
         end
 })
 
 Teleports1:CreateButton({
         Name = "Final Selection",
         Callback = function ()
-local ohString1 = "horseguy_txt"
-local ohString2 = "Horse guy"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
-
-
-wait(0.2)
-
 local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
 local ohNumber2 = 41370.952711599995
 local ohString3 = "Final Selection"
 
 game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
-
-wait(0.2)
-
-local ohString1 = "Final Selection"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
         end
 })
 
 Teleports1:CreateButton({
         Name = "Ouwbayashi Home",
         Callback = function ()
-local ohString1 = "horseguy_txt"
-local ohString2 = "Horse guy"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
-
-
-wait(0.2)
-
 local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
 local ohNumber2 = 41388.9518367
 local ohString3 = "Ouwbayashi Home"
 
 game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
-wait(0.2)
-
-local ohString1 = "Ouwbayashi Home"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
         end
 })
 
 Teleports1:CreateButton({
         Name = "Dangerous Woods",
         Callback = function ()
-local ohString1 = "horseguy_txt"
-local ohString2 = "Horse guy"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
-
-
-wait(0.2)
-
 local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
 local ohNumber2 = 41411.7517876
 local ohString3 = "Dangerous Woods"
 
 game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
-wait(0.2)
-
-local ohString1 = "Dangerous Woods"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
         end
 })
 
 Teleports1:CreateButton({
         Name = "Dungeon",
         Callback = function ()
-local ohString1 = "horseguy_txt"
-local ohString2 = "Horse guy"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
-
-
-wait(0.2)
-
 local ohString1 = "Players.LocalPlayer.PlayerGui.Npc_Dialogue.Guis.ScreenGui.LocalScript"
 local ohNumber2 = 41432.3210538
 local ohString3 = "Dungeon"
 
 game:GetService("ReplicatedStorage").teleport_player_to_location_for_map_tang:InvokeServer(ohString1, ohNumber2, ohString3)
-wait(0.2)
-
-local ohString1 = "Dungeon"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Pop_Ups.Location_Handler.Sounds_Handler.Event:Fire(ohString1)
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
-
-wait(0.2)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
         end
 })
 
