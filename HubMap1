@@ -41,8 +41,7 @@ function antiafk()
     end
 antiafk()
 
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-
+local Rayfield = loadstring(game:HttpGet('https://pastebin.com/raw/MUE0dHLN'))()
 local Window = Rayfield:CreateWindow({
     Name = "Universe Hub",
     LoadingTitle = "Loading Universe",
