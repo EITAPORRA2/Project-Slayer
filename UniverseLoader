@@ -4,6 +4,8 @@ local placeID3 = 13883059853
 local placeID4 = 11468075017
 local placeID5 = 11468034852
 local placeID6 = 13881804983
+local placeID7 = 13883279773
+
 
                 
                 if game.PlaceId == placeID1 then
@@ -18,6 +20,8 @@ local placeID6 = 13881804983
                     loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Mugen"))()
                 elseif game.PlaceId == placeID6 then
                     loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap2"))()
+                elseif game.PlaceId == placeID7 then
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap1"))()
                 else
                     error("Place ID inválido.")
                 end
