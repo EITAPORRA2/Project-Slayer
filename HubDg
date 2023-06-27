@@ -1300,8 +1300,37 @@ Bypasses:CreateToggle({
         end
         
         })
-        
 
+        function arrowglobal()
+            if _G.arrowka then 
+                globalkill = true
+            else
+                globalkill = false
+            end
+        
+            while globalkill do
+                local success, error = pcall(function()
+                    local ohString1 = "arrow_knock_back_damage"
+                    local ohInstance2 = game:GetService("Players").LocalPlayer
+                    local ohCFrame3 = CFrame.new(2774.44531, 674.729919, -832.578796, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                    local ohInstance4 = findMob1()
+                    local ohNumber5 = 999999999
+                    local ohNumber6 = 999999999
+        
+                    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
+                end)
+        
+                if not success then
+                end
+        
+                if someCondition then
+                    isRunning = false
+                end
+        
+                wait(0.15)
+            end
+        end
+        
 function bypass()
     if _G.bypass then
         loop = true
