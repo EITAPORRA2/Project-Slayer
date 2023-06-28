@@ -68,7 +68,6 @@ local Window = Rayfield:CreateWindow({
     }})
 
     local AutoBoss = Window:CreateTab("Auto Farm Boss")
-    local FarmAll = Window:CreateTab("Auto Farm All")
     local killauraTab = Window:CreateTab("KillAura")
     local Bypasses = Window:CreateTab("Bypass")
     local Misc = Window:CreateTab("Misc")
