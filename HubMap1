@@ -299,35 +299,36 @@ AutoBoss:CreateToggle({
 
                     if getgenv().FarmAllBosses == false then return end
 
-                    if mob and mob:FindFirstChild("Humanoid") ~= nil and mob:FindFirstChild("Humanoid").Health > 0 then
-                        local ehum = mob:WaitForChild("Humanoid")
-                        local character = player.Character
-                        local hrp = character:WaitForChild("HumanoidRootPart")
-                        
-                        if mode == "Above" then
-                            repeat
-                                task.wait()
-                                local character = player.Character
-                                local hrp = character:WaitForChild("HumanoidRootPart")
-                                local magnitude = (character.HumanoidRootPart.Position - mob:GetModelCFrame().Position).magnitude
-                                if magnitude > 20 then
-                                    moveto(mob:GetModelCFrame() * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0), 300)
-                                else
-                                    hrp.CFrame = mob:GetModelCFrame() * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0)
-                                end
-                            until not FarmAllBosses or mob:FindFirstChild("Humanoid").Health <= 0
-                            noclipE:Disconnect()
-                        elseif mode == nil then
-                            game.StarterGui:SetCore()
+                    if mob and mob:FindFirstChild("Humanoid") ~= nil then
+                        local humanoid = mob:FindFirstChild("Humanoid")
+                        if humanoid.Health and humanoid.Health > 0 then
+                            local ehum = mob:WaitForChild("Humanoid")
+                            local character = player.Character
+                            local hrp = character:WaitForChild("HumanoidRootPart")
+                    
+                            if mode == "Above" then
+                                repeat
+                                    task.wait()
+                                    local character = player.Character
+                                    local hrp = character:WaitForChild("HumanoidRootPart")
+                                    local magnitude = (character.HumanoidRootPart.Position - mob:GetModelCFrame().Position).magnitude
+                                    if magnitude > 20 then
+                                        moveto(mob:GetModelCFrame() * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0), 300)
+                                    else
+                                        hrp.CFrame = mob:GetModelCFrame() * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0)
+                                    end
+                                until not FarmAllBosses or humanoid.Health <= 0
+                            elseif mode == nil then
+                                game.StarterGui:SetCore()
+                            end
+                        else
+                            break
                         end
-                    else
-                        break
                     end
-                end
-            
             end
             task.wait()
         end
+    end
     end
 })
 
