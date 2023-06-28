@@ -799,7 +799,7 @@ while killaura do -- verifica se está ativo o toggle
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
     wait(0.6)
-wait(1) end end -- loops.
+wait(1) end -- loops.
     else
         getgenv().killaura = false
         end
