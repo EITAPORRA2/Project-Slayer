@@ -120,8 +120,6 @@ player.Idled:Connect(function()
     VirtualUser:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 end)
 
-
-
 local Initiate_S = Remotes.To_Server.Handle_Initiate_S_
 
 local AttackMethods = {
@@ -468,8 +466,6 @@ Main:CreateToggle({
     local client = game:GetService("Players").LocalPlayer
     
     while killaura do -- verifica se está ativo o toggle
-
-        getgenv().dist = 8
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
         wait(0.1)
@@ -494,7 +490,6 @@ Main:CreateToggle({
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
         wait(0.8)
-    getgenv().dist = 30
         wait(0.3)
     wait(1) end -- loops.
     else
@@ -523,7 +518,6 @@ Main:CreateToggle({
     
     while killaura do -- verifica se está ativo o toggle
 
-        getgenv().dist = 8
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
         wait(0.1)
@@ -548,7 +542,6 @@ Main:CreateToggle({
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
         wait(0.8)
-    getgenv().dist = 30
         wait(0.3)
     wait(1) end -- loops.
     else
@@ -576,8 +569,6 @@ Main:CreateToggle({
     local client = game:GetService("Players").LocalPlayer
     
     while killaura do -- verifica se está ativo o toggle
-
-        getgenv().dist = 8
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
         wait(0.1)
@@ -602,7 +593,6 @@ Main:CreateToggle({
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
         wait(0.8)
-    getgenv().dist = 30
         wait(0.3)
     wait(1) end -- loops.
     else
@@ -631,7 +621,6 @@ Main:CreateToggle({
     
     while killaura do -- verifica se está ativo o toggle
 
-        getgenv().dist = 8
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
         wait(0.1)
@@ -656,7 +645,6 @@ Main:CreateToggle({
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
         wait(0.8)
-    getgenv().dist = 30
         wait(0.3)
     wait(1) end -- loops.
     else
@@ -685,7 +673,6 @@ Main:CreateToggle({
     
     while killaura do -- verifica se está ativo o toggle
 
-        getgenv().dist = 8
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
         wait(0.1)
@@ -710,7 +697,6 @@ Main:CreateToggle({
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
         game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
         wait(0.8)
-    getgenv().dist = 30
         wait(0.3)
     wait(1) end -- loops.
     else
