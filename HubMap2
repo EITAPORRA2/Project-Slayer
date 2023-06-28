@@ -2273,6 +2273,28 @@ Misc:CreateToggle({
 })
 
 Misc:CreateToggle({
+    Name = "Furiosity Buff",
+    Callback = function (bool)
+        toggleActivated = bool -- Atualiza o estado do toggle
+
+    if toggleActivated then
+        running = true -- Inicia o loop
+        while running do -- Executa o loop enquanto running for verdadeiro
+local ohBoolean1 = true
+
+game:GetService("ReplicatedStorage").Remotes.clan_furiosity_add:FireServer(ohBoolean1)
+            wait(16.5)
+        end
+    else
+        running = false
+local ohBoolean1 = false
+
+game:GetService("ReplicatedStorage").Remotes.clan_furiosity_add:FireServer(ohBoolean1)
+    end
+    end
+})
+
+Misc:CreateToggle({
     Name = "Rengoku (Human)",
     Callback = function (bool)
         toggleActivated = bool -- Atualiza o estado do toggle
