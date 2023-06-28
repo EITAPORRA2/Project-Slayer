@@ -277,7 +277,6 @@ local AutoMugen = Main:CreateToggle({
     end
 })
 
-local shouldTeleport = false 
 
 local Button = Misc:CreateButton({
    Name = "FPS Boost",
@@ -321,6 +320,8 @@ for i, e in pairs(l:GetChildren()) do
 end
    end,
 })
+
+local shouldTeleport = false
 
 local Toggle = Misc:CreateToggle({
    Name = "Auto Rejoin",
