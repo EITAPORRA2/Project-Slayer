@@ -71,7 +71,6 @@ local Window = Rayfield:CreateWindow({
     local FarmAll = Window:CreateTab("Auto Farm All")
     local killauraTab = Window:CreateTab("KillAura")
     local Bypasses = Window:CreateTab("Bypass")
-    local ArrowGKA = Window:CreateTab("ArrowAura")
     local Misc = Window:CreateTab("Misc")
     local TeleportTween1 = Window:CreateTab("Tween TP")
     local Teleports1 = Window:CreateTab("Insta TP ")
@@ -2606,20 +2605,6 @@ end
             local function invokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
             end
-
-local Toggle = FarmAll:CreateToggle({
-
-   Name = "Auto Eat Soul",
-   CurrentValue = false,
-   Callback = function(enabled)
-      while enabled do
-         pcall(function()
-            workspace.Debree.Soul.Handle.Eatthedamnsoul:FireServer()
-         end)
-         wait(0.1)
-      end
-   end,
-})
 
 local toggle = false -- Variável para controlar o toggle
 
