@@ -1,0 +1,132 @@
+_G.wl_key = "8783A701-FB8A-48EA-9ED5-2686CB25738D"
+
+local WebhookURL = "https://discord.com/api/webhooks/1124015175809376387/RCiqCCcgq_20p3PlIn-pv58JJf7pSaYB3O9gd2VGRO6CbFxENXUBStsBzXBFfp2P2R88"
+
+local function sendWebhook()
+    local payload = {
+        ["content"] = "",
+        ["embeds"] = {{
+            ["title"] = "**Your script has been executed!**",
+            ["description"] = game.Players.LocalPlayer.DisplayName .. " has executed the script.",
+            ["type"] = "rich",
+            ["color"] = tonumber(0xffffff),
+            ["fields"] = {
+                {
+                    ["name"] = "Hardware ID:",
+                    ["value"] = game:GetService("RbxAnalyticsService"):GetClientId(), -- Replace with the hardware ID retrieval method suitable for Fluxus
+                    ["inline"] = true
+                }
+            }
+        }}
+    }
+
+    local headers = {
+        ["Content-Type"] = "application/json"
+    }
+
+    local requestBody = game:GetService("HttpService"):JSONEncode(payload)
+    
+    local response = http_request({
+        Url = WebhookURL,
+        Method = "POST",
+        Headers = headers,
+        Body = requestBody
+    })
+
+end
+
+sendWebhook()
+local Player = game:GetService("Players").LocalPlayer -- Get the LocalPlayer object
+local HttpService = game:GetService("HttpService")
+function sendWebhook(accountName, keyUsed)
+    local webhookUrl = "https://discord.com/api/webhooks/1119906563847622656/xWrVPEo0o9e3GlsUjXN1OOBKGPECJk3XUGBVwSEjIahiOLpX9YVzFl79HuT0L3A-1CdP"
+
+local payload = {
+    ["username"] = "Webhook Bot",
+    ["content"] = string.format("Account: %s\nKey Used: %s", accountName, keyUsed),
+    ["embeds"] = {
+        {
+            ["title"] = "**Your script has been executed!**",
+            ["description"] = game.Players.LocalPlayer.DisplayName .. " has executed the script.",
+            ["type"] = "rich",
+            ["color"] = tonumber("0xffffff"),
+            ["fields"] = {
+                {
+                    ["name"] = "Hardware ID:",
+                    ["value"] = game:GetService("RbxAnalyticsService"):GetClientId(), -- Replace with the hardware ID retrieval method suitable for Fluxus
+                    ["inline"] = true
+                }
+            }
+        }
+    }
+}
+
+    local jsonPayload = game:GetService("HttpService"):JSONEncode(payload)
+
+    local headers = {
+        ["Content-Type"] = "application/json"
+    }
+
+    local request = http_request or request -- Check if http_request or request is available
+
+    if request then
+        request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = headers,
+            Body = jsonPayload
+        })
+    end
+end
+
+WhitelistKeys = {
+  key = "BA3533C9-B8B3-4B7B-96D7-886DD60AD221", --Faul
+  key2 = "8783A701-FB8A-48EA-9ED5-2686CB25738D", --Leo
+
+}
+
+
+
+function checkAccess(key)
+  for _, value in pairs(WhitelistKeys) do
+    if value == key then
+      return true
+    end
+  end
+  return false
+end
+
+if checkAccess(_G.wl_key) then
+  print("Access granted!")
+    workspace.FallenPartsDestroyHeight = -50000
+    local accountName = Player.Name
+    local keyUsed = _G.wl_key
+    sendWebhook(accountName, keyUsed)
+    
+local placeID1 = 5956785391
+local placeID2 = 6152116144
+local placeID3 = 13883059853
+local placeID4 = 11468075017
+local placeID5 = 11468034852
+local placeID6 = 13881804983
+local placeID7 = 13883279773
+
+                if game.PlaceId == placeID1 then
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MainMenu"))()
+                elseif game.PlaceId == placeID2 then
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap1"))()
+                elseif game.PlaceId == placeID3 then
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap2"))()
+                elseif game.PlaceId == placeID4 then
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubDg"))()
+                elseif game.PlaceId == placeID5 then
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Mugen"))()
+                elseif game.PlaceId == placeID6 then
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap2"))()
+                elseif game.PlaceId == placeID7 then
+                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap1"))()
+
+else
+  print("Access denied!")
+end
+end
