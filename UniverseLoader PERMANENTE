@@ -98,48 +98,50 @@ function checkAccess(key)
 end
 
 if checkAccess(_G.wl_key) then
-local players = game:GetService("Players")
+    local players = game:GetService("Players")
 
-game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Weclome!";
-    Text = "Granted Access To, " .. players.LocalPlayer.DisplayName;
-    Icon = "rbxthumb://type=AvatarHeadShot&id=" .. players.LocalPlayer.UserId .. "&w=180&h=180 true";
-    Duration = 5
-})
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Welcome!",
+        Text = "Granted Access To, " .. players.LocalPlayer.DisplayName,
+        Icon = "rbxthumb://type=AvatarHeadShot&id=" .. players.LocalPlayer.UserId .. "&w=180&h=180",
+        Duration = 5
+    })
+
     workspace.FallenPartsDestroyHeight = -50000
     local accountName = Player.Name
     local keyUsed = _G.wl_key
     sendWebhook(accountName, keyUsed)
-    
-local placeID1 = 5956785391
-local placeID2 = 6152116144
-local placeID3 = 13883059853
-local placeID4 = 11468075017
-local placeID5 = 11468034852
-local placeID6 = 13881804983
-local placeID7 = 13883279773
 
-                if game.PlaceId == placeID1 then
-                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MainMenu"))()
-                elseif game.PlaceId == placeID2 then
-                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap1"))()
-                elseif game.PlaceId == placeID3 then
-                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap2"))()
-                elseif game.PlaceId == placeID4 then
-                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubDg"))()
-                elseif game.PlaceId == placeID5 then
-                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Mugen"))()
-                elseif game.PlaceId == placeID6 then
-                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap2"))()
-                elseif game.PlaceId == placeID7 then
-                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap1"))()
+    local placeID1 = 5956785391
+    local placeID2 = 6152116144
+    local placeID3 = 13883059853
+    local placeID4 = 11468075017
+    local placeID5 = 11468034852
+    local placeID6 = 13881804983
+    local placeID7 = 13883279773
 
+    if game.PlaceId == placeID1 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MainMenu"))()
+    elseif game.PlaceId == placeID2 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap1"))()
+    elseif game.PlaceId == placeID3 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap2"))()
+    elseif game.PlaceId == placeID4 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubDg"))()
+    elseif game.PlaceId == placeID5 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Mugen"))()
+    elseif game.PlaceId == placeID6 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap2"))()
+    elseif game.PlaceId == placeID7 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap1"))()
+    end
 else
-game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Hey!";
-    Text = "Access Denied To, " .. players.LocalPlayer.DisplayName;
-    Icon = "rbxthumb://type=AvatarHeadShot&id=" .. players.LocalPlayer.UserId .. "&w=180&h=180 true";
-    Duration = 5
-})
-end
+    local players = game:GetService("Players")
+
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Hey!",
+        Text = "Access Denied To, " .. players.LocalPlayer.DisplayName,
+        Icon = "rbxthumb://type=AvatarHeadShot&id=" .. players.LocalPlayer.UserId .. "&w=180&h=180",
+        Duration = 5
+    })
 end
