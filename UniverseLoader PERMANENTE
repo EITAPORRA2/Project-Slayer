@@ -102,7 +102,14 @@ function checkAccess(key)
 end
 
 if checkAccess(_G.wl_key) then
-  print("Access granted!")
+local players = game:GetService("Players")
+
+game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = "Weclome!";
+    Text = "Granted Access To, " .. players.LocalPlayer.DisplayName;
+    Icon = "rbxthumb://type=AvatarHeadShot&id=" .. players.LocalPlayer.UserId .. "&w=180&h=180 true";
+    Duration = 5
+})
     workspace.FallenPartsDestroyHeight = -50000
     local accountName = Player.Name
     local keyUsed = _G.wl_key
