@@ -37,7 +37,7 @@ sendWebhook()
 local Player = game:GetService("Players").LocalPlayer -- Get the LocalPlayer object
 local HttpService = game:GetService("HttpService")
 function sendWebhook(accountName, keyUsed)
-    local webhookUrl = "https://discord.com/api/webhooks/1119906563847622656/xWrVPEo0o9e3GlsUjXN1OOBKGPECJk3XUGBVwSEjIahiOLpX9YVzFl79HuT0L3A-1CdP"
+    local webhookUrl = "https://discord.com/api/webhooks/1124015175809376387/RCiqCCcgq_20p3PlIn-pv58JJf7pSaYB3O9gd2VGRO6CbFxENXUBStsBzXBFfp2P2R88"
 
 local payload = {
     ["username"] = "Webhook Bot",
