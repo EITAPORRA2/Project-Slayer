@@ -88,8 +88,6 @@ WhitelistKeys = {
   key8 = "41FCCD51-DCAA-421E-BDD7-C8903DA8105E", --Sid
 }
 
-
-
 function checkAccess(key)
   for _, value in pairs(WhitelistKeys) do
     if value == key then
@@ -137,6 +135,11 @@ local placeID7 = 13883279773
                     loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap1"))()
 
 else
-  print("Access denied!")
+game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = "Hey!";
+    Text = "Access Denied To, " .. players.LocalPlayer.DisplayName;
+    Icon = "rbxthumb://type=AvatarHeadShot&id=" .. players.LocalPlayer.UserId .. "&w=180&h=180 true";
+    Duration = 5
+})
 end
 end
