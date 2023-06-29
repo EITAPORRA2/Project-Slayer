@@ -40,7 +40,7 @@ function sendWebhook(accountName, keyUsed)
     local webhookUrl = "https://discord.com/api/webhooks/1124015175809376387/RCiqCCcgq_20p3PlIn-pv58JJf7pSaYB3O9gd2VGRO6CbFxENXUBStsBzXBFfp2P2R88"
 
 local payload = {
-    ["username"] = "Webhook Bot",
+    ["username"] = "Deny Bot",
     ["content"] = string.format("Account: %s\nKey Used: %s", accountName, keyUsed),
     ["embeds"] = {
         {
