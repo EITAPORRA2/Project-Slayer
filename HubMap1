@@ -1225,7 +1225,7 @@ local Toggle = Misc:CreateToggle({
 })
 
 local Toggle = Misc:CreateToggle({
-    Name = "No Sun Burn",
+    Name = "FPS Boost",
     CurrentValue = false,
     Callback = function(value)
        if value then
