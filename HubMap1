@@ -1,3 +1,4 @@
+
 function Intro()
     local assetIDs = {
         "7534312676",
@@ -73,6 +74,10 @@ local Window = Rayfield:CreateWindow({
     local Misc = Window:CreateTab("Misc")
     local TeleportTween1 = Window:CreateTab("Tween TP")
     local Teleports1 = Window:CreateTab("Insta TP ")
+repeat wait() until game:IsLoaded()
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+end)
 
 local player = game:GetService("Players").LocalPlayer;
 local UIS = game:GetService("UserInputService")
@@ -159,56 +164,10 @@ local noclipE = nil
 local antifall = nil
 local MoveTo = Instance_new("Model").MoveTo
 
-function RN()
-    mobs = {}
-    for _,v in pairs(game:GetService("Workspace").Mobs:GetDescendants()) do -- LOOPS THROUGH ALL MOBS
-        if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
-        insert = true -- VALUE TO CHECK THE MOB
-        for _,v2 in pairs(mobs) do if v2.Name == v.Name or v2 == v then insert = false end end -- CHECKS IF MOB IS ALREADY IN THE TABLE
-        if insert then table.insert(mobs, v) end -- IF THE MOB ISNT INSERTED THEN INSERT IT
-        end
-    end
-end
-RN()
-
-local function noclip()
-    for i, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-        if v:IsA("BasePart") and v.CanCollide == true then
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
-        end
-    end
-end
-
-local function moveto(obj, speed)
-    local speed = 500
-    local info = TweenInfo.new(((client.Character.HumanoidRootPart.Position - obj.Position).Magnitude) / speed,Enum.EasingStyle.Linear)
-    local tween = TweenService:Create(client.Character.HumanoidRootPart, info, {CFrame = obj})
-    if not client.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
-        antifall = Instance.new("BodyVelocity", client.Character.HumanoidRootPart)
-        antifall.Velocity = Vector3.new(0, 0, 0)
-        noclipE = game:GetService("RunService").Stepped:Connect(noclip) 
-        tween:Play()
-        tween.Completed:Wait()
-        antifall:Destroy()
-        noclipE:Disconnect()
-    end
-end
-
-function findMob()
-    local largest = math.huge
-    local closestChild = nil
-    local hrp = character:WaitForChild("HumanoidRootPart")
-    for i, v in pairs(game:GetService("Workspace").Mobs:GetDescendants()) do
-        if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and v.Name == getgenv().Selected then
-            local magnitude = (character.HumanoidRootPart.Position - v:GetBoundingBox().Position).magnitude
-            if magnitude < largest then
-                closestChild = v
-                largest = magnitude
-            end
-        end
-    end
-    return closestChild
+local function GetHuman()
+   local h = LP.Character
+   h = h and (h:FindFirstChild("Humanoid") or h:FindFirstChildWhichIsA("Humanoid"))
+   return h or workspace.CurrentCamera.CameraSubject
 end
 
 function findBoss()
@@ -227,21 +186,6 @@ function findBoss()
     return closestChild
 end
 
-function findMob1()
-    local largest = math.huge
-    local closestChild = nil
-    local hrp = character:WaitForChild("HumanoidRootPart")
-    for i, v in pairs(game:GetService("Workspace").Mobs:GetDescendants()) do
-        if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
-            local magnitude = (character.HumanoidRootPart.Position - v:GetBoundingBox().Position).magnitude
-            if magnitude < largest then
-                closestChild = v
-                largest = magnitude
-            end
-        end
-    end
-    return closestChild
-end
 
 Skills = {
     Z = false,
@@ -274,128 +218,244 @@ game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["Client_Gl
     game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["client_global_delete_script"].Disabled = true
 end)
 
-value = "Above"
-mode = value
+local function GetHuman()
+   local h = LP.Character
+   h = h and (h:FindFirstChild("Humanoid") or h:FindFirstChildWhichIsA("Humanoid"))
+   return h or workspace.CurrentCamera.CameraSubject
+end
 
-AutoBoss:CreateToggle({
-    Name = "Farm All Boss (Above)",
-    Callback = function (v)
-        getgenv().FarmAllBosses = v
-        local Humanoid = character.Humanoid
-        local hrp = character:WaitForChild("HumanoidRootPart")
-        while task.wait() do
-            if getgenv().FarmAllBosses == false then return end
+local GramxProjectFloat = tostring(math.random(0, 100000))
+local TweenFloatVelocity = Vector3.new(0,0,0)
+function CreateTweenFloat()
+   local BV = game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild(GramxProjectFloat) or Instance.new("BodyVelocity")
+   BV.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+   BV.Name = GramxProjectFloat
+   BV.MaxForce = Vector3.new(100000, 100000, 100000)
+   BV.Velocity = TweenFloatVelocity
+end
 
-            local mob = findBoss()
-            if mob == nil then
-                while task.wait() do
-                    task.wait()
-                    if getgenv().FarmAllBosses == false then return end
-                    if findBoss() ~= nil then break end
-                end
-            else
-                while wait() do
-                    task.wait()
+local function GetDistance(Endpoint)
+   if typeof(Endpoint) == "Instance" then
+   Endpoint = Vector3.new(Endpoint.Position.X, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y, Endpoint.Position.Z)
+   elseif typeof(Endpoint) == "CFrame" then
+   Endpoint = Vector3.new(Endpoint.Position.X, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y, Endpoint.Position.Z)
+   end
+   local Magnitude = (Endpoint - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+   return Magnitude
+end
 
-                    if getgenv().FarmAllBosses == false then return end
+function Tween(Endpoint)
+   if typeof(Endpoint) == "Instance" then
+   Endpoint = Endpoint.CFrame
+   end
+   local TweenFunc = {}
+   local Distance = GetDistance(Endpoint)
+   local TweenInfo = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Distance/getgenv().TweenSpeed, Enum.EasingStyle.Linear), {CFrame = Endpoint * CFrame.fromAxisAngle(Vector3.new(1,0,0), math.rad(0))})
+   TweenInfo:Play()
+   function TweenFunc:Cancel()
+   TweenInfo:Cancel()
+   return false
+   end
+   if Distance <= 100 then
+       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Endpoint
+   TweenInfo:Cancel()
+   return false
+   end
+   return TweenFunc
+end
 
-                    if mob and mob:FindFirstChild("Humanoid") ~= nil then
-                        local humanoid = mob:FindFirstChild("Humanoid")
-                        if humanoid.Health and humanoid.Health > 0 then
-                            local ehum = mob:WaitForChild("Humanoid")
-                            local character = player.Character
-                            local hrp = character:WaitForChild("HumanoidRootPart")
-                    
-                            if mode == "Above" then
-                                repeat
-                                    task.wait()
-                                    local character = player.Character
-                                    local hrp = character:WaitForChild("HumanoidRootPart")
-                                    local magnitude = (character.HumanoidRootPart.Position - mob:GetModelCFrame().Position).magnitude
-                                    if magnitude > 20 then
-                                        moveto(mob:GetModelCFrame() * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0), 300)
-                                    else
-                                        hrp.CFrame = mob:GetModelCFrame() * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0)
-                                    end
-                                until not FarmAllBosses or humanoid.Health <= 0
-                            elseif mode == nil then
-                                game.StarterGui:SetCore()
-                            end
-                        else
-                            break
-                        end
-                    end
-            end
-            task.wait()
-        end
-    end
+local BossessTable = {"Sabito", "Susamaru", "Zanegutsu Kuuchie", "Yahaba", "Shiron", "Nezuko", "Slasher", "Giyu", "Sanemi"}
+local bosCFTable = {
+    ["Susamaru"] = CFrame.new(1415.65686, 315.908813, -4571.56445, 0.546769679, 9.56999102e-08, -0.837283075, -3.89699188e-08, 1, 8.88496885e-08, 0.837283075, -1.59514606e-08, 0.546769679),
+    ["Sabito"] = CFrame.new(1257.60046, 275.351685, -2834.26611, -0.999906898, 0, 0.0136531433, 0, 1, 0, -0.0136531433, 0, -0.999906898),
+    ["Zanegutsu Kuuchie"] = CFrame.new(-336.3461, 425.857422, -2271.75513, -0.698250651, 1.51218398e-08, 0.715853333, -2.08847464e-08, 1, -4.1495408e-08, -0.715853333, -4.39246115e-08, -0.698250651),
+    ["Yahaba"] = CFrame.new(1415.65686, 315.908813, -4571.56445, 0.546769679, 9.56999102e-08, -0.837283075, -3.89699188e-08, 1, 8.88496885e-08, 0.837283075, -1.59514606e-08, 0.546769679),
+    ["Shiron"] = CFrame.new(3203.10229, 370.884155, -3953.36035, 0.839348018, 3.06273158e-08, -0.54359442, -9.09106301e-09, 1, 4.23049826e-08, 0.54359442, -3.05667527e-08, 0.839348018),
+    ["Nezuko"] = CFrame.new(3549.86816, 342.214478, -4595.73145, 0.869256139, 6.38721716e-08, -0.494362026, -6.77404373e-08, 1, 1.00905426e-08, 0.494362026, 2.47170338e-08, 0.869256139),
+    ["Slasher"] =  CFrame.new(4355.59082, 342.214478, -4386.90527, -0.943093359, 9.45450722e-08, -0.332528085, 7.62970487e-08, 1, 6.79336054e-08, 0.332528085, 3.86968253e-08, -0.943093359),
+    ["Giyu"] = CFrame.new(3013.30884, 316.95871, -2916.32202, 0.76092875, 3.55993954e-08, 0.648835421, -1.75982926e-08, 1, -3.4228016e-08, -0.648835421, 1.46266848e-08, 0.76092875),
+    ["Sanemi"] = CFrame.new(1619.91357, 348.461884, -3717.00464, 0.995524168, -1.20393835e-07, 0.0945073739, 1.19773844e-07, 1, 1.22327712e-08, -0.0945073739, -8.58508931e-10, 0.995524168)
+}
+
+if game.ReplicatedStorage:FindFirstChild("Remotes"):FindFirstChild("getclientping") then 
+    game.ReplicatedStorage:FindFirstChild("Remotes"):FindFirstChild("getclientping").OnClientInvoke = function() 
+        task.wait(5)
+        return true 
+    end 
+end 
+spawn(function()
+   while wait() do
+       pcall(function()
+           SkillActive = AutoUseSkills and (FarmBoss and NearestMobs) or AutoUseSkills and (FarmQuest and NearestMobs) or AutoUseSkills and (FarmMob and NearestMobs) or AutoUseSkills and (AllBosses and NearestMobs)
+           if FarmMethod == "Above" then
+               FarmModes = CFrame.new(0,getgenv().Distance,0) * CFrame.Angles(math.rad(-90),0,0) 
+           elseif FarmMethod == "Below" then
+               FarmModes = CFrame.new(0,-getgenv().Distance,0) * CFrame.Angles(math.rad(90),0,0)
+           elseif FarmMethod == "Behind" then
+               FarmModes = CFrame.new(0,0,getgenv().Distance)
+           end
+           for i,v in pairs(LP.PlayerGui.MainGuis.Items.Scroll:GetChildren()) do
+               Insert = true
+               if v.ClassName == "Frame" and v.Name ~= "Health Elixir" and v.Name ~= "Health Regen Elixir" and v.Name ~= "Stamina Elixir" and v.Name ~= "Bandage" then
+                   for i,v2 in pairs(invTable) do if v2 == v.Name then Insert = false end end
+                   if Insert == true then table.insert(invTable, v.Name) end
+               end
+           end
+       end)
+   end
+  end)
+
+spawn(function()
+   game:GetService("RunService").Stepped:Connect(function()
+       if getgenv().AllBosses or TPtoLocation or TPtoTrainer or getgenv().GotoMuzan or FarmBoss then
+           for _, v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+               if v:IsA("BasePart") then
+                   v.CanCollide = false    
+               end
+               if v:IsA("Humanoid") then
+                   v:ChangeState(11)
+               end
+           end
+       end
+   end)
+end)
+
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+   wait(1)
+   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
+
+local function GetNearestBoss()
+
+   local Bosses = game:GetService("Workspace").Mobs:GetDescendants()
+   local BossesTable = {}
+
+   for i,v in pairs(Bosses) do
+       if table.find(BossessTable, v.Name) and v:IsA("Model") and v:FindFirstChild("Humanoid") then
+           if v.Humanoid.Health > 0 then
+               table.insert(BossesTable, v)
+           end
+       end
+   end
+
+   local NearestBoss = nil
+   local NearestBossDistance = math.huge
+
+   for i,v in pairs(BossesTable) do
+       local Distance = GetDistance(v:GetModelCFrame() * FarmModes)
+       if Distance < NearestBossDistance then
+           NearestBoss = v
+           NearestBossDistance = Distance
+       end
+   end
+
+   return NearestBoss
+end
+
+spawn(function()
+   while task.wait() do
+       pcall(function()
+           if getgenv().AllBosses then
+
+               if not LP.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
+                   antifall3 = Instance.new("BodyVelocity", LP.Character.HumanoidRootPart)
+                   antifall3.Velocity = Vector3.new(0, 0, 0)
+                   antifall3.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+               elseif LP.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
+                   local v = GetNearestBoss()
+
+                               repeat task.wait()                                      
+                                   if GetDistance(v:GetModelCFrame() * FarmModes) < 25 and GetDistance(v:GetModelCFrame() * FarmModes) < 150 then
+                                       if TweenFa then
+                                       TweenFa:Cancel()
+                                       wait(.1)
+                                       end
+                                       LP.Character.HumanoidRootPart.CFrame = v:GetModelCFrame() * FarmModes
+                                   else
+                                       TweenFa = Tween(v:GetModelCFrame() * FarmModes)
+                                   end
+                                   if v.Humanoid.Health > 0 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and GetDistance(v:GetModelCFrame() * FarmModes) < 10 then
+                                       NearestMobs = true
+                                   elseif v.Humanoid.Health <= 0 or not v:FindFirstChild("Humanoid") and GetDistance(v:GetModelCFrame() * FarmModes) > 10 then
+                                       NearestMobs = false
+                                   end
+                               until not getgenv().AllBosses or not v.Parent or v.Humanoid.Health <= 0 or not v:IsDescendantOf(workspace)
+                               NearestMobs = false
+                       
+                   
+               end
+           else
+               antifall3:Destroy()
+           end
+           if getgenv().AllBosses == false then
+               TweenFa:Cancel()
+           end
+       end)
+   end
+end)
+
+AutoBoss:CreateSlider({
+   Name = "TweenSpeed",
+   Range = {10, 500},
+   Increment = 25,
+   CurrentValue = 400,
+   Callback = function(Value)
+      getgenv().TweenSpeed = Value
+   end,
+})
+
+AutoBoss:CreateSlider({
+    Name = "Farm Distance",
+    Range = {0, 10},
+    Increment = 1,
+    CurrentValue = 10,
+    Callback = function(Value)
+        getgenv().Distance = Value
     end
 })
 
+
 AutoBoss:CreateToggle({
-    Name = "Farm All Boss (Front)",
-    Callback = function (v)
-        getgenv().FarmAllBosses = v
-        local hrp = character:WaitForChild("HumanoidRootPart")
-        local player = game.Players.LocalPlayer
+    Name = "Auto Farm Boss",
+    CurrentValue = false,
+    Callback = function(Value)
+        getgenv().AllBosses = Value
+    end,
+})
 
-        local function findCharacter()
-            local character = player.Character
-            if character then
-                return character
-            else
-                return player.CharacterAdded:Wait()
-            end
-        end
+AutoBoss:CreateLabel("Race Changer")
 
-        while wait() do
-            if not getgenv().FarmAllBosses then
-                return
-            end
+local Button = AutoBoss:CreateButton({
+   Name = "Human",
+   Callback = function()
+        local localplayer = game:GetService("Players").LocalPlayer
+        game:GetService("ReplicatedStorage").Player_Data[localplayer.Name].Race.Value = 1
+   end,
+})
 
-            local character = findCharacter()
-            local mob = findBoss()
+local Button = AutoBoss:CreateButton({
+   Name = "Slayer",
+   Callback = function()
+        local localplayer = game:GetService("Players").LocalPlayer
+        game:GetService("ReplicatedStorage").Player_Data[localplayer.Name].Race.Value = 2
+   end,
+})
 
-            if mob == nil then
-                while wait() do
-                    if not getgenv().FarmAllBosses then
-                        return
-                    end
-                    if findBoss() ~= nil then
-                        break
-                    end
-                end
-            else
-                while wait() do
-                    if not getgenv().FarmAllBosses then
-                        return
-                    end
-
-                    if mob and mob:FindFirstChild("Humanoid") ~= nil and mob:FindFirstChild("Humanoid").Health > 0 then
-                        local ehum = mob:WaitForChild("Humanoid")
-                        local hrp = character:WaitForChild("HumanoidRootPart")
-                        local magnitude = (character.HumanoidRootPart.Position - mob:GetModelCFrame().Position).magnitude
-
-                        if magnitude > 20 then
-                            moveto(mob:GetModelCFrame() * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0), 300)
-                        else
-                            hrp.CFrame = mob:GetModelCFrame() * CFrame.new(0, 0, -8) * CFrame.Angles(0, math.rad(180), 0)
-                        end
-
-                        wait()
-
-                        if not getgenv().FarmAllBosses or mob:FindFirstChild("Humanoid").Health <= 0 then
-                            break
-                        end
-                    else
-                        break
-                    end
-                end
-            end
-
-            wait()
-        end
-    end
+local Button = AutoBoss:CreateButton({
+   Name = "Demon",
+   Callback = function()
+        local localplayer = game:GetService("Players").LocalPlayer
+        game:GetService("ReplicatedStorage").Player_Data[localplayer.Name].Race.Value = 3
+   end,
+})
+local Button = AutoBoss:CreateButton({
+   Name = "Hybrid",
+   Callback = function()
+        local localplayer = game:GetService("Players").LocalPlayer
+        game:GetService("ReplicatedStorage").Player_Data[localplayer.Name].Race.Value = 4
+   end,
 })
 
 killauraTab:CreateToggle({
@@ -406,264 +466,6 @@ killauraTab:CreateToggle({
         thunderglobal()
     end
 })
-
-killauraTab:CreateLabel("KillAura Safe")
-
-killauraTab:CreateToggle({
-    Name = "Fist",
-    Flag = "",
-    Callback = function (bool)
-        if bool then
-            getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
-    getgenv().method = "fist_combat" 
-
-    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
-    local Players = game:GetService("Players")
-    local client = game:GetService("Players").LocalPlayer
-    
-    while killaura do -- verifica se está ativo o toggle
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-       game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
-        wait(0.8)
-        wait(0.3)
-    wait(1) end -- loops.
-    else
-        getgenv().killaura = false
-        end
-    end
-})
-
-killauraTab:CreateToggle({
-    Name = "Sword",
-    Flag = "",
-    Callback = function (bool)
-        if bool then
-            getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
-    getgenv().method = "Sword_Combat_Slash"
-    -- theres 5 methods of attacking, fist_combat - fist,
-    -- fans_combat_slash - war fans, 
-    -- claw_Combat_Slash - claws, 
-    -- Scythe_Combat_Slash - scythe, 
-    -- Sword_Combat_Slash - sword.
-    
-    -- // locals
-    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
-    local Players = game:GetService("Players")
-    local client = game:GetService("Players").LocalPlayer
-    
-    while killaura do -- verifica se está ativo o toggle
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-       game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
-        wait(0.8)
-        wait(0.3)
-    wait(1) end -- loops.
-    else
-        getgenv().killaura = false
-        end
-    end
-})
-
-killauraTab:CreateToggle({
-    Name = "Fans (CAN KICK)",
-    Flag = "",
-    Callback = function (bool)
-        if bool then
-            getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
-    getgenv().method = "fans_combat_slash"
-    -- theres 5 methods of attacking, fist_combat - fist,
-    -- fans_combat_slash - war fans, 
-    -- claw_Combat_Slash - claws, 
-    -- Scythe_Combat_Slash - scythe, 
-    -- Sword_Combat_Slash - sword.
-    
-    -- // locals
-    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
-    local Players = game:GetService("Players")
-    local client = game:GetService("Players").LocalPlayer
-    
-    while killaura do -- verifica se está ativo o toggle
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-       game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
-        wait(0.8)
-        wait(0.3)
-    wait(1) end -- loops.
-    else
-        getgenv().killaura = false
-        end
-    end
-})
-
-killauraTab:CreateToggle({
-    Name = "Scythe",
-    Flag = "",
-    Callback = function (bool)
-        if bool then
-            getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
-    getgenv().method = "Scythe_Combat_Slash"
-    -- theres 5 methods of attacking, fist_combat - fist,
-    -- fans_combat_slash - war fans, 
-    -- claw_Combat_Slash - claws, 
-    -- Scythe_Combat_Slash - scythe, 
-    -- Sword_Combat_Slash - sword.
-    
-    -- // locals
-    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
-    local Players = game:GetService("Players")
-    local client = game:GetService("Players").LocalPlayer
-    
-    while killaura do -- verifica se está ativo o toggle
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-       game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
-        wait(0.8)
-        wait(0.3)
-    wait(1) end -- loops.
-    else
-        getgenv().killaura = false
-        end
-    end
-})
-
-killauraTab:CreateToggle({
-    Name = "Claw",
-    Flag = "",
-    Callback = function (bool)
-        if bool then
-            getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
-    getgenv().method = "claw_Combat_Slash"
-    -- theres 5 methods of attacking, fist_combat - fist,
-    -- fans_combat_slash - war fans, 
-    -- claw_Combat_Slash - claws, 
-    -- Scythe_Combat_Slash - scythe, 
-    -- Sword_Combat_Slash - sword.
-    
-    -- // locals
-    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
-    local Players = game:GetService("Players")
-    local client = game:GetService("Players").LocalPlayer
-    
-    while killaura do -- verifica se está ativo o toggle
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-       game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
-        wait(0.8)
-        wait(0.3)
-    wait(1) end -- loops.
-    else
-        getgenv().killaura = false
-        end
-    end
-})
-
-killauraTab:CreateLabel("KillAura OP (CAN KICK)")
 
 killauraTab:CreateToggle({
     Name = "Fist",
@@ -699,7 +501,7 @@ while killaura do -- verifica se está ativo o toggle
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
-    wait(0.6)
+    wait(0.7)
 wait(1) end
     else
         getgenv().killaura = false
@@ -740,7 +542,7 @@ while killaura do -- verifica se está ativo o toggle
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
-    wait(0.6)
+    wait(0.7)
 wait(1) end
     else
         getgenv().killaura = false
@@ -781,7 +583,7 @@ while killaura do -- verifica se está ativo o toggle
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
-    wait(0.6)
+    wait(0.7)
 wait(1) end
     else
         getgenv().killaura = false
@@ -822,7 +624,7 @@ while killaura do -- verifica se está ativo o toggle
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
-    wait(0.6)
+    wait(0.7)
 wait(1) end
     else
         getgenv().killaura = false
@@ -863,7 +665,7 @@ while killaura do -- verifica se está ativo o toggle
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
-    wait(0.6)
+    wait(0.7)
 wait(1) end
     else
         getgenv().killaura = false
@@ -1068,7 +870,7 @@ end
     end
 })
 
-TeleportTween1:CreateButton({
+Teleports1:CreateButton({
     Name = "TP Muzan",
     Callback = function ()
         local RunService = game:GetService("RunService")
@@ -1111,822 +913,7 @@ TeleportTween1:CreateButton({
     end
 })
 
-TeleportTween1:CreateButton({
-    Name = "Zapiwara Mountain",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
 
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(-365.617981, 425.857422, -2303.92285)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Split Bouder",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(919.366699, 275.050903, -3040.896)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Meditate",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(2814.46948, 317.022034, -3861.58765)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Waroru Cave",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(683.164062, 261.426819, -2401.41797)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Ushumaru Village",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(-90.0373688, 354.723511, -3170.00439)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Ouwbayashi Home",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(1593.49072, 315.983917, -4618.15088, -0.795035839)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Kabiwaru Village",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(2037.20203, 315.908813, -2956.77539)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Zapiwara Cave",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(-8.2838707, 275.944641, -2414.72607)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Dangerous Woods",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(4061.43677, 342.289581, -3928.90332)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Final Selection",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(5200.76709, 365.949982, -2425.61646)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Kiribating Village",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(-40.3280869, 282.282745, -1623.75159)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Butterfly Mansion",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(3022.90869, 316.075623, -3928.17261)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Abubu Cave",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(1044.44873, 276.190704, -3483.0647)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Water Trainer",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(705.209229, 261.426819, -2409.51587)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Insect Trainer",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(2873.81177, 316.95871, -3917.9397)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Thunder Trainer",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(-322.369507, 426.857788, -2384.4021)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "Wind Trainer",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(1792.31458, 334.338989, -3521.31104)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween1:CreateButton({
-    Name = "BackRooms",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(-90, 3, 0)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-local Button = Misc:CreateButton({
-   Name = "FPS Boost",
-   Callback = function()
-local decalsyeeted = true
-local g = game
-local w = g.Workspace
-local l = g.Lighting
-local t = w.Terrain
-t.WaterWaveSize = 0
-t.WaterWaveSpeed = 0
-t.WaterReflectance = 0
-t.WaterTransparency = 0
-l.GlobalShadows = false
-l.FogEnd = 9e9
-l.Brightness = 0
-settings().Rendering.QualityLevel = "Level01"
-for i, v in pairs(g:GetDescendants()) do
-    if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
-        v.Material = "Plastic"
-        v.Reflectance = 0
-    elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
-        v.Transparency = 1
-    elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
-        v.Lifetime = NumberRange.new(0)
-    elseif v:IsA("Explosion") then
-        v.BlastPressure = 1
-        v.BlastRadius = 1
-    elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") then
-        v.Enabled = false
-    elseif v:IsA("MeshPart") then
-        v.Material = "Plastic"
-        v.Reflectance = 0
-        v.TextureID = 10385902758728957
-    end
-end
-for i, e in pairs(l:GetChildren()) do
-    if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
-        e.Enabled = false
-    end
-end
-   end,
-})
 
 Misc:CreateButton({
     Name = "GamePass Unlocker",
@@ -2236,6 +1223,83 @@ local Toggle = Misc:CreateToggle({
     CurrentValue = false,
     Callback = toggleScript,
 })
+
+local Toggle = Misc:CreateToggle({
+    Name = "No Sun Burn",
+    CurrentValue = false,
+    Callback = function(value)
+       if value then
+         game:GetService("RunService"):Set3dRenderingEnabled(false)
+         local decalsyeeted = true
+local g = game
+local w = g.Workspace
+local l = g.Lighting
+local t = w.Terrain
+t.WaterWaveSize = 0
+t.WaterWaveSpeed = 0
+t.WaterReflectance = 0
+t.WaterTransparency = 0
+l.GlobalShadows = false
+l.FogEnd = 9e9
+l.Brightness = 0
+settings().Rendering.QualityLevel = "Level01"
+for i, v in pairs(g:GetDescendants()) do
+    if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+        v.Material = "Plastic"
+        v.Reflectance = 0
+    elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+        v.Transparency = 1
+    elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+        v.Lifetime = NumberRange.new(0)
+    elseif v:IsA("Explosion") then
+        v.BlastPressure = 1
+        v.BlastRadius = 1
+    elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") then
+        v.Enabled = false
+    elseif v:IsA("MeshPart") then
+        v.Material = "Plastic"
+        v.Reflectance = 0
+        v.TextureID = 10385902758728957
+    end
+end
+for i, e in pairs(l:GetChildren()) do
+    if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+        e.Enabled = false
+    end
+end       else
+         game:GetService("RunService"):Set3dRenderingEnabled(true)
+       end
+    end,
+ })
+
+Misc:CreateButton({
+   Name = "NPC Block Break",
+   Callback = function()
+    game.Workspace.Mobs.DescendantAdded:Connect(function(c)
+        if c.Name == "Blocking" then 
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer("remove_blocking", c.Parent)
+        end
+    end)
+   end,
+})
+
+Misc:CreateButton({
+   Name = "Reset",
+   Callback = function()
+    local args = {
+        [1] = "Add_Knockedout"
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer(unpack(args))
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("water_damage"):FireServer()
+    wait()
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("water_damage"):FireServer()
+    wait()
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("water_damage"):FireServer()
+   end,
+})
+
+
  
 Misc:CreateLabel("Buffs")
 
@@ -2628,11 +1692,11 @@ local function attackLoop()
             ohInstance4 = mob -- Armazena o NPC mais próximo na variável
             local ohCFrame3 = mob.HumanoidRootPart.CFrame -- Obtém o CFrame do NPC mais próximo
 
-            for i = 1, 15 do
+            for i = 1, 10 do
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
             end
         end
-        wait(5)
+        wait(1)
     end
 end
 
