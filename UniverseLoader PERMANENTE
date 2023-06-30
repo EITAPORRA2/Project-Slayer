@@ -5,10 +5,11 @@ WhitelistKeys = {
   key4 = "150DD599-3190-4244-846B-14E87C20F84D", --Gabs
   key5 = "75D1BBFB-02B9-4A2C-8F7E-6BC9BBDBD9DD", --pvpxty1999p
   key6 = "d56c36dd-690d-4f5b-b625-848f0e2cb715", --akirafelino242
-  key7 = "8ab0feb8-fe75-44bf-b783-d95d9819fcaa", --otom_7g
+  key7 = "8ab0feb8-fe75-44bf-b783-d95d9819fcaa", --otom_7g (Mobile)
   key8 = "41FCCD51-DCAA-421E-BDD7-C8903DA8105E", --Sid
   Key9 = "CE18C3FC-8BCC-4382-8A33-8D3459E862BD", --Brenno
-  key10 = "4677EE73-F2AC-4BC2-B728-C742C063CE5E" --M4rcelo021
+  key10 = "4677EE73-F2AC-4BC2-B728-C742C063CE5E", --M4rcelo021
+  Key11 = "789F944A-7ADA-4C50-AD10-CE92456F8817" --otom_7g (PC)
 }
 
 function checkAccess(key)
