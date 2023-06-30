@@ -159,236 +159,255 @@ local TweenService = game:GetService("TweenService")
 local noclipE = nil
 local antifall = nil
 local MoveTo = Instance_new("Model").MoveTo
-
-function RN()
-    mobs = {}
-    for _,v in pairs(game:GetService("Workspace").Mobs:GetDescendants()) do -- LOOPS THROUGH ALL MOBS
-        if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
-        insert = true -- VALUE TO CHECK THE MOB
-        for _,v2 in pairs(mobs) do if v2.Name == v.Name or v2 == v then insert = false end end -- CHECKS IF MOB IS ALREADY IN THE TABLE
-        if insert then table.insert(mobs, v) end -- IF THE MOB ISNT INSERTED THEN INSERT IT
-        end
-    end
-end
-RN()
-
-local function noclip()
-    for i, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-        if v:IsA("BasePart") and v.CanCollide == true then
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
-        end
-    end
+local function GetHuman()
+   local h = LP.Character
+   h = h and (h:FindFirstChild("Humanoid") or h:FindFirstChildWhichIsA("Humanoid"))
+   return h or workspace.CurrentCamera.CameraSubject
 end
 
-local function moveto(obj, speed)
-    local speed = 500
-    local info = TweenInfo.new(((client.Character.HumanoidRootPart.Position - obj.Position).Magnitude) / speed,Enum.EasingStyle.Linear)
-    local tween = TweenService:Create(client.Character.HumanoidRootPart, info, {CFrame = obj})
-    if not client.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
-        antifall = Instance.new("BodyVelocity", client.Character.HumanoidRootPart)
-        antifall.Velocity = Vector3.new(0, 0, 0)
-        noclipE = game:GetService("RunService").Stepped:Connect(noclip) 
-        tween:Play()
-        tween.Completed:Wait()
-        antifall:Destroy()
-        noclipE:Disconnect()
-    end
+local GramxProjectFloat = tostring(math.random(0, 100000))
+local TweenFloatVelocity = Vector3.new(0,0,0)
+function CreateTweenFloat()
+   local BV = game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild(GramxProjectFloat) or Instance.new("BodyVelocity")
+   BV.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+   BV.Name = GramxProjectFloat
+   BV.MaxForce = Vector3.new(100000, 100000, 100000)
+   BV.Velocity = TweenFloatVelocity
 end
 
-function findMob()
-    local largest = math.huge
-    local closestChild = nil
-    local hrp = character:WaitForChild("HumanoidRootPart")
-    for i, v in pairs(game:GetService("Workspace").Mobs:GetDescendants()) do
-        if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and v.Name == getgenv().Selected then
-            local magnitude = (character.HumanoidRootPart.Position - v:GetBoundingBox().Position).magnitude
-            if magnitude < largest then
-                closestChild = v
-                largest = magnitude
-            end
-        end
-    end
-    return closestChild
+local function GetDistance(Endpoint)
+   if typeof(Endpoint) == "Instance" then
+   Endpoint = Vector3.new(Endpoint.Position.X, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y, Endpoint.Position.Z)
+   elseif typeof(Endpoint) == "CFrame" then
+   Endpoint = Vector3.new(Endpoint.Position.X, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y, Endpoint.Position.Z)
+   end
+   local Magnitude = (Endpoint - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+   return Magnitude
 end
 
-function findBoss()
-    local largest = math.huge
-    local closestChild = nil
-    local hrp = character:WaitForChild("HumanoidRootPart")
-    for i, v in pairs(game:GetService("Workspace").Mobs.Bosses:GetDescendants()) do
-        if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
-            local magnitude = (character.HumanoidRootPart.Position - v:GetBoundingBox().Position).magnitude
-            if magnitude < largest then
-                closestChild = v
-                largest = magnitude
-            end
-        end
-    end
-    return closestChild
+function Tween(Endpoint)
+   if typeof(Endpoint) == "Instance" then
+   Endpoint = Endpoint.CFrame
+   end
+   local TweenFunc = {}
+   local Distance = GetDistance(Endpoint)
+   local TweenInfo = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Distance/getgenv().TweenSpeed, Enum.EasingStyle.Linear), {CFrame = Endpoint * CFrame.fromAxisAngle(Vector3.new(1,0,0), math.rad(0))})
+   TweenInfo:Play()
+   function TweenFunc:Cancel()
+   TweenInfo:Cancel()
+   return false
+   end
+   if Distance <= 100 then
+       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Endpoint
+   TweenInfo:Cancel()
+   return false
+   end
+   return TweenFunc
 end
 
-function findMob1()
-    local largest = math.huge
-    local closestChild = nil
-    local hrp = character:WaitForChild("HumanoidRootPart")
-    for i, v in pairs(game:GetService("Workspace").Mobs:GetDescendants()) do
-        if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
-            local magnitude = (character.HumanoidRootPart.Position - v:GetBoundingBox().Position).magnitude
-            if magnitude < largest then
-                closestChild = v
-                largest = magnitude
-            end
-        end
-    end
-    return closestChild
-end
-
-Skills = {
-    Z = false,
-    X = false,
-    C = false,
-    V = false,
-    B = false,
-    N = false,
+local BossessTable = {"Rengoku","Inosuke","Renpeke","Muichiro Tokito","Enme","Swampy","Akeza","Douma","Tengen","Sound Trainee"}
+local bosCFTable = {
+    ["Rengoku"] = CFrame.new(3656, 673, -345),
+    ["Akeza"] = CFrame.new(2010, 556, -128),
+    ["Renpeke"] = CFrame.new(-1258, 601, -650),
+    ["Muichiro Tokito"] = CFrame.new(4513, 673, -544),
+    ["Enme"] = CFrame.new(1591, 484, -690),
+    ["Swampy"] = CFrame.new(-1377, 601, -202),
+    ["Douma"] = CFrame.new(-5, 513, -1689),
+    ["Tengen"] = CFrame.new(1464, 486, -3118),
+    ["Sound Trainee"] = CFrame.new(1897, 663, -2805),
+    ["Inosuke"] = CFrame.new(1585, 300, -389),
 }
-local mod = require(game:GetService("ReplicatedStorage").Modules.Server["Skills_Modules_Handler"])
-getrenv()._G.handle_irregular = nil
-getrenv()._G.cuasdamsndasdasd = nil
 
-_G.cuasdamsndasdasd = function()
-    return
-end
+if game.ReplicatedStorage:FindFirstChild("Remotes"):FindFirstChild("getclientping") then 
+    game.ReplicatedStorage:FindFirstChild("Remotes"):FindFirstChild("getclientping").OnClientInvoke = function() 
+        task.wait(5)
+        return true 
+    end 
+end 
+spawn(function()
+   while wait() do
+       pcall(function()
+           SkillActive = AutoUseSkills and (FarmBoss and NearestMobs) or AutoUseSkills and (FarmQuest and NearestMobs) or AutoUseSkills and (FarmMob and NearestMobs) or AutoUseSkills and (AllBosses and NearestMobs)
+           if FarmMethod == "Above" then
+               FarmModes = CFrame.new(0,getgenv().Distance,0) * CFrame.Angles(math.rad(-90),0,0) 
+           elseif FarmMethod == "Below" then
+               FarmModes = CFrame.new(0,-getgenv().Distance,0) * CFrame.Angles(math.rad(90),0,0)
+           elseif FarmMethod == "Behind" then
+               FarmModes = CFrame.new(0,0,getgenv().Distance)
+           end
+           for i,v in pairs(LP.PlayerGui.MainGuis.Items.Scroll:GetChildren()) do
+               Insert = true
+               if v.ClassName == "Frame" and v.Name ~= "Health Elixir" and v.Name ~= "Health Regen Elixir" and v.Name ~= "Stamina Elixir" and v.Name ~= "Bandage" then
+                   for i,v2 in pairs(invTable) do if v2 == v.Name then Insert = false end end
+                   if Insert == true then table.insert(invTable, v.Name) end
+               end
+           end
+       end)
+   end
+  end)
 
-_G.handle_irregular = function()
-    return false
-end
-
-mod.Kick = function()
-    return
-end
-
-game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["Client_Global_utility"].Disabled = true
-game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["client_global_delete_script"].Disabled = true
-game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["Client_Global_utility"]:GetPropertyChangedSignal("Disabled"):Connect(function()
-game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["Client_Global_utility"].Disabled = true
-game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["client_global_delete_script"].Disabled = true
+spawn(function()
+   game:GetService("RunService").Stepped:Connect(function()
+       if getgenv().AllBosses or TPtoLocation or TPtoTrainer or getgenv().GotoMuzan or FarmBoss then
+           for _, v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+               if v:IsA("BasePart") then
+                   v.CanCollide = false    
+               end
+               if v:IsA("Humanoid") then
+                   v:ChangeState(11)
+               end
+           end
+       end
+   end)
 end)
 
-value = "Above"
-mode = value
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+   wait(1)
+   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
 
-AutoBoss:CreateToggle({
-    Name = "Farm All Boss (Above)",
-    Callback = function (v)
-        getgenv().FarmAllBosses = v
-        local Humanoid = character.Humanoid
-        local hrp = character:WaitForChild("HumanoidRootPart")
-        while task.wait() do
-            if getgenv().FarmAllBosses == false then return end
+local function GetNearestBoss()
 
-            local mob = findBoss()
-            if mob == nil then
-                while task.wait() do
-                    task.wait()
-                    if getgenv().FarmAllBosses == false then return end
-                    if findBoss() ~= nil then break end
-                end
-            else
-                while wait() do
-                    task.wait()
+   local Bosses = game:GetService("Workspace").Mobs:GetDescendants()
+   local BossesTable = {}
 
-                    if getgenv().FarmAllBosses == false then return end
+   for i,v in pairs(Bosses) do
+       if table.find(BossessTable, v.Name) and v:IsA("Model") and v:FindFirstChild("Humanoid") then
+           if v.Humanoid.Health > 0 then
+               table.insert(BossesTable, v)
+           end
+       end
+   end
 
-                    if mob and mob:FindFirstChild("Humanoid") ~= nil then
-                        local humanoid = mob:FindFirstChild("Humanoid")
-                        if humanoid.Health and humanoid.Health > 0 then
-                            local ehum = mob:WaitForChild("Humanoid")
-                            local character = player.Character
-                            local hrp = character:WaitForChild("HumanoidRootPart")
-                    
-                            if mode == "Above" then
-                                repeat
-                                    task.wait()
-                                    local character = player.Character
-                                    local hrp = character:WaitForChild("HumanoidRootPart")
-                                    local magnitude = (character.HumanoidRootPart.Position - mob:GetModelCFrame().Position).magnitude
-                                    if magnitude > 20 then
-                                        moveto(mob:GetModelCFrame() * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0), 300)
-                                    else
-                                        hrp.CFrame = mob:GetModelCFrame() * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0)
-                                    end
-                                until not FarmAllBosses or humanoid.Health <= 0
-                            elseif mode == nil then
-                                game.StarterGui:SetCore()
-                            end
-                        else
-                            break
-                        end
-                    end
-            end
-            task.wait()
-        end
-    end
+   local NearestBoss = nil
+   local NearestBossDistance = math.huge
+
+   for i,v in pairs(BossesTable) do
+       local Distance = GetDistance(v:GetModelCFrame() * FarmModes)
+       if Distance < NearestBossDistance then
+           NearestBoss = v
+           NearestBossDistance = Distance
+       end
+   end
+
+   return NearestBoss
+end
+
+spawn(function()
+   while task.wait() do
+       pcall(function()
+           if getgenv().AllBosses then
+
+               if not LP.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
+                   antifall3 = Instance.new("BodyVelocity", LP.Character.HumanoidRootPart)
+                   antifall3.Velocity = Vector3.new(0, 0, 0)
+                   antifall3.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+               elseif LP.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
+                   local v = GetNearestBoss()
+
+                               repeat task.wait()                                      
+                                   if GetDistance(v:GetModelCFrame() * FarmModes) < 25 and GetDistance(v:GetModelCFrame() * FarmModes) < 150 then
+                                       if TweenFa then
+                                       TweenFa:Cancel()
+                                       wait(.1)
+                                       end
+                                       LP.Character.HumanoidRootPart.CFrame = v:GetModelCFrame() * FarmModes
+                                   else
+                                       TweenFa = Tween(v:GetModelCFrame() * FarmModes)
+                                   end
+                                   if v.Humanoid.Health > 0 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and GetDistance(v:GetModelCFrame() * FarmModes) < 10 then
+                                       NearestMobs = true
+                                   elseif v.Humanoid.Health <= 0 or not v:FindFirstChild("Humanoid") and GetDistance(v:GetModelCFrame() * FarmModes) > 10 then
+                                       NearestMobs = false
+                                   end
+                               until not getgenv().AllBosses or not v.Parent or v.Humanoid.Health <= 0 or not v:IsDescendantOf(workspace)
+                               NearestMobs = false
+                       
+                   
+               end
+           else
+               antifall3:Destroy()
+           end
+           if getgenv().AllBosses == false then
+               TweenFa:Cancel()
+           end
+       end)
+   end
+end)
+
+AutoBoss:CreateSlider({
+   Name = "TweenSpeed",
+   Range = {10, 500},
+   Increment = 25,
+   CurrentValue = 400,
+   Callback = function(Value)
+      getgenv().TweenSpeed = Value
+   end,
+})
+
+AutoBoss:CreateSlider({
+    Name = "Farm Distance",
+    Range = {0, 10},
+    Increment = 1,
+    CurrentValue = 10,
+    Callback = function(Value)
+        getgenv().Distance = Value
     end
 })
 
+
 AutoBoss:CreateToggle({
-    Name = "Farm All Boss (Front)",
-    Callback = function (v)
-        getgenv().FarmAllBosses = v
-        local Humanoid = character.Humanoid
-        local hrp = character:WaitForChild("HumanoidRootPart")
-        while task.wait() do
-            if getgenv().FarmAllBosses == false then return end
-
-            local mob = findBoss()
-            if mob == nil then
-                while task.wait() do
-                    task.wait()
-                    if getgenv().FarmAllBosses == false then return end
-                    if findBoss() ~= nil then break end
-                end
-            else
-                while wait() do
-                    task.wait()
-
-                    if getgenv().FarmAllBosses == false then return end
-
-                    if mob and mob:FindFirstChild("Humanoid") ~= nil and mob:FindFirstChild("Humanoid").Health > 0 then
-                        local ehum = mob:WaitForChild("Humanoid")
-                        local character = player.Character
-                        local hrp = character:WaitForChild("HumanoidRootPart")
-                        
-                        if mode == "Above" then
-                            repeat
-                                task.wait()
-                                local character = player.Character
-                                local hrp = character:WaitForChild("HumanoidRootPart")
-                                local magnitude = (character.HumanoidRootPart.Position - mob:GetModelCFrame().Position).magnitude
-                                if magnitude > 20 then
-                                    moveto(mob:GetModelCFrame() * CFrame.new(0, 10, 0) * CFrame.Angles(math.rad(-90), 0, 0), 300)
-                                    
-                                else
-                                    hrp.CFrame = mob:GetModelCFrame() * CFrame.new(0, 0, -8) * CFrame.Angles(0, math.rad(180), 0)
-
-                                end
-                            until not FarmAllBosses or mob:FindFirstChild("Humanoid").Health <= 0
-                            noclipE:Disconnect()
-                        elseif mode == nil then
-                            game.StarterGui:SetCore()
-                        end
-                    else
-                        break
-                    end
-                end
-            
-            end
-            task.wait()
-        end
-    end
+    Name = "Auto Farm Boss",
+    CurrentValue = false,
+    Callback = function(Value)
+        getgenv().AllBosses = Value
+    end,
 })
 
+AutoBoss:CreateLabel("Race Changer")
+
+local Button = AutoBoss:CreateButton({
+   Name = "Human",
+   Callback = function()
+        local localplayer = game:GetService("Players").LocalPlayer
+        game:GetService("ReplicatedStorage").Player_Data[localplayer.Name].Race.Value = 1
+   end,
+})
+
+local Button = AutoBoss:CreateButton({
+   Name = "Slayer",
+   Callback = function()
+        local localplayer = game:GetService("Players").LocalPlayer
+        game:GetService("ReplicatedStorage").Player_Data[localplayer.Name].Race.Value = 2
+   end,
+})
+
+local Button = AutoBoss:CreateButton({
+   Name = "Demon",
+   Callback = function()
+        local localplayer = game:GetService("Players").LocalPlayer
+        game:GetService("ReplicatedStorage").Player_Data[localplayer.Name].Race.Value = 3
+   end,
+})
+local Button = AutoBoss:CreateButton({
+   Name = "Hybrid",
+   Callback = function()
+        local localplayer = game:GetService("Players").LocalPlayer
+        game:GetService("ReplicatedStorage").Player_Data[localplayer.Name].Race.Value = 4
+   end,
+})
+
+killauraTab:CreateToggle({
+    Name = "Thunder Aura",
+    CurrentValue = false,
+    Callback = function(v)
+        _G.thunderkillaura = v
+        thunderglobal()
+    end
+})
 ------------------KillAura--------------------
 killauraTab:CreateToggle({
     Name = "Thunder Aura",
@@ -414,11 +433,11 @@ local function attackLoop()
             ohInstance4 = mob -- Armazena o NPC mais próximo na variável
             local ohCFrame3 = mob.HumanoidRootPart.CFrame -- Obtém o CFrame do NPC mais próximo
 
-            for i = 1, 15 do
+            for i = 1, 10 do
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
             end
         end
-        wait(5)
+        wait(1)
     end
 end
 
