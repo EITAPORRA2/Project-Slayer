@@ -77,6 +77,11 @@ local payload = {
     end
 end
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/UniverseMAP1%20PC"))()
+
+wait(0.5)
+
+Library:Unload() 
 
 local placeID1 = 5956785391
 local placeID2 = 6152116144
@@ -86,8 +91,6 @@ local placeID5 = 11468034852
 local placeID6 = 13881804983
 local placeID7 = 13883279773
 
-
-                
                 if game.PlaceId == placeID1 then
                     loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MainMenu"))()
                 elseif game.PlaceId == placeID2 then
