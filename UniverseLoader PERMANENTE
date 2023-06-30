@@ -86,6 +86,7 @@ WhitelistKeys = {
   key6 = "d56c36dd-690d-4f5b-b625-848f0e2cb715", --akirafelino242
   key7 = "8ab0feb8-fe75-44bf-b783-d95d9819fcaa", --otom_7g
   key8 = "41FCCD51-DCAA-421E-BDD7-C8903DA8105E", --Sid
+  Key9 = "CE18C3FC-8BCC-4382-8A33-8D3459E862BD", --Brenno
 }
 
 function checkAccess(key)
