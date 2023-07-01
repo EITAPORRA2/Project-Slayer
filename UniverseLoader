@@ -1,6 +1,3 @@
-
-
-
 local placeID1 = 5956785391
 local placeID2 = 6152116144
 local placeID3 = 13883059853
@@ -18,22 +15,21 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Sl
 wait(0.5)
 Library:Unload() 
                 elseif game.PlaceId == placeID3 then
-                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap2"))()
-wait(0.5)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Universe%20MAP2%20PC"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Universe%20MAP2%20PC.lua"))()
 wait(0.5)
 Library:Unload()
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap2.lua"))()
+wait(0.5)
                 elseif game.PlaceId == placeID4 then
                     loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubDg"))()
                 elseif game.PlaceId == placeID5 then
                     loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Mugen"))()
                 elseif game.PlaceId == placeID6 then
-                    loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap2"))()
-wait(0.5)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Universe%20MAP2%20PC"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Universe%20MAP2%20PC.lua"))()
 wait(0.5)
 Library:Unload()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap2.lua"))()
+wait(0.5)
                 elseif game.PlaceId == placeID7 then
                     loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap1"))()
 wait(0.5)
