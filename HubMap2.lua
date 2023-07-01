@@ -459,7 +459,7 @@ local function attackLoop()
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
             end
         end
-        wait(3)
+        wait(4)
     end
 end
 
