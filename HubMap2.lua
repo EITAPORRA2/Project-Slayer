@@ -418,6 +418,28 @@ killauraTab:CreateToggle({
     end
 })
 
+
+local Toggle = Bypasses:CreateToggle({
+    Name = "Bypass Arrow",
+    CurrentValue = false,
+    Callback = function(Value)
+        _G.bypass = Value
+ 
+        if _G.bypass then
+            while _G.bypass do
+                local ohString1 = "skil_ting_asd"
+                local ohInstance2 = game:GetService("Players").LocalPlayer
+                local ohString3 = "arrow_knock_back"
+                local ohNumber4 = 5
+ 
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohString3, ohNumber4)
+ 
+                wait(6)
+            end
+        end
+    end,
+ })
+
 local toggle = false -- Variável para controlar o toggle
 
 local function attackLoop()
@@ -2382,26 +2404,6 @@ for i,v in next, Skills do
     })
 end
 
-local Toggle = Bypasses:CreateToggle({
-    Name = "Bypass Arrow",
-    CurrentValue = false,
-    Callback = function(Value)
-        _G.bypass = Value
- 
-        if _G.bypass then
-            while _G.bypass do
-                local ohString1 = "skil_ting_asd"
-                local ohInstance2 = game:GetService("Players").LocalPlayer
-                local ohString3 = "arrow_knock_back"
-                local ohNumber4 = 5
- 
-                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohString3, ohNumber4)
- 
-                wait(6)
-            end
-        end
-    end,
- })
 
 Bypasses:CreateToggle({
     Name = "Thunder Bypass",
