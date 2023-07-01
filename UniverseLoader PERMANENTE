@@ -1,3 +1,5 @@
+_G.wl_key = "8783A701-FB8A-48EA-9ED5-2686CB25738D"
+
 WhitelistKeys = {
   key = "BA3533C9-B8B3-4B7B-96D7-886DD60AD221", --Faoolz
   key2 = "8783A701-FB8A-48EA-9ED5-2686CB25738D", --Leo
@@ -63,12 +65,4 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Sl
                 else
                     error("Place ID inválido.")
                 end
-    local players = game:GetService("Players")
-
-    game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = "Hey!",
-        Text = "Access Denied To, " .. players.LocalPlayer.DisplayName,
-        Icon = "rbxthumb://type=AvatarHeadShot&id=" .. players.LocalPlayer.UserId .. "&w=180&h=180",
-        Duration = 5
-    })
-end
+                end
