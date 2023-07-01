@@ -455,11 +455,11 @@ local function attackLoop()
             ohInstance4 = mob -- Armazena o NPC mais próximo na variável
             local ohCFrame3 = mob.HumanoidRootPart.CFrame -- Obtém o CFrame do NPC mais próximo
 
-            for i = 1, 10 do
+            for i = 1, 15 do
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
             end
         end
-        wait(1)
+        wait(3)
     end
 end
 
