@@ -46,10 +46,14 @@ function Intro()
 end
 Intro()
 
-repeat wait() until game:IsLoaded()
-game:GetService("Players").LocalPlayer.Idled:connect(function()
-game:GetService("VirtualUser"):ClickButton2(Vector2.new())
-end)
+function antiafk()
+    local bb = game:GetService("VirtualUser")
+        game:GetService("Players").LocalPlayer.Idled:Connect(function()
+            bb:CaptureController()
+            bb:ClickButton2(Vector2.new())
+        end)
+    end
+antiafk()
 
 local player = game:GetService("Players").LocalPlayer;
 local UIS = game:GetService("UserInputService")
