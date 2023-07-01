@@ -1018,15 +1018,15 @@ task.spawn(function()
 
            if getgenv().GourdSelect == "Big Gourd" and Data.Yen.Value >= 700 then
                invokeServer("buysomething", LocalPlayer.Name, "Big Gourd", Data.Yen, Data.Inventory)
-               wait(1)
+               wait(0.5)
                invokeServer("change_equip_for_item", LocalPlayer.Name, Data.Inventory, Data.Inventory.Items:FindFirstChild("Big Gourd"))
-               wait(1)
+               wait(0.5)
                for _, v in pairs(LocalPlayer.Backpack:GetChildren()) do
                    if v.Name == "Big Gourd" then
                        v.Parent = LocalPlayer.Character
                    end
                end
-               wait(1)
+               wait(0.0001)
 
                while true do
                    local BigGourd = LocalPlayer.Character:FindFirstChild("Big Gourd")
@@ -1039,15 +1039,15 @@ task.spawn(function()
                end
            elseif getgenv().GourdSelect == "Medium Gourd" and Data.Yen.Value >= 450 then
                invokeServer("buysomething", LocalPlayer.Name, "Medium Gourd", Data.Yen, Data.Inventory)
-               wait(1)
+               wait(0.5)
                invokeServer("change_equip_for_item", LocalPlayer.Name, Data.Inventory, Data.Inventory.Items:FindFirstChild("Medium Gourd"))
-               wait(1)
+               wait(0.5)
                for _, v in pairs(LocalPlayer.Backpack:GetChildren()) do
                    if v.Name == "Medium Gourd" then
                        v.Parent = LocalPlayer.Character
                    end
                end
-               wait(1)
+               wait(0.0001)
 
                while true do
                    local MediumGourd = LocalPlayer.Character:FindFirstChild("Medium Gourd")
@@ -1060,16 +1060,15 @@ task.spawn(function()
                end
            elseif getgenv().GourdSelect == "Small Gourd" and Data.Yen.Value >= 200 then
                invokeServer("buysomething", LocalPlayer.Name, "Small Gourd", Data.Yen, Data.Inventory)
-               wait(1)
+               wait(0.5)
                invokeServer("change_equip_for_item", LocalPlayer.Name, Data.Inventory, Data.Inventory.Items:FindFirstChild("Small Gourd"))
-               wait(1)
+               wait(0.5)
                for _, v in pairs(LocalPlayer.Backpack:GetChildren()) do
                    if v.Name == "Small Gourd" then
                        v.Parent = LocalPlayer.Character
                    end
                end
-               wait(1)
-
+        wait(0.5)
                while true do
                    local SmallGourd = LocalPlayer.Character:FindFirstChild("Small Gourd")
                    if SmallGourd then
@@ -1077,11 +1076,11 @@ task.spawn(function()
                    else
                        break
                    end
-                   wait()
+                   wait(0.0001)
                end
            end
        end
-       wait()
+        wait(0.0001)
    end
 end)
 
