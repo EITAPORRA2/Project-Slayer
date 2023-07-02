@@ -353,36 +353,34 @@ local Toggle = Misc:CreateToggle({
     end,
 })
 
-local toggle = false -- Inicialmente desligado
+Misc:CreateButton({
+   Name = "insta Clash Global",
+   Callback = function()
+wait(1)
 
-local function executeScript()
-    local ohString1 = "Change_Value"
-    local playerName = game.Players.LocalPlayer.Name
-        ohInstance2 = workspace.Debree.clash_folder[playerName .."vsEnmu"][playerName]
-        local ohNumber3 = 300
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohNumber3)
+local ohString1 = "Change_Value"
+local players = game:GetService("Players"):GetPlayers()
+for _, player in ipairs(players) do
+    local playerName = player.Name
+    local playerFolder = workspace.Debree.clash_folder[playerName .. "vsEnmu"]
 
-end
+    if playerFolder then
+        local ohInstance2 = playerFolder:FindFirstChild(playerName)
+        if ohInstance2 then
+            local ohNumber3 = 300
 
-local function toggleLoop()
-    while true do
-        if toggle then
-            executeScript()
+            local success, error = pcall(function()
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohNumber3)
+            end)
+
+            if not success then
+                warn("Erro ao executar o script para o jogador " .. playerName .. ": " .. error)
+            end
         end
-        wait(8)
     end
 end
-
-spawn(toggleLoop) -- Iniciar o loop em uma thread separada
-
-local Toggle = Misc:CreateToggle({
-    Name = "Insta Clash",
-    CurrentValue = false,
-    Callback = function(value)
-        toggle = value
-    end,
+   end,
 })
-
 
 local ToggleSwampyEnabled = false
 local ToggleDreamEnabled = false
