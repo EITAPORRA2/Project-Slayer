@@ -11,7 +11,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Sl
                 elseif game.PlaceId == placeID2 then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap1.lua"))()
 wait(0.5)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/UniverseMAP1%20PC"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/UniverseMAP1%20PC.lua"))()
 wait(0.5)
 Library:Unload() 
                 elseif game.PlaceId == placeID3 then
@@ -31,7 +31,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Sl
                 elseif game.PlaceId == placeID7 then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap1.lua"))()
 wait(0.5)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/UniverseMAP1%20PC"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/UniverseMAP1%20PC.lua"))()
 wait(0.5)
 Library:Unload()
                 else
