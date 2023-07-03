@@ -159,51 +159,144 @@ local TweenService = game:GetService("TweenService")
 local noclipE = nil
 local antifall = nil
 local MoveTo = Instance_new("Model").MoveTo
-local function GetHuman()
-   local h = LP.Character
-   h = h and (h:FindFirstChild("Humanoid") or h:FindFirstChildWhichIsA("Humanoid"))
-   return h or workspace.CurrentCamera.CameraSubject
+
+function findBoss()
+    local largest = math.huge
+    local closestChild = nil
+    local hrp = character:WaitForChild("HumanoidRootPart")
+    for i, v in pairs(game:GetService("Workspace").Mobs.Bosses:GetDescendants()) do
+        if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
+            local magnitude = (character.HumanoidRootPart.Position - v:GetBoundingBox().Position).magnitude
+            if magnitude < largest then
+                closestChild = v
+                largest = magnitude
+            end
+        end
+    end
+    return closestChild
 end
 
-local GramxProjectFloat = tostring(math.random(0, 100000))
-local TweenFloatVelocity = Vector3.new(0,0,0)
-function CreateTweenFloat()
-   local BV = game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild(GramxProjectFloat) or Instance.new("BodyVelocity")
-   BV.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
-   BV.Name = GramxProjectFloat
-   BV.MaxForce = Vector3.new(100000, 100000, 100000)
-   BV.Velocity = TweenFloatVelocity
+
+Skills = {
+    Z = false,
+    X = false,
+    C = false,
+    V = false,
+    B = false,
+    N = false,
+}
+local mod = require(game:GetService("ReplicatedStorage").Modules.Server["Skills_Modules_Handler"])
+getrenv()._G.handle_irregular = nil
+getrenv()._G.cuasdamsndasdasd = nil
+
+_G.cuasdamsndasdasd = function()
+    return
 end
 
-local function GetDistance(Endpoint)
-   if typeof(Endpoint) == "Instance" then
-   Endpoint = Vector3.new(Endpoint.Position.X, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y, Endpoint.Position.Z)
-   elseif typeof(Endpoint) == "CFrame" then
-   Endpoint = Vector3.new(Endpoint.Position.X, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y, Endpoint.Position.Z)
-   end
-   local Magnitude = (Endpoint - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-   return Magnitude
+_G.handle_irregular = function()
+    return false
 end
 
-function Tween(Endpoint)
-   if typeof(Endpoint) == "Instance" then
-   Endpoint = Endpoint.CFrame
-   end
-   local TweenFunc = {}
-   local Distance = GetDistance(Endpoint)
-   local TweenInfo = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Distance/getgenv().TweenSpeed, Enum.EasingStyle.Linear), {CFrame = Endpoint * CFrame.fromAxisAngle(Vector3.new(1,0,0), math.rad(0))})
-   TweenInfo:Play()
-   function TweenFunc:Cancel()
-   TweenInfo:Cancel()
-   return false
-   end
-   if Distance <= 100 then
-       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Endpoint
-   TweenInfo:Cancel()
-   return false
-   end
-   return TweenFunc
+mod.Kick = function()
+    return
 end
+
+game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["Client_Global_utility"].Disabled = true
+game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["client_global_delete_script"].Disabled = true
+game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["Client_Global_utility"]:GetPropertyChangedSignal("Disabled"):Connect(function()
+    game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["Client_Global_utility"].Disabled = true
+    game:GetService("Players").LocalPlayer.PlayerScripts["Small_Scripts"]["client_global_delete_script"].Disabled = true
+end)
+
+    local GramxProjectFloat = tostring(math.random(0, 100000))
+    local TweenFloatVelocity = Vector3.new(0,0,0)
+    function CreateTweenFloat()
+       local BV = game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild(GramxProjectFloat) or Instance.new("BodyVelocity")
+       BV.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+       BV.Name = GramxProjectFloat
+       BV.MaxForce = Vector3.new(100000, 100000, 100000)
+       BV.Velocity = TweenFloatVelocity
+    end
+    
+    function RemoveDMG()
+       local part  =  game:GetService("StarterPlayer").StarterPlayerScripts.Client_Modules.Modules.Extra.Damage_Text
+    
+       local part1 =  game:GetService("ReplicatedStorage").Assets.Extras.Damage_Text
+    
+       local part2 = game:GetService("Players").LocalPlayer.PlayerScripts.Client_Modules.Modules.Extra.Damage_Text
+    
+       if part then
+           part:Destroy()
+       end
+    
+       if part1 then
+           part1:Destroy()
+       end
+    
+       if part2 then
+           part2:Destroy()
+       end
+    end
+    
+    function RemovePARTICLES()
+       local COINS = game:GetService("ReplicatedStorage").Assets.Extras.Coin
+    
+       local PARTICLES = game:GetService("ReplicatedStorage").Assets.Particles.Parts
+    
+       if COINS then
+           COINS:Destroy()
+       end
+    
+       if PARTICLES then
+           PARTICLES:Destroy()
+       end
+    end
+    
+    local function GetDistance(Endpoint)
+       if typeof(Endpoint) == "Instance" then
+       Endpoint = Vector3.new(Endpoint.Position.X, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y, Endpoint.Position.Z)
+       elseif typeof(Endpoint) == "CFrame" then
+       Endpoint = Vector3.new(Endpoint.Position.X, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y, Endpoint.Position.Z)
+       end
+       local Magnitude = (Endpoint - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+       return Magnitude
+    end
+    
+    function Tween(Endpoint)
+       if typeof(Endpoint) == "Instance" then
+       Endpoint = Endpoint.CFrame
+       end
+       local TweenFunc = {}
+       local Distance = GetDistance(Endpoint)
+       local TweenInfo = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(Distance/getgenv().TweenSpeed, Enum.EasingStyle.Linear), {CFrame = Endpoint * CFrame.fromAxisAngle(Vector3.new(1,0,0), math.rad(0))})
+       TweenInfo:Play()
+       function TweenFunc:Cancel()
+       TweenInfo:Cancel()
+       return false
+       end
+       if Distance <= 100 then
+           game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Endpoint
+       TweenInfo:Cancel()
+       return false
+       end
+       return TweenFunc
+    end
+    
+        function findBoss()
+            local largest = math.huge
+            local closestChild = nil
+            local hrp = character:WaitForChild("HumanoidRootPart")
+            for i, v in pairs(game:GetService("Workspace").Mobs.Bosses:GetDescendants()) do
+                if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
+                    local magnitude = (character.HumanoidRootPart.Position - v:GetBoundingBox().Position).magnitude
+                    if magnitude < largest then
+                        closestChild = v
+                        largest = magnitude
+                    end
+                end
+            end
+            return closestChild
+        end
 
 local BossessTable = {"Rengoku","Inosuke","Renpeke","Muichiro Tokito","Enme","Swampy","Akeza","Douma","Tengen","Sound Trainee"}
 local bosCFTable = {
@@ -225,139 +318,182 @@ if game.ReplicatedStorage:FindFirstChild("Remotes"):FindFirstChild("getclientpin
         return true 
     end 
 end 
-spawn(function()
-   while wait() do
-       pcall(function()
-           SkillActive = AutoUseSkills and (FarmBoss and NearestMobs) or AutoUseSkills and (FarmQuest and NearestMobs) or AutoUseSkills and (FarmMob and NearestMobs) or AutoUseSkills and (AllBosses and NearestMobs)
-           if FarmMethod == "Above" then
-               FarmModes = CFrame.new(0,getgenv().Distance,0) * CFrame.Angles(math.rad(-90),0,0) 
-           elseif FarmMethod == "Below" then
-               FarmModes = CFrame.new(0,-getgenv().Distance,0) * CFrame.Angles(math.rad(90),0,0)
-           elseif FarmMethod == "Behind" then
-               FarmModes = CFrame.new(0,0,getgenv().Distance)
-           end
-           for i,v in pairs(LP.PlayerGui.MainGuis.Items.Scroll:GetChildren()) do
-               Insert = true
-               if v.ClassName == "Frame" and v.Name ~= "Health Elixir" and v.Name ~= "Health Regen Elixir" and v.Name ~= "Stamina Elixir" and v.Name ~= "Bandage" then
-                   for i,v2 in pairs(invTable) do if v2 == v.Name then Insert = false end end
-                   if Insert == true then table.insert(invTable, v.Name) end
+    getgenv().FarmMethod = "Above"
+
+    spawn(function()
+       while wait() do
+           pcall(function()
+               SkillActive = AutoUseSkills and (FarmBoss and NearestMobs) or AutoUseSkills and (FarmQuest and NearestMobs) or AutoUseSkills and (FarmMob and NearestMobs) or AutoUseSkills and (AllBosses and NearestMobs)
+               if FarmMethod == "Above" then
+                   FarmModes = CFrame.new(0, getgenv().Distance, 0) * CFrame.Angles(math.rad(-90), 0, 0)
+                   for i, v in pairs(LP.PlayerGui.MainGuis.Items.Scroll:GetChildren()) do
+                       Insert = true
+                       if v.ClassName == "Frame" and v.Name ~= "Health Elixir" and v.Name ~= "Health Regen Elixir" and v.Name ~= "Stamina Elixir" and v.Name ~= "Bandage" then
+                           for i, v2 in pairs(invTable) do
+                               if v2 == v.Name then
+                                   Insert = false
+                               end
+                           end
+                           if Insert == true then
+                               table.insert(invTable, v.Name)
+                           end
+                       end
+                   end
+               end
+           end)
+       end
+    end)
+    
+    
+    spawn(function()
+       game:GetService("RunService").Stepped:Connect(function()
+           if getgenv().AllBosses or TPtoLocation or TPtoTrainer or getgenv().GotoMuzan or FarmBoss then
+               for _, v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+                   if v:IsA("BasePart") then
+                       v.CanCollide = false    
+                   end
+                   if v:IsA("Humanoid") then
+                       v:ChangeState(11)
+                   end
                end
            end
        end)
-   end
-  end)
-
-spawn(function()
-   game:GetService("RunService").Stepped:Connect(function()
-       if getgenv().AllBosses or TPtoLocation or TPtoTrainer or getgenv().GotoMuzan or FarmBoss then
-           for _, v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
-               if v:IsA("BasePart") then
-                   v.CanCollide = false    
-               end
-               if v:IsA("Humanoid") then
-                   v:ChangeState(11)
+    end)
+    
+    local vu = game:GetService("VirtualUser")
+    game:GetService("Players").LocalPlayer.Idled:connect(function()
+       vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+       wait(1)
+       vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+    end)
+    game.NetworkClient.ChildRemoved:Connect(function()
+      game:GetService("TeleportService"):Teleport(5956785391)
+    end)
+    game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(child)
+        if child.Name == 'ErrorPrompt' and child:FindFirstChild('MessageArea') and child.MessageArea:FindFirstChild("ErrorFrame") then
+            game:GetService("TeleportService"):Teleport(5956785391)
+        end
+    end)
+        
+    local function GetNearestBoss()
+    
+       local Bosses = game:GetService("Workspace").Mobs:GetDescendants()
+       local BossesTable = {}
+    
+       for i,v in pairs(Bosses) do
+           if table.find(BossessTable, v.Name) and v:IsA("Model") and v:FindFirstChild("Humanoid") then
+               if v.Humanoid.Health > 0 then
+                   table.insert(BossesTable, v)
                end
            end
        end
-   end)
-end)
-
-local vu = game:GetService("VirtualUser")
-game:GetService("Players").LocalPlayer.Idled:connect(function()
-   vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-   wait(1)
-   vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-end)
-
-local function GetNearestBoss()
-
-   local Bosses = game:GetService("Workspace").Mobs:GetDescendants()
-   local BossesTable = {}
-
-   for i,v in pairs(Bosses) do
-       if table.find(BossessTable, v.Name) and v:IsA("Model") and v:FindFirstChild("Humanoid") then
-           if v.Humanoid.Health > 0 then
-               table.insert(BossesTable, v)
+    
+       local NearestBoss = nil
+       local NearestBossDistance = math.huge
+    
+       for i,v in pairs(BossesTable) do
+           local Distance = GetDistance(v:GetModelCFrame() * FarmModes)
+           if Distance < NearestBossDistance then
+               NearestBoss = v
+               NearestBossDistance = Distance
            end
        end
-   end
-
-   local NearestBoss = nil
-   local NearestBossDistance = math.huge
-
-   for i,v in pairs(BossesTable) do
-       local Distance = GetDistance(v:GetModelCFrame() * FarmModes)
-       if Distance < NearestBossDistance then
-           NearestBoss = v
-           NearestBossDistance = Distance
-       end
-   end
-
-   return NearestBoss
-end
-
-spawn(function()
-   while task.wait() do
-       pcall(function()
-           if getgenv().AllBosses then
-
-               if not LP.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
-                   antifall3 = Instance.new("BodyVelocity", LP.Character.HumanoidRootPart)
-                   antifall3.Velocity = Vector3.new(0, 0, 0)
-                   antifall3.MaxForce = Vector3.new(9e9, 9e9, 9e9)
-               elseif LP.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
-                   local v = GetNearestBoss()
-
-                               repeat task.wait()                                      
-                                   if GetDistance(v:GetModelCFrame() * FarmModes) < 25 and GetDistance(v:GetModelCFrame() * FarmModes) < 150 then
-                                       if TweenFa then
-                                       TweenFa:Cancel()
-                                       wait(.1)
+    
+       return NearestBoss
+    end
+    
+    spawn(function()
+       while task.wait() do
+           pcall(function()
+               if getgenv().AllBosses then
+    
+                   if not LP.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
+                       antifall3 = Instance.new("BodyVelocity", LP.Character.HumanoidRootPart)
+                       antifall3.Velocity = Vector3.new(0, 0, 0)
+                       antifall3.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+                   elseif LP.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
+                       local v = GetNearestBoss()
+    
+                                   repeat task.wait()                                      
+                                       if GetDistance(v:GetModelCFrame() * FarmModes) < 25 and GetDistance(v:GetModelCFrame() * FarmModes) < 150 then
+                                           if TweenFa then
+                                           TweenFa:Cancel()
+                                           wait(.1)
+                                           end
+                                           LP.Character.HumanoidRootPart.CFrame = v:GetModelCFrame() * FarmModes
+                                       else
+                                           TweenFa = Tween(v:GetModelCFrame() * FarmModes)
                                        end
-                                       LP.Character.HumanoidRootPart.CFrame = v:GetModelCFrame() * FarmModes
-                                   else
-                                       TweenFa = Tween(v:GetModelCFrame() * FarmModes)
-                                   end
-                                   if v.Humanoid.Health > 0 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and GetDistance(v:GetModelCFrame() * FarmModes) < 10 then
-                                       NearestMobs = true
-                                   elseif v.Humanoid.Health <= 0 or not v:FindFirstChild("Humanoid") and GetDistance(v:GetModelCFrame() * FarmModes) > 10 then
-                                       NearestMobs = false
-                                   end
-                               until not getgenv().AllBosses or not v.Parent or v.Humanoid.Health <= 0 or not v:IsDescendantOf(workspace)
-                               NearestMobs = false
+                                       if v.Humanoid.Health > 0 and v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and GetDistance(v:GetModelCFrame() * FarmModes) < 10 then
+                                           NearestMobs = true
+                                       elseif v.Humanoid.Health <= 0 or not v:FindFirstChild("Humanoid") and GetDistance(v:GetModelCFrame() * FarmModes) > 10 then
+                                           NearestMobs = false
+                                       end
+                                   until not getgenv().AllBosses or not v.Parent or v.Humanoid.Health <= 0 or not v:IsDescendantOf(workspace)
+                                   NearestMobs = false
+                           
                        
-                   
+                   end
+               else
+                   antifall3:Destroy()
                end
-           else
-               antifall3:Destroy()
-           end
-           if getgenv().AllBosses == false then
-               TweenFa:Cancel()
-           end
-       end)
-   end
-end)
+               if getgenv().AllBosses == false then
+                   TweenFa:Cancel()
+               end
+           end)
+       end
+    end)
+        
+    spawn(function()
+       while task.wait() do
+          if AutoCollectChest then
+                    for _, v in pairs(game:GetService("Workspace").Debree:GetChildren()) do
+                       if v.Name == "Loot_Chest" then
+                          for _, c in pairs(v:FindFirstChild("Drops"):GetChildren()) do
+                            local args = { [1] = c.Name }
+                                v["Add_To_Inventory"]:InvokeServer(unpack(args))
+                         end
+                     end
+                 end
+            end
+         end
+    end)
+    
+    spawn(function()
+       while task.wait() do
+          if AutoEatSouls then
+             for i,v in pairs(game:GetService("Workspace").Debree:GetChildren()) do
+                if v.Name == "Soul" then
+                   pcall(function()
+                      workspace.Debree.Soul.Handle.Eatthedamnsoul:FireServer()
+                   end)
+                end
+             end
+          end
+       end
+    end)
 
+getgenv().TweenSpeed = 400
 AutoBoss:CreateSlider({
-   Name = "TweenSpeed",
-   Range = {10, 500},
-   Increment = 25,
-   CurrentValue = 400,
-   Callback = function(Value)
-      getgenv().TweenSpeed = Value
-   end,
+    Name = "Tween Speed",
+    Range = {10, 500},
+    Increment = 25,
+    CurrentValue = getgenv().TweenSpeed,
+    Callback = function(Value)
+        getgenv().TweenSpeed = Value
+    end
 })
 
+getgenv().Distance = 8
 AutoBoss:CreateSlider({
-    Name = "Farm Distance",
+    Name = "Farm Dist",
     Range = {0, 10},
     Increment = 1,
     CurrentValue = 10,
     Callback = function(Value)
         getgenv().Distance = Value
-    end
+    end,
 })
-
 
 AutoBoss:CreateToggle({
     Name = "Auto Farm Boss",
@@ -409,15 +545,6 @@ killauraTab:CreateToggle({
     end
 })
 ------------------KillAura--------------------
-killauraTab:CreateToggle({
-    Name = "Thunder Aura",
-    CurrentValue = false,
-    Callback = function(v)
-        _G.thunderkillaura = v
-        thunderglobal()
-    end
-})
-
 
 local Toggle = Bypasses:CreateToggle({
     Name = "Bypass Arrow",
@@ -474,237 +601,7 @@ local Toggle = Bypasses:CreateToggle({
     end,
 })
 
-killauraTab:CreateLabel("KillAura Safe")
-
-killauraTab:CreateToggle({
-    Name = "Fist",
-    Flag = "",
-    Callback = function (bool)
-        if bool then
-            getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
-    getgenv().method = "fist_combat" 
-
-    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
-    local Players = game:GetService("Players")
-    local client = game:GetService("Players").LocalPlayer
-    
-    while killaura do -- verifica se está ativo o toggle
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-       game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
-        wait(0.8)
-        wait(0.3)
-    wait(1) end -- loops.
-    else
-        getgenv().killaura = false
-        end
-    end
-})
-
-killauraTab:CreateToggle({
-    Name = "Sword",
-    Flag = "",
-    Callback = function (bool)
-        if bool then
-            getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
-    getgenv().method = "Sword_Combat_Slash"
-    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
-    local Players = game:GetService("Players")
-    local client = game:GetService("Players").LocalPlayer
-    
-    while killaura do -- verifica se está ativo o toggle
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-       game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
-        wait(0.8)
-        wait(0.3)
-    wait(1) end -- loops.
-    else
-        getgenv().killaura = false
-        end
-    end
-})
-
-killauraTab:CreateToggle({
-    Name = "Fans (CAN KICK)",
-    Flag = "",
-    Callback = function (bool)
-        if bool then
-            getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
-    getgenv().method = "fans_combat_slash"
-    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
-    local Players = game:GetService("Players")
-    local client = game:GetService("Players").LocalPlayer
-    
-    while killaura do -- verifica se está ativo o toggle
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-       game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
-        wait(0.8)
-        wait(0.3)
-    wait(1) end -- loops.
-    else
-        getgenv().killaura = false
-        end
-    end
-})
-
-killauraTab:CreateToggle({
-    Name = "Scythe",
-    Flag = "",
-    Callback = function (bool)
-        if bool then
-            getgenv().killaura = true
-    getgenv().method = "Scythe_Combat_Slash"
-
-    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
-    local Players = game:GetService("Players")
-    local client = game:GetService("Players").LocalPlayer
-    
-    while killaura do
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-       game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
-        wait(0.8)
-        wait(0.3)
-    wait(1) end -- loops.
-    else
-        getgenv().killaura = false
-        end
-    end
-})
-
-killauraTab:CreateToggle({
-    Name = "Claw",
-    Flag = "",
-    Callback = function (bool)
-        if bool then
-            getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
-    getgenv().method = "claw_Combat_Slash"
-
-    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
-    local Players = game:GetService("Players")
-    local client = game:GetService("Players").LocalPlayer
-    
-    while killaura do -- verifica se está ativo o toggle
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-       game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash")
-        wait(0.1)
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, math.huge, "ground_slash") 
-        wait(0.8)
-        wait(0.3)
-    wait(1) end -- loops.
-    else
-        getgenv().killaura = false
-        end
-    end
-})
-
-killauraTab:CreateLabel("KillAura OP")
+killauraTab:CreateLabel("OP KillAura")
 
 killauraTab:CreateToggle({
     Name = "Fist",
@@ -712,7 +609,13 @@ killauraTab:CreateToggle({
         if bool then
             getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
     getgenv().method = "fist_combat" 
+    -- theres 5 methods of attacking, fist_combat - fist,
+    -- fans_combat_slash - war fans, 
+    -- claw_Combat_Slash - claws, 
+    -- Scythe_Combat_Slash - scythe, 
+    -- Sword_Combat_Slash - sword.
     
+    -- // locals
     local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
     local Players = game:GetService("Players")
     local client = game:GetService("Players").LocalPlayer
@@ -734,8 +637,8 @@ while killaura do -- verifica se está ativo o toggle
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
-    wait(0.6)
-wait(1) end -- loops.
+    wait(0.7)
+wait(1) end
     else
         getgenv().killaura = false
         end
@@ -747,7 +650,13 @@ killauraTab:CreateToggle({
         if bool then
             getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
     getgenv().method = "Sword_Combat_Slash"
-
+    -- theres 5 methods of attacking, fist_combat - fist,
+    -- fans_combat_slash - war fans, 
+    -- claw_Combat_Slash - claws, 
+    -- Scythe_Combat_Slash - scythe, 
+    -- Sword_Combat_Slash - sword.
+    
+    -- // locals
     local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
     local Players = game:GetService("Players")
     local client = game:GetService("Players").LocalPlayer
@@ -769,20 +678,26 @@ while killaura do -- verifica se está ativo o toggle
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
-    wait(0.6)
-wait(1) end -- loops.
+    wait(0.7)
+wait(1) end
     else
         getgenv().killaura = false
         end
     end
 })
 killauraTab:CreateToggle({
-    Name = "Fans (Kickable)",
+    Name = "Fans",
     Callback = function (bool)
         if bool then
             getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
     getgenv().method = "fans_combat_slash" 
-
+    -- theres 5 methods of attacking, fist_combat - fist,
+    -- fans_combat_slash - war fans, 
+    -- claw_Combat_Slash - claws, 
+    -- Scythe_Combat_Slash - scythe, 
+    -- Sword_Combat_Slash - sword.
+    
+    -- // locals
     local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
     local Players = game:GetService("Players")
     local client = game:GetService("Players").LocalPlayer
@@ -804,8 +719,8 @@ while killaura do -- verifica se está ativo o toggle
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
-    wait(0.6)
-wait(1) end -- loops.
+    wait(0.7)
+wait(1) end
     else
         getgenv().killaura = false
         end
@@ -817,7 +732,13 @@ killauraTab:CreateToggle({
         if bool then
             getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
     getgenv().method = "Scythe_Combat_Slash" 
-
+    -- theres 5 methods of attacking, fist_combat - fist,
+    -- fans_combat_slash - war fans, 
+    -- claw_Combat_Slash - claws, 
+    -- Scythe_Combat_Slash - scythe, 
+    -- Sword_Combat_Slash - sword.
+    
+    -- // locals
     local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
     local Players = game:GetService("Players")
     local client = game:GetService("Players").LocalPlayer
@@ -839,8 +760,8 @@ while killaura do -- verifica se está ativo o toggle
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
-    wait(0.6)
-wait(1) end -- loops.
+    wait(0.7)
+wait(1) end
     else
         getgenv().killaura = false
         end
@@ -852,7 +773,13 @@ killauraTab:CreateToggle({
         if bool then
             getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
     getgenv().method = "claw_Combat_Slash" 
-
+    -- theres 5 methods of attacking, fist_combat - fist,
+    -- fans_combat_slash - war fans, 
+    -- claw_Combat_Slash - claws, 
+    -- Scythe_Combat_Slash - scythe, 
+    -- Sword_Combat_Slash - sword.
+    
+    -- // locals
     local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
     local Players = game:GetService("Players")
     local client = game:GetService("Players").LocalPlayer
@@ -874,8 +801,250 @@ while killaura do -- verifica se está ativo o toggle
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
     game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
-    wait(0.6)
-wait(1) end -- loops.
+    wait(0.7)
+wait(1) end
+    else
+        getgenv().killaura = false
+        end
+    end
+})
+
+killauraTab:CreateLabel("Safe KillAura")
+
+killauraTab:CreateToggle({
+    Name = "Fist",
+    Callback = function (bool)
+        if bool then
+            getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
+    getgenv().method = "fist_combat" 
+    -- theres 5 methods of attacking, fist_combat - fist,
+    -- fans_combat_slash - war fans, 
+    -- claw_Combat_Slash - claws, 
+    -- Scythe_Combat_Slash - scythe, 
+    -- Sword_Combat_Slash - sword.
+    
+    -- // locals
+    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
+    local Players = game:GetService("Players")
+    local client = game:GetService("Players").LocalPlayer
+    
+while killaura do -- verifica se está ativo o toggle
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 3, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 4, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, inf, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 3, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 4, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, inf, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+wait(2) 
+end 
+
+    else
+        getgenv().killaura = false
+        end
+    end
+})
+killauraTab:CreateToggle({
+    Name = "Sword",
+    Callback = function (bool)
+        if bool then
+            getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
+    getgenv().method = "Sword_Combat_Slash"
+    -- theres 5 methods of attacking, fist_combat - fist,
+    -- fans_combat_slash - war fans, 
+    -- claw_Combat_Slash - claws, 
+    -- Scythe_Combat_Slash - scythe, 
+    -- Sword_Combat_Slash - sword.
+    
+    -- // locals
+    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
+    local Players = game:GetService("Players")
+    local client = game:GetService("Players").LocalPlayer
+    
+while killaura do -- verifica se está ativo o toggle
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 3, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 4, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, inf, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 3, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 4, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, inf, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+wait(2) 
+end
+    else
+        getgenv().killaura = false
+        end
+    end
+})
+killauraTab:CreateToggle({
+    Name = "Fans",
+    Callback = function (bool)
+        if bool then
+            getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
+    getgenv().method = "fans_combat_slash" 
+    -- theres 5 methods of attacking, fist_combat - fist,
+    -- fans_combat_slash - war fans, 
+    -- claw_Combat_Slash - claws, 
+    -- Scythe_Combat_Slash - scythe, 
+    -- Sword_Combat_Slash - sword.
+    
+    -- // locals
+    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
+    local Players = game:GetService("Players")
+    local client = game:GetService("Players").LocalPlayer
+    
+while killaura do -- verifica se está ativo o toggle
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 3, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 4, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, inf, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 3, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 4, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, inf, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+
+wait(2) end
+    else
+        getgenv().killaura = false
+        end
+    end
+})
+killauraTab:CreateToggle({
+    Name = "Scythe",
+    Callback = function (bool)
+        if bool then
+            getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
+    getgenv().method = "Scythe_Combat_Slash" 
+    -- theres 5 methods of attacking, fist_combat - fist,
+    -- fans_combat_slash - war fans, 
+    -- claw_Combat_Slash - claws, 
+    -- Scythe_Combat_Slash - scythe, 
+    -- Sword_Combat_Slash - sword.
+    
+    -- // locals
+    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
+    local Players = game:GetService("Players")
+    local client = game:GetService("Players").LocalPlayer
+    
+while killaura do -- verifica se está ativo o toggle
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 3, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 4, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, inf, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 3, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 4, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, inf, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+wait(2) end
+    else
+        getgenv().killaura = false
+        end
+    end
+})
+killauraTab:CreateToggle({
+    Name = "Claw",
+    Callback = function (bool)
+        if bool then
+            getgenv().killaura = true -- an toggle, set false if u wanna disable, and true if u wanna enable.
+    getgenv().method = "claw_Combat_Slash" 
+    -- theres 5 methods of attacking, fist_combat - fist,
+    -- fans_combat_slash - war fans, 
+    -- claw_Combat_Slash - claws, 
+    -- Scythe_Combat_Slash - scythe, 
+    -- Sword_Combat_Slash - sword.
+    
+    -- // locals
+    local ReplStorage = game:GetService("ReplicatedStorage") -- não altere
+    local Players = game:GetService("Players")
+    local client = game:GetService("Players").LocalPlayer
+    
+while killaura do -- verifica se está ativo o toggle
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 3, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 4, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, inf, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 3, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 4, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 919, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, inf, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1234, "ground_slash")
+    wait(0.1)
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 1, "ground_slash")
+    game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(method, client, client.Character, client.Character.HumanoidRootPart, client.Character.Humanoid, 2, "ground_slash")
+wait(2) end
     else
         getgenv().killaura = false
         end
@@ -1698,49 +1867,6 @@ TeleportTween2:CreateButton({
     end
 })
 
-local Button = Misc:CreateButton({
-   Name = "FPS Boost",
-   Callback = function()
-local decalsyeeted = true
-local g = game
-local w = g.Workspace
-local l = g.Lighting
-local t = w.Terrain
-t.WaterWaveSize = 0
-t.WaterWaveSpeed = 0
-t.WaterReflectance = 0
-t.WaterTransparency = 0
-l.GlobalShadows = false
-l.FogEnd = 9e9
-l.Brightness = 0
-settings().Rendering.QualityLevel = "Level01"
-for i, v in pairs(g:GetDescendants()) do
-    if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
-        v.Material = "Plastic"
-        v.Reflectance = 0
-    elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
-        v.Transparency = 1
-    elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
-        v.Lifetime = NumberRange.new(0)
-    elseif v:IsA("Explosion") then
-        v.BlastPressure = 1
-        v.BlastRadius = 1
-    elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") then
-        v.Enabled = false
-    elseif v:IsA("MeshPart") then
-        v.Material = "Plastic"
-        v.Reflectance = 0
-        v.TextureID = 10385902758728957
-    end
-end
-for i, e in pairs(l:GetChildren()) do
-    if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
-        e.Enabled = false
-    end
-end
-   end,
-})
-
 local shouldTeleport = false 
 
 local Toggle = Misc:CreateToggle({
@@ -2023,6 +2149,81 @@ local Toggle = Misc:CreateToggle({
     Callback = toggleScript,
 })
  
+local Toggle = Misc:CreateToggle({
+    Name = "FPS Boost",
+    CurrentValue = false,
+    Callback = function(value)
+       if value then
+         game:GetService("RunService"):Set3dRenderingEnabled(false)
+         local decalsyeeted = true
+local g = game
+local w = g.Workspace
+local l = g.Lighting
+local t = w.Terrain
+t.WaterWaveSize = 0
+t.WaterWaveSpeed = 0
+t.WaterReflectance = 0
+t.WaterTransparency = 0
+l.GlobalShadows = false
+l.FogEnd = 9e9
+l.Brightness = 0
+settings().Rendering.QualityLevel = "Level01"
+for i, v in pairs(g:GetDescendants()) do
+    if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+        v.Material = "Plastic"
+        v.Reflectance = 0
+    elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+        v.Transparency = 1
+    elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+        v.Lifetime = NumberRange.new(0)
+    elseif v:IsA("Explosion") then
+        v.BlastPressure = 1
+        v.BlastRadius = 1
+    elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") then
+        v.Enabled = false
+    elseif v:IsA("MeshPart") then
+        v.Material = "Plastic"
+        v.Reflectance = 0
+        v.TextureID = 10385902758728957
+    end
+end
+for i, e in pairs(l:GetChildren()) do
+    if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+        e.Enabled = false
+    end
+end       else
+         game:GetService("RunService"):Set3dRenderingEnabled(true)
+       end
+    end,
+ })
+
+Misc:CreateButton({
+   Name = "NPC Block Break",
+   Callback = function()
+    game.Workspace.Mobs.DescendantAdded:Connect(function(c)
+        if c.Name == "Blocking" then 
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer("remove_blocking", c.Parent)
+        end
+    end)
+   end,
+})
+
+Misc:CreateButton({
+   Name = "Reset",
+   Callback = function()
+    local args = {
+        [1] = "Add_Knockedout"
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer(unpack(args))
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("water_damage"):FireServer()
+    wait()
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("water_damage"):FireServer()
+    wait()
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("water_damage"):FireServer()
+   end,
+})
+
 Misc:CreateLabel("Buffs")
 
 local Button = Misc:CreateButton({
@@ -2403,7 +2604,6 @@ for i,v in next, Skills do
         end,
     })
 end
-
 
 Bypasses:CreateToggle({
     Name = "Thunder Bypass",
