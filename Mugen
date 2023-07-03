@@ -55,6 +55,11 @@ function antiafk()
     end
 antiafk()
 
+repeat wait() until game:IsLoaded()
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+end)
+
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Window = Rayfield:CreateWindow({
     Name = "Universe Hub",
@@ -67,45 +72,91 @@ local Window = Rayfield:CreateWindow({
         Rayfield:LoadConfiguration()
     }})
 
-    local ReplicatedStorage = game:GetService("ReplicatedStorage")
-    local Players = game:GetService("Players")
-    local TweenService = game:GetService("TweenService")
-    local Player = game:GetService("Players").LocalPlayer;
-    local player = game:GetService("Players").LocalPlayer;
-    local UIS = game:GetService'UserInputService';
-    local Players = game:FindService("Players")
-    local players = game:FindService("Players")
-    local plr = game.Players.LocalPlayer
-    local camera = game:GetService("Workspace").CurrentCamera
-    local CurrentCamera = Workspace.CurrentCamera
-    local worldToViewportPoint = CurrentCamera.worldToViewportPoint
-    local UserInputService = cloneref(game:GetService'UserInputService')
-    local runservice = game:GetService("RunService")
-    local ReplicatedStorage = game:GetService("ReplicatedStorage")
-    local TweenService = game:GetService("TweenService")
-    local PathfindingService = game:GetService("PathfindingService")
-    local mouse = player:GetMouse()
-    local mobs = {""} -- MOBS TABLE
-    local npcs = {""}
-    local fiend = {}
-    local fiends = {}
-    local Character = Player.Character
-    local offset = 0
-    local zones = {}
-    local zonesN = {""}
-    local boss = {}
-    local enemy = {}
-    local noclipE = false
-    local antifall = nil
-    local tp_speed = 250
-    local infinite_gas = false
-    local infinite_blade_durability = false
-    local mt = getrawmetatable(game)
-    local nc = mt.__namecall
-    local Map = workspace.Map
-    local Mobs = workspace.Mobs
-    local Remotes = ReplicatedStorage.Remotes
-    local Client = Players.LocalPlayer
+local player = game:GetService("Players").LocalPlayer;
+local UIS = game:GetService("UserInputService")
+local VirtualUser = game:GetService("VirtualUser")
+local VIM =game:GetService("VirtualInputManager")
+local ReplStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local Imput = game:GetService("UserInputService")
+local COREGUI = game:GetService("CoreGui")
+local LP = game:GetService("Players").LocalPlayer
+local HttpService = game:GetService("HttpService")
+local RunS = game:GetService("RunService")
+local X, Y = 0, 0
+local Mouse = LP:GetMouse()
+local GetLocalName = LP.Name
+local request = (syn and syn.request) or (http and http.request) or http_request
+local client = game:GetService("Players").LocalPlayer
+local Plr = game:GetService("Players").LocalPlayer
+local Data = game:GetService("ReplicatedStorage")["Player_Data"][game.Players.LocalPlayer.Name]
+local Plr = game:GetService("Players").LocalPlayer
+local TweenService = game:GetService("TweenService")
+local Plr = game:GetService("Players").LocalPlayer
+local Data = game:GetService("ReplicatedStorage")["Player_Data"][Plr.Name]
+local Instance_new = Instance.new
+local Vector3_new = Vector3.new
+local CFrame_new = CFrame.new
+local CFrame_Angles = CFrame.Angles
+local coroutine_wrap = coroutine.wrap
+local coroutine_yield = coroutine.yield
+local coroutine_running = coroutine.running
+local string_find = string.find
+local string_match = string.match
+local string_gsub = string.gsub
+local string_sub = string.sub
+local string_byte = string.byte
+local string_split = string.split
+local table_concat = table.concat
+local table_insert = table.insert
+local debug_traceback = debug.traceback
+local math_rad = math.rad
+local math_abs = math.abs
+local math_floor = math.floor
+local pog pog = nil
+local game = game
+local delay = delay
+local wait = wait
+local rawget = rawget
+local error = error
+local rawset = rawset
+local assert = function(p1, p2, p3)
+if not p1 then
+error(p2, p3)
+end
+end
+local newproxy = newproxy
+local ipairs = ipairs
+local getmetatable = getmetatable
+local setmetatable = setmetatable
+local tostring = tostring
+local tonumber = tonumber
+local type = type
+local typeof = typeof
+local pcall = pcall
+local xpcall = xpcall
+local setfenv = setfenv
+local getfenv = getfenv
+local workspace = workspace
+local newcclosure = newcclosure or function(p1)
+return coroutine_wrap(function(...)
+while true do
+coroutine_yield(p1(...))
+end
+end)
+end
+local workspace = workspace
+local player = game.Players.LocalPlayer
+local weapons = {}
+local mobs = {}
+local character = player.Character or player.CharacterAdded:Wait()
+local client = game:GetService("Players").LocalPlayer
+local user = client.Name
+local TweenService = game:GetService("TweenService")
+local noclipE = nil
+local antifall = nil
+local MoveTo = Instance_new("Model").MoveTo
+game:GetService("Players").LocalPlayer.DisplayName = "UniverseHub"
 
     function findMob1()
         local largest = math.huge
@@ -124,7 +175,7 @@ local Window = Rayfield:CreateWindow({
     end
 
 local function moveto(obj, speed)
-    local speed = 350
+    local speed = 250
     local info = TweenInfo.new(((client.Character.HumanoidRootPart.Position - obj.Position).Magnitude) / speed,Enum.EasingStyle.Linear)
     local tween = TweenService:Create(client.Character.HumanoidRootPart, info, {CFrame = obj})
     if not client.Character.HumanoidRootPart:FindFirstChild("BodyVelocity") then
