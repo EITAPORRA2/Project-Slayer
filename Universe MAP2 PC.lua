@@ -55,6 +55,11 @@ function antiafk()
     end
 antiafk()
 
+repeat wait() until game:IsLoaded()
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+end)
+
 local player = game:GetService("Players").LocalPlayer;
 local UIS = game:GetService("UserInputService")
 local VirtualUser = game:GetService("VirtualUser")
