@@ -46,6 +46,7 @@ function Intro()
     game:GetService("Players").LocalPlayer.PlayerGui.text_notification:Fire(ohTable1)
 end
 Intro()
+
 function antiafk()
     local bb = game:GetService("VirtualUser")
         game:GetService("Players").LocalPlayer.Idled:Connect(function()
@@ -74,6 +75,7 @@ local Window = Rayfield:CreateWindow({
     local Misc = Window:CreateTab("Misc")
     local TeleportTween1 = Window:CreateTab("Tween TP")
     local Teleports1 = Window:CreateTab("Insta TP ")
+
 repeat wait() until game:IsLoaded()
 game:GetService("Players").LocalPlayer.Idled:connect(function()
 game:GetService("VirtualUser"):ClickButton2(Vector2.new())
@@ -163,6 +165,7 @@ local TweenService = game:GetService("TweenService")
 local noclipE = nil
 local antifall = nil
 local MoveTo = Instance_new("Model").MoveTo
+game:GetService("Players").LocalPlayer.DisplayName = "UniverseHub"
 
 function findBoss()
     local largest = math.huge
