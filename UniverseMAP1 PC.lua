@@ -55,6 +55,11 @@ function antiafk()
     end
 antiafk()
 
+repeat wait() until game:IsLoaded()
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+end)
+
 local player = game:GetService("Players").LocalPlayer;
 local UIS = game:GetService("UserInputService")
 local VirtualUser = game:GetService("VirtualUser")
@@ -139,6 +144,7 @@ local TweenService = game:GetService("TweenService")
 local noclipE = nil
 local antifall = nil
 local MoveTo = Instance_new("Model").MoveTo
+game:GetService("Players").LocalPlayer.DisplayName = "UniverseHub"
 
 local function GetHuman()
    local h = LP.Character
