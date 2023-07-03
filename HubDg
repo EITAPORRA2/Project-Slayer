@@ -46,8 +46,6 @@ function Intro()
 end
 Intro()
 
-repeat wait() until game:IsLoaded()
-
 function antiafk()
     local bb = game:GetService("VirtualUser")
         game:GetService("Players").LocalPlayer.Idled:Connect(function()
@@ -56,6 +54,11 @@ function antiafk()
         end)
     end
 antiafk()
+
+repeat wait() until game:IsLoaded()
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+end)
 
 local Player = game:GetService("Players").LocalPlayer;
 local player = game:GetService("Players").LocalPlayer;
@@ -87,6 +90,7 @@ local antifall = nil
 local tp_speed = 250
 local infinite_gas = false
 local infinite_blade_durability = false
+game:GetService("Players").LocalPlayer.DisplayName = "UniverseHub"
 
 
 local mt = getrawmetatable(game)
