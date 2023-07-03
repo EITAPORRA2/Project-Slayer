@@ -55,6 +55,11 @@ function antiafk()
     end
 antiafk()
 
+repeat wait() until game:IsLoaded()
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+end)
+
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Window = Rayfield:CreateWindow({
     Name = "Universe Hub",
@@ -159,6 +164,7 @@ local TweenService = game:GetService("TweenService")
 local noclipE = nil
 local antifall = nil
 local MoveTo = Instance_new("Model").MoveTo
+game:GetService("Players").LocalPlayer.DisplayName = "UniverseHub"
 
 function findBoss()
     local largest = math.huge
