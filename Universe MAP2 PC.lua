@@ -826,6 +826,56 @@ LeftGroupBox2:AddToggle('GKAarroWW', {
     end
 })
 
+local toggle = false
+
+local function findMob1()
+   local largest = math.huge
+   local closestChild = nil
+   local hrp = character:WaitForChild("HumanoidRootPart")
+   for i, v in pairs(game:GetService("Workspace").Mobs:GetDescendants()) do
+       if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
+           local magnitude = (character.HumanoidRootPart.Position - v:GetBoundingBox().Position).magnitude
+           if magnitude < largest then
+               closestChild = v
+               largest = magnitude
+           end
+       end
+   end
+   return closestChild
+end
+
+local function attackLoop()
+    while toggle do
+        local success, error = pcall(function()
+            local ohString1 = "piercing_arrow_damage"
+            local ohInstance2 = game:GetService("Players").LocalPlayer
+            local closestMob = findMob1()
+
+            if closestMob then
+                local ohCFrame3 = closestMob.HumanoidRootPart.CFrame
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3)
+            else
+                print("Nenhum mob encontrado.")
+            end
+        end)
+
+        if not success then
+        end
+        wait(0.5)
+    end
+end
+
+LeftGroupBox2:AddToggle('GKAarroWW', {
+    Text = 'Bring Aura(All)',
+    Default = false,
+    Callback = function(value)
+        toggle = value
+        if toggle then
+            attackLoop() -- Inicia o loop
+        end
+    end
+})
+
 RightGroupBox4:AddToggle('AutoCollectChestv1', {
     Text = 'Auto Collect Chest',
     Default = false, -- Default value (true / false)
