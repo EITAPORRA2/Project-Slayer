@@ -92,7 +92,8 @@ WhitelistKeys = {
   Key12 = "45FEB629-EE78-40E0-8E54-4B93150F4E0B", --PanteraApro
   Key13 = "C371B9ED-4018-48A5-8CA5-4D068722DADD", --peideiedepoischeirei
   Key14 = "D805585E-ECFA-4203-8BF7-9708CAAEAA80", --chico
-  Key15 = "3F5784EF-F913-4D28-A1F6-45500DC5F2A3" --Filipe
+  Key15 = "3F5784EF-F913-4D28-A1F6-45500DC5F2A3", --Filipe
+  Key16 = "335eac97-c37a-41aa-b75c-ea1e9314547d" --zGabyzXz
 }
 
 function checkAccess(key)
