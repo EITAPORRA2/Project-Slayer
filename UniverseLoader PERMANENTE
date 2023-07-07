@@ -1,17 +1,18 @@
 local WebhookURL = "https://discord.com/api/webhooks/1124034714555125920/1EnpbLvj9Ry5rs-CNSfQRHRjM0tdycrSTnuwbOA3atReJEXD5zxdnbAjCCXBg0zx6ssu"
 
-local function sendWebhook()
+local function sendWebhook(keyUsed)
     local payload = {
-        ["content"] = "",
+        ["username"] = "Webhook Bot",
+        ["content"] = string.format("Key Used: %s", keyUsed),
         ["embeds"] = {{
-            ["title"] = "**Perm Buyer Executed**",
+            ["title"] = "**Your script has been executed!**",
             ["description"] = game.Players.LocalPlayer.DisplayName .. " has executed the script.",
             ["type"] = "rich",
-            ["color"] = tonumber(0xffffff),
+            ["color"] = tonumber("0xffffff"),
             ["fields"] = {
                 {
                     ["name"] = "Hardware ID:",
-                    ["value"] = game:GetService("RbxAnalyticsService"):GetClientId(), -- Replace with the hardware ID retrieval method suitable for Fluxus
+                    ["value"] = game:GetService("RbxAnalyticsService"):GetClientId(),
                     ["inline"] = true
                 }
             }
@@ -23,58 +24,13 @@ local function sendWebhook()
     }
 
     local requestBody = game:GetService("HttpService"):JSONEncode(payload)
-    
+
     local response = http_request({
         Url = WebhookURL,
         Method = "POST",
         Headers = headers,
         Body = requestBody
     })
-
-end
-
-sendWebhook()
-local Player = game:GetService("Players").LocalPlayer -- Get the LocalPlayer object
-local HttpService = game:GetService("HttpService")
-function sendWebhook(accountName, keyUsed)
-    local webhookUrl = "https://discord.com/api/webhooks/1124034714555125920/1EnpbLvj9Ry5rs-CNSfQRHRjM0tdycrSTnuwbOA3atReJEXD5zxdnbAjCCXBg0zx6ssu"
-
-local payload = {
-    ["username"] = "Webhook Bot",
-    ["content"] = string.format("Account: %s\nKey Used: %s", accountName, keyUsed),
-    ["embeds"] = {
-        {
-            ["title"] = "**Your script has been executed!**",
-            ["description"] = game.Players.LocalPlayer.DisplayName .. " has executed the script.",
-            ["type"] = "rich",
-            ["color"] = tonumber("0xffffff"),
-            ["fields"] = {
-                {
-                    ["name"] = "Hardware ID:",
-                    ["value"] = game:GetService("RbxAnalyticsService"):GetClientId(), -- Replace with the hardware ID retrieval method suitable for Fluxus
-                    ["inline"] = true
-                }
-            }
-        }
-    }
-}
-
-    local jsonPayload = game:GetService("HttpService"):JSONEncode(payload)
-
-    local headers = {
-        ["Content-Type"] = "application/json"
-    }
-
-    local request = http_request or request -- Check if http_request or request is available
-
-    if request then
-        request({
-            Url = webhookUrl,
-            Method = "POST",
-            Headers = headers,
-            Body = jsonPayload
-        })
-    end
 end
 
 WhitelistKeys = {
@@ -98,17 +54,18 @@ WhitelistKeys = {
   Key18 = "4507a338-2b57-4a19-94c0-f3a149e387e6" --xXbrunoXxlobo
 
 }
-
 function checkAccess(key)
-  for _, value in pairs(WhitelistKeys) do
-    if value == key then
-      return true
+    for _, value in pairs(WhitelistKeys) do
+        if value == key then
+            return true
+        end
     end
-  end
-  return false
+    return false
 end
 
-if checkAccess(_G.wl_key) then
+local wl_key = _G.wl_key -- Store the whitelist key in a variable
+if checkAccess(wl_key) then
+    sendWebhook(wl_key) -- Pass the key to the sendWebhook function
     local players = game:GetService("Players")
 
     game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -117,11 +74,7 @@ if checkAccess(_G.wl_key) then
         Icon = "rbxthumb://type=AvatarHeadShot&id=" .. players.LocalPlayer.UserId .. "&w=180&h=180",
         Duration = 5
     })
-
-    workspace.FallenPartsDestroyHeight = -50000
-
-
-
+workspace.FallenPartsDestroyHeight = -50000
 
 local placeID1 = 5956785391
 local placeID2 = 6152116144
