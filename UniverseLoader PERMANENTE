@@ -5,7 +5,7 @@ local function sendWebhook(keyUsed)
         ["username"] = "Webhook Bot",
         ["content"] = string.format("Key Used: %s", keyUsed),
         ["embeds"] = {{
-            ["title"] = "**Your script has been executed!**",
+            ["title"] = "**PC script has been executed!**",
             ["description"] = game.Players.LocalPlayer.DisplayName .. " has executed the script.",
             ["type"] = "rich",
             ["color"] = tonumber("0xffffff"),
