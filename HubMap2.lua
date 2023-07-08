@@ -464,20 +464,29 @@ end
             end
          end
     end)
-    
-    spawn(function()
-       while task.wait() do
-          if AutoEatSouls then
-             for i,v in pairs(game:GetService("Workspace").Debree:GetChildren()) do
+
+spawn(function()
+    while task.wait() do
+        if getgenv().AutoEatSouls then
+            for i,v in pairs(game:GetService("Workspace").Debree:GetChildren()) do
                 if v.Name == "Soul" then
-                   pcall(function()
-                      workspace.Debree.Soul.Handle.Eatthedamnsoul:FireServer()
-                   end)
+                    pcall(function()
+                        workspace.Debree.Soul.Handle.Eatthedamnsoul:FireServer()
+                    end)
                 end
-             end
-          end
-       end
-    end)
+            end
+        end
+    end
+end)
+
+Misc:CreateToggle({
+    Name = "Auto Eat Soul",
+    Flag = "AutoEatSoul",
+    CurrentValue = false,
+    Callback = function(Value)
+        getgenv().AutoEatSouls = Value
+    end
+})
 
 getgenv().TweenSpeed = 400
 AutoBoss:CreateSlider({
@@ -598,6 +607,56 @@ end
 
 local Toggle = Bypasses:CreateToggle({
     Name = "KillAura Arrow",
+    CurrentValue = false,
+    Callback = function(value)
+        toggle = value
+        if toggle then
+            attackLoop() -- Inicia o loop
+        end
+    end,
+})
+
+local toggle = false
+
+local function findMob1()
+    local largest = math.huge
+    local closestChild = nil
+    local hrp = character:WaitForChild("HumanoidRootPart")
+    for i, v in pairs(game:GetService("Workspace").Mobs:GetDescendants()) do
+        if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
+            local magnitude = (character.HumanoidRootPart.Position - v:GetBoundingBox().Position).magnitude
+            if magnitude < largest then
+                closestChild = v
+                largest = magnitude
+            end
+        end
+    end
+    return closestChild
+end
+
+local function attackLoop()
+    while toggle do
+        local success, error = pcall(function()
+            local ohString1 = "piercing_arrow_damage"
+            local ohInstance2 = game:GetService("Players").LocalPlayer
+            local closestMob = findMob1()
+
+            if closestMob then
+                local ohCFrame3 = closestMob.HumanoidRootPart.CFrame
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3)
+            else
+                print("Nenhum mob encontrado.")
+            end
+        end)
+
+        if not success then
+        end
+        wait(0.5)
+    end
+end
+
+local Toggle = Bypasses:CreateToggle({
+    Name = "Bring Mob Arrow (All)",
     CurrentValue = false,
     Callback = function(value)
         toggle = value
@@ -2154,54 +2213,191 @@ local Toggle = Misc:CreateToggle({
     CurrentValue = false,
     Callback = toggleScript,
 })
- 
+
+
 local Toggle = Misc:CreateToggle({
     Name = "FPS Boost",
     CurrentValue = false,
     Callback = function(value)
        if value then
          game:GetService("RunService"):Set3dRenderingEnabled(false)
-         local decalsyeeted = true
-local g = game
-local w = g.Workspace
-local l = g.Lighting
-local t = w.Terrain
-t.WaterWaveSize = 0
-t.WaterWaveSpeed = 0
-t.WaterReflectance = 0
-t.WaterTransparency = 0
-l.GlobalShadows = false
-l.FogEnd = 9e9
-l.Brightness = 0
-settings().Rendering.QualityLevel = "Level01"
-for i, v in pairs(g:GetDescendants()) do
-    if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
-        v.Material = "Plastic"
-        v.Reflectance = 0
-    elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
-        v.Transparency = 1
-    elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
-        v.Lifetime = NumberRange.new(0)
-    elseif v:IsA("Explosion") then
-        v.BlastPressure = 1
-        v.BlastRadius = 1
-    elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") then
-        v.Enabled = false
-    elseif v:IsA("MeshPart") then
-        v.Material = "Plastic"
-        v.Reflectance = 0
-        v.TextureID = 10385902758728957
-    end
-end
-for i, e in pairs(l:GetChildren()) do
-    if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
-        e.Enabled = false
-    end
-end       else
+      else
          game:GetService("RunService"):Set3dRenderingEnabled(true)
        end
     end,
  })
+
+local decalsyeeted = true
+local g = game
+local w = g.Workspace
+local l = g.Lighting
+local t = w.Terrain
+local performanceBackup = {}  -- Tabela para armazenar as configurações de backup do modo de desempenho
+
+-- Função para ativar o modo de desempenho
+local function EnablePerformanceMode()
+    performanceBackup.WaterWaveSize = t.WaterWaveSize
+    performanceBackup.WaterWaveSpeed = t.WaterWaveSpeed
+    performanceBackup.WaterReflectance = t.WaterReflectance
+    performanceBackup.WaterTransparency = t.WaterTransparency
+    performanceBackup.GlobalShadows = l.GlobalShadows
+    performanceBackup.FogEnd = l.FogEnd
+    performanceBackup.Brightness = l.Brightness
+    performanceBackup.QualityLevel = settings().Rendering.QualityLevel
+
+    t.WaterWaveSize = 0
+    t.WaterWaveSpeed = 0
+    t.WaterReflectance = 0
+    t.WaterTransparency = 0
+    l.GlobalShadows = false
+    l.FogEnd = 9e9
+    l.Brightness = 0
+    settings().Rendering.QualityLevel = "Level01"
+
+    for i, v in pairs(g:GetDescendants()) do
+        if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+            performanceBackup[v] = {
+                Material = v.Material,
+                Reflectance = v.Reflectance
+            }
+            v.Material = "Plastic"
+            v.Reflectance = 0
+        elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+            performanceBackup[v] = {
+                Transparency = v.Transparency
+            }
+            v.Transparency = 1
+        elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+            performanceBackup[v] = {
+                Lifetime = v.Lifetime
+            }
+            v.Lifetime = NumberRange.new(0)
+        elseif v:IsA("Explosion") then
+            performanceBackup[v] = {
+                BlastPressure = v.BlastPressure,
+                BlastRadius = v.BlastRadius
+            }
+            v.BlastPressure = 1
+            v.BlastRadius = 1
+        elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") then
+            performanceBackup[v] = {
+                Enabled = v.Enabled
+            }
+            v.Enabled = false
+        elseif v:IsA("MeshPart") then
+            performanceBackup[v] = {
+                Material = v.Material,
+                Reflectance = v.Reflectance,
+                TextureID = v.TextureID
+            }
+            v.Material = "Plastic"
+            v.Reflectance = 0
+            v.TextureID = 10385902758728957
+        end
+    end
+
+    for i, e in pairs(l:GetChildren()) do
+        if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+            performanceBackup[e] = {
+                Enabled = e.Enabled
+            }
+            e.Enabled = false
+        end
+    end
+end
+
+-- Função para desativar o modo de desempenho
+local function DisablePerformanceMode()
+    t.WaterWaveSize = performanceBackup.WaterWaveSize
+    t.WaterWaveSpeed = performanceBackup.WaterWaveSpeed
+    t.WaterReflectance = performanceBackup.WaterReflectance
+    t.WaterTransparency = performanceBackup.WaterTransparency
+    l.GlobalShadows = performanceBackup.GlobalShadows
+    l.FogEnd = performanceBackup.FogEnd
+    l.Brightness = performanceBackup.Brightness
+    settings().Rendering.QualityLevel = performanceBackup.QualityLevel
+
+    for object, backup in pairs(performanceBackup) do
+        if typeof(object) == "Instance" then
+            if object:IsA("Part") or object:IsA("Union") or object:IsA("CornerWedgePart") or object:IsA("TrussPart") then
+                object.Material = backup.Material
+                object.Reflectance = backup.Reflectance
+            elseif object:IsA("Decal") or object:IsA("Texture") then
+                object.Transparency = backup.Transparency
+            elseif object:IsA("ParticleEmitter") or object:IsA("Trail") then
+                object.Lifetime = backup.Lifetime
+            elseif object:IsA("Explosion") then
+                object.BlastPressure = backup.BlastPressure
+                object.BlastRadius = backup.BlastRadius
+            elseif object:IsA("Fire") or object:IsA("SpotLight") or object:IsA("Smoke") then
+                object.Enabled = backup.Enabled
+            elseif object:IsA("MeshPart") then
+                object.Material = backup.Material
+                object.Reflectance = backup.Reflectance
+                object.TextureID = backup.TextureID
+            elseif object:IsA("BlurEffect") or object:IsA("SunRaysEffect") or object:IsA("ColorCorrectionEffect") or object:IsA("BloomEffect") or object:IsA("DepthOfFieldEffect") then
+                object.Enabled = backup.Enabled
+            end
+        end
+    end
+
+    performanceBackup = {}
+end
+
+-- Função de retorno de chamada para o toggle "Texture Remove"
+local function ToggleTextureRemove(value)
+    if value then
+        EnablePerformanceMode()  -- Ativar o modo de desempenho
+    else
+        DisablePerformanceMode()  -- Desativar o modo de desempenho
+    end
+end
+
+local Toggle = Misc:CreateToggle({
+    Name = "Texture Remove",
+    CurrentValue = false,
+    Callback = ToggleTextureRemove,
+})
+
+local mapFolder = game:GetService("Workspace"):FindFirstChild("Map")
+local backup = {}  -- Cria uma tabela vazia para armazenar a cópia de backup dos objetos
+local isDeleting = false  -- Variável de controle para rastrear se a parte do mapa está sendo excluída
+
+local function ToggleMapObjects(state)
+    if state then
+        if not isDeleting then
+            isDeleting = true 
+            
+            while isDeleting do
+                for _, child in ipairs(mapFolder:GetChildren()) do
+                    backup[child] = child:Clone()
+                    child:Destroy()
+                end
+                
+                wait(5)
+                
+                for object, clone in pairs(backup) do
+                    clone.Parent = mapFolder
+                end
+                backup = {} 
+            end
+        end
+    else
+        isDeleting = false 
+    end
+end
+
+local Toggle = Misc:CreateToggle({
+    Name = "Map Remover",
+    CurrentValue = false,
+    Callback = function(value)
+        ToggleMapObjects(value)
+    end,
+})
+
+if not mapFolder then
+    warn("A pasta 'Map' não foi encontrada.")
+end
 
 Misc:CreateButton({
    Name = "NPC Block Break",
@@ -2229,6 +2425,8 @@ Misc:CreateButton({
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("water_damage"):FireServer()
    end,
 })
+
+
 
 Misc:CreateLabel("Buffs")
 
@@ -2611,7 +2809,7 @@ for i,v in next, Skills do
     })
 end
 
-Bypasses:CreateToggle({
+killauraTab:CreateToggle({
     Name = "Thunder Bypass",
     Callback = function(v)
         _G.thunderbypass = v
