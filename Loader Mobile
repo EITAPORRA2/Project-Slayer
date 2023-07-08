@@ -1,17 +1,18 @@
 local WebhookURL = "https://discord.com/api/webhooks/1124034714555125920/1EnpbLvj9Ry5rs-CNSfQRHRjM0tdycrSTnuwbOA3atReJEXD5zxdnbAjCCXBg0zx6ssu"
 
-local function sendWebhook()
+local function sendWebhook(keyUsed)
     local payload = {
-        ["content"] = "",
+        ["username"] = "Webhook Bot",
+        ["content"] = string.format("Key Used: %s", keyUsed),
         ["embeds"] = {{
-            ["title"] = "**Your script has been executed!**",
+            ["title"] = "**Mobile script has been executed!**",
             ["description"] = game.Players.LocalPlayer.DisplayName .. " has executed the script.",
             ["type"] = "rich",
-            ["color"] = tonumber(0xffffff),
+            ["color"] = tonumber("0xffffff"),
             ["fields"] = {
                 {
                     ["name"] = "Hardware ID:",
-                    ["value"] = game:GetService("RbxAnalyticsService"):GetClientId(), -- Replace with the hardware ID retrieval method suitable for Fluxus
+                    ["value"] = game:GetService("RbxAnalyticsService"):GetClientId(),
                     ["inline"] = true
                 }
             }
@@ -23,59 +24,44 @@ local function sendWebhook()
     }
 
     local requestBody = game:GetService("HttpService"):JSONEncode(payload)
-    
+
     local response = http_request({
         Url = WebhookURL,
         Method = "POST",
         Headers = headers,
         Body = requestBody
     })
-
 end
 
-sendWebhook()
-local Player = game:GetService("Players").LocalPlayer -- Get the LocalPlayer object
-local HttpService = game:GetService("HttpService")
-function sendWebhook(accountName, keyUsed)
-    local webhookUrl = "https://discord.com/api/webhooks/1124034714555125920/1EnpbLvj9Ry5rs-CNSfQRHRjM0tdycrSTnuwbOA3atReJEXD5zxdnbAjCCXBg0zx6ssu"
-
-local payload = {
-    ["username"] = "Webhook Bot",
-    ["content"] = string.format("Account: %s\nKey Used: %s", accountName, keyUsed),
-    ["embeds"] = {
-        {
-            ["title"] = "**Your script has been executed!**",
-            ["description"] = game.Players.LocalPlayer.DisplayName .. " has executed the script.",
-            ["type"] = "rich",
-            ["color"] = tonumber("0xffffff"),
-            ["fields"] = {
-                {
-                    ["name"] = "Hardware ID:",
-                    ["value"] = game:GetService("RbxAnalyticsService"):GetClientId(), -- Replace with the hardware ID retrieval method suitable for Fluxus
-                    ["inline"] = true
-                }
-            }
-        }
-    }
+WhitelistKeys = {
+    key = "BA3533C9-B8B3-4B7B-96D7-886DD60AD221", --Faoolz
+    key2 = "8783A701-FB8A-48EA-9ED5-2686CB25738D" --Leo
 }
 
-    local jsonPayload = game:GetService("HttpService"):JSONEncode(payload)
 
-    local headers = {
-        ["Content-Type"] = "application/json"
-    }
-
-    local request = http_request or request -- Check if http_request or request is available
-
-    if request then
-        request({
-            Url = webhookUrl,
-            Method = "POST",
-            Headers = headers,
-            Body = jsonPayload
-        })
+function checkAccess(key)
+    local hwid = game:GetService("RbxAnalyticsService"):GetClientId()
+    for _, value in pairs(WhitelistKeys) do
+        if value == key and value == hwid then
+            return true
+        end
     end
+    return false
 end
+
+local wl_key = _G.wl_key -- Armazena a chave da Whitelist em uma variável
+if checkAccess(wl_key) then
+    sendWebhook(wl_key) -- Passa a chave para a função sendWebhook
+    local players = game:GetService("Players")
+
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Welcome!",
+        Text = "Granted Access To, " .. players.LocalPlayer.DisplayName,
+        Icon = "rbxthumb://type=AvatarHeadShot&id=" .. players.LocalPlayer.UserId .. "&w=180&h=180",
+        Duration = 5
+    })
+
+    workspace.FallenPartsDestroyHeight = -50000
 
 local placeID1 = 5956785391
 local placeID2 = 6152116144
@@ -101,4 +87,5 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Sl
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap1.lua"))()
                 else
                     error("Place ID inválido.")
+                end
                 end
