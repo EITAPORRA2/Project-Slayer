@@ -2,7 +2,7 @@ local WebhookURL = "https://discord.com/api/webhooks/1124034714555125920/1EnpbLv
 
 local function sendWebhook(keyUsed)
     local payload = {
-        ["username"] = "Webhook Bot",
+        ["username"] = "Mobile Buyers Bot",
         ["content"] = string.format("Key Used: %s", keyUsed),
         ["embeds"] = {{
             ["title"] = "**Mobile script has been executed!**",
