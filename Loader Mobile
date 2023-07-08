@@ -51,7 +51,7 @@ end
 
 local wl_key = _G.wl_key -- Armazena a chave da Whitelist em uma variável
 if not checkAccess(wl_key) then
-    game.Players.LocalPlayer:Kick("Quem é você?, verme")
+    game.Players.LocalPlayer:Kick("Quem é você?, Mobile Fudido")
     return
 end
 
