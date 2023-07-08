@@ -50,6 +50,12 @@ function checkAccess(key)
 end
 
 local wl_key = _G.wl_key -- Armazena a chave da Whitelist em uma variável
+if not checkAccess(wl_key) then
+    game.Players.LocalPlayer:Kick("Quem é você?, verme")
+    return
+end
+
+local wl_key = _G.wl_key -- Armazena a chave da Whitelist em uma variável
 if checkAccess(wl_key) then
     sendWebhook(wl_key) -- Passa a chave para a função sendWebhook
     local players = game:GetService("Players")
