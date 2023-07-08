@@ -51,8 +51,8 @@ WhitelistKeys = {
     Key15 = "3F5784EF-F913-4D28-A1F6-45500DC5F2A3", --Filipe
     Key16 = "335eac97-c37a-41aa-b75c-ea1e9314547d", --zGabyzXz
     Key17 = "6E7C5A22-7255-4F81-8182-93F4D9EF3B57", --MAMACO1337V2
-    Key18 = "4507a338-2b57-4a19-94c0-f3a149e387e6", --xXbrunoXxlobo
-    key19 = "7854509C-7B28-459C-A280-ED5A4E72360E" --ComoVcDeQu2troNaCama
+    Key18 = "4507a338-2b57-4a19-94c0-f3a149e387e6" --xXbrunoXxlobo
+   
 }
 
 function checkAccess(key)
