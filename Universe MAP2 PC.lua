@@ -1414,54 +1414,186 @@ Test:AddToggle('NoSunDMG', {
 })
 
 Test:AddToggle('WhiteScreen', {
-   Text = 'FPS Boost',
+   Text = 'White Screen (FPS)',
    Default = false,
    Callback = function(state)
       if state then
          game:GetService("RunService"):Set3dRenderingEnabled(false)
-         local decalsyeeted = true
-local g = game
-local w = g.Workspace
-local l = g.Lighting
-local t = w.Terrain
-t.WaterWaveSize = 0
-t.WaterWaveSpeed = 0
-t.WaterReflectance = 0
-t.WaterTransparency = 0
-l.GlobalShadows = false
-l.FogEnd = 9e9
-l.Brightness = 0
-settings().Rendering.QualityLevel = "Level01"
-for i, v in pairs(g:GetDescendants()) do
-    if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
-        v.Material = "Plastic"
-        v.Reflectance = 0
-    elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
-        v.Transparency = 1
-    elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
-        v.Lifetime = NumberRange.new(0)
-    elseif v:IsA("Explosion") then
-        v.BlastPressure = 1
-        v.BlastRadius = 1
-    elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") then
-        v.Enabled = false
-    elseif v:IsA("MeshPart") then
-        v.Material = "Plastic"
-        v.Reflectance = 0
-        v.TextureID = 10385902758728957
-    end
-end
-for i, e in pairs(l:GetChildren()) do
-    if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
-        e.Enabled = false
-    end
-end
       else
          game:GetService("RunService"):Set3dRenderingEnabled(true)
       end
    end
 })
 
+local decalsyeeted = true
+local g = game
+local w = g.Workspace
+local l = g.Lighting
+local t = w.Terrain
+local performanceBackup = {}  -- Tabela para armazenar as configurações de backup do modo de desempenho
+
+-- Função para ativar o modo de desempenho
+local function EnablePerformanceMode()
+    performanceBackup.WaterWaveSize = t.WaterWaveSize
+    performanceBackup.WaterWaveSpeed = t.WaterWaveSpeed
+    performanceBackup.WaterReflectance = t.WaterReflectance
+    performanceBackup.WaterTransparency = t.WaterTransparency
+    performanceBackup.GlobalShadows = l.GlobalShadows
+    performanceBackup.FogEnd = l.FogEnd
+    performanceBackup.Brightness = l.Brightness
+    performanceBackup.QualityLevel = settings().Rendering.QualityLevel
+
+    t.WaterWaveSize = 0
+    t.WaterWaveSpeed = 0
+    t.WaterReflectance = 0
+    t.WaterTransparency = 0
+    l.GlobalShadows = false
+    l.FogEnd = 9e9
+    l.Brightness = 0
+    settings().Rendering.QualityLevel = "Level01"
+
+    for i, v in pairs(g:GetDescendants()) do
+        if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+            performanceBackup[v] = {
+                Material = v.Material,
+                Reflectance = v.Reflectance
+            }
+            v.Material = "Plastic"
+            v.Reflectance = 0
+        elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+            performanceBackup[v] = {
+                Transparency = v.Transparency
+            }
+            v.Transparency = 1
+        elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+            performanceBackup[v] = {
+                Lifetime = v.Lifetime
+            }
+            v.Lifetime = NumberRange.new(0)
+        elseif v:IsA("Explosion") then
+            performanceBackup[v] = {
+                BlastPressure = v.BlastPressure,
+                BlastRadius = v.BlastRadius
+            }
+            v.BlastPressure = 1
+            v.BlastRadius = 1
+        elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") then
+            performanceBackup[v] = {
+                Enabled = v.Enabled
+            }
+            v.Enabled = false
+        elseif v:IsA("MeshPart") then
+            performanceBackup[v] = {
+                Material = v.Material,
+                Reflectance = v.Reflectance,
+                TextureID = v.TextureID
+            }
+            v.Material = "Plastic"
+            v.Reflectance = 0
+            v.TextureID = 10385902758728957
+        end
+    end
+
+    for i, e in pairs(l:GetChildren()) do
+        if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+            performanceBackup[e] = {
+                Enabled = e.Enabled
+            }
+            e.Enabled = false
+        end
+    end
+end
+
+-- Função para desativar o modo de desempenho
+local function DisablePerformanceMode()
+    t.WaterWaveSize = performanceBackup.WaterWaveSize
+    t.WaterWaveSpeed = performanceBackup.WaterWaveSpeed
+    t.WaterReflectance = performanceBackup.WaterReflectance
+    t.WaterTransparency = performanceBackup.WaterTransparency
+    l.GlobalShadows = performanceBackup.GlobalShadows
+    l.FogEnd = performanceBackup.FogEnd
+    l.Brightness = performanceBackup.Brightness
+    settings().Rendering.QualityLevel = performanceBackup.QualityLevel
+
+    for object, backup in pairs(performanceBackup) do
+        if typeof(object) == "Instance" then
+            if object:IsA("Part") or object:IsA("Union") or object:IsA("CornerWedgePart") or object:IsA("TrussPart") then
+                object.Material = backup.Material
+                object.Reflectance = backup.Reflectance
+            elseif object:IsA("Decal") or object:IsA("Texture") then
+                object.Transparency = backup.Transparency
+            elseif object:IsA("ParticleEmitter") or object:IsA("Trail") then
+                object.Lifetime = backup.Lifetime
+            elseif object:IsA("Explosion") then
+                object.BlastPressure = backup.BlastPressure
+                object.BlastRadius = backup.BlastRadius
+            elseif object:IsA("Fire") or object:IsA("SpotLight") or object:IsA("Smoke") then
+                object.Enabled = backup.Enabled
+            elseif object:IsA("MeshPart") then
+                object.Material = backup.Material
+                object.Reflectance = backup.Reflectance
+                object.TextureID = backup.TextureID
+            elseif object:IsA("BlurEffect") or object:IsA("SunRaysEffect") or object:IsA("ColorCorrectionEffect") or object:IsA("BloomEffect") or object:IsA("DepthOfFieldEffect") then
+                object.Enabled = backup.Enabled
+            end
+        end
+    end
+
+    performanceBackup = {}
+end
+
+-- Adiciona o toggle para ativar/desativar o modo de desempenho
+Test:AddToggle('PerformanceMode', {
+    Text = 'Performance Mode',
+    Default = false,
+    Callback = function(state)
+        if state then
+            EnablePerformanceMode()
+        else
+            DisablePerformanceMode()
+        end
+    end
+})
+
+
+local mapFolder = game:GetService("Workspace"):FindFirstChild("Map")
+local backup = {}  -- Cria uma tabela vazia para armazenar a cópia de backup dos objetos
+local isDeleting = false  -- Variável de controle para rastrear se a parte do mapa está sendo excluída
+
+if mapFolder then
+    local function ToggleMapObjects(state)
+        if state then
+            if not isDeleting then
+                isDeleting = true 
+                
+                while isDeleting do
+                    for _, child in ipairs(mapFolder:GetChildren()) do
+                        backup[child] = child:Clone()
+                        child:Destroy()
+                    end
+                    
+                    wait(5)
+                    
+                    for object, clone in pairs(backup) do
+                        clone.Parent = mapFolder
+                    end
+                    backup = {} 
+                end
+            end
+        else
+            isDeleting = false 
+        end
+    end
+        Test:AddToggle('WhiteScreen', {
+        Text = 'Map Delete',
+        Default = false,
+        Callback = function(state)
+            ToggleMapObjects(state)
+        end
+    })
+else
+    warn("A pasta 'Map' não foi encontrada.")
+end
 
 Test2:AddToggle('AutoSplitBoulder', {
    Text = 'Auto Split',
@@ -1563,18 +1695,6 @@ spawn(function()
    end
   end)
 
-  Test5:AddToggle('SemiGodMode', {
-   Text = 'Kamado God (Kamado)',
-   Default = false, -- Default value (true / false)
-   Callback = function(state)
-       if state then
-           game:GetService("ReplicatedStorage").Remotes.heal_tang123asd:FireServer(true)
-       else
-           game:GetService("ReplicatedStorage").Remotes.heal_tang123asd:FireServer(false)
-       end
-   end
-})
-
 Test5:AddButton({
     Text = 'Wagon God (Activator)',
     Func = function()
@@ -1620,6 +1740,18 @@ Test5:AddButton({
     DoubleClick = false,
 })
 
+  Test5:AddToggle('SemiGodMode', {
+   Text = 'Kamado God (Kamado)',
+   Default = false, -- Default value (true / false)
+   Callback = function(state)
+       if state then
+           game:GetService("ReplicatedStorage").Remotes.heal_tang123asd:FireServer(true)
+       else
+           game:GetService("ReplicatedStorage").Remotes.heal_tang123asd:FireServer(false)
+       end
+   end
+})
+
 Test5:AddToggle('SemiGodMode2', {
    Text = 'INF BreathRegen (Any)',
    Default = false, -- Default value (true / false)
@@ -1632,32 +1764,8 @@ Test5:AddToggle('SemiGodMode2', {
    end
 })
 
-Test5:AddToggle('RengokuMode', {
-   Text = 'Rengoku Form (Human)',
-   Default = false, -- Default value (true / false)
-   Callback = function(state)
-      if state then
-         game:GetService("ReplicatedStorage").Remotes.heart_ablaze_mode_remote:FireServer(true)
-      else
-         game:GetService("ReplicatedStorage").Remotes.heart_ablaze_mode_remote:FireServer(false)
-      end
-   end
-})
-
-Test5:AddToggle('GodSpeedMode', {
-   Text = 'God Speed Mode (Human)',
-   Default = false, -- Default value (true / false)
-   Callback = function(state)
-      if state then
-         game:GetService("ReplicatedStorage").Remotes.thundertang123:FireServer(true)
-      else
-         game:GetService("ReplicatedStorage").Remotes.thundertang123:FireServer(false)
-      end
-   end
-})
-
 Test5:AddToggle('WarDrumsMode', {
-   Text = 'WarFans Buff',
+   Text = 'WarFans Buff (Any)',
    Default = false, -- Default value (true / false)
    Callback = function(Value)
       getgenv().infWD = Value
@@ -2131,6 +2239,30 @@ Test5:AddToggle('WaterGM', {
          end
       end
    end    
+})
+
+Test5:AddToggle('RengokuMode', {
+   Text = 'Rengoku Form (Human)',
+   Default = false, -- Default value (true / false)
+   Callback = function(state)
+      if state then
+         game:GetService("ReplicatedStorage").Remotes.heart_ablaze_mode_remote:FireServer(true)
+      else
+         game:GetService("ReplicatedStorage").Remotes.heart_ablaze_mode_remote:FireServer(false)
+      end
+   end
+})
+
+Test5:AddToggle('GodSpeedMode', {
+   Text = 'God Speed Mode (Human)',
+   Default = false, -- Default value (true / false)
+   Callback = function(state)
+      if state then
+         game:GetService("ReplicatedStorage").Remotes.thundertang123:FireServer(true)
+      else
+         game:GetService("ReplicatedStorage").Remotes.thundertang123:FireServer(false)
+      end
+   end
 })
 
  -- // LOCATIONS - TELEPORTS
