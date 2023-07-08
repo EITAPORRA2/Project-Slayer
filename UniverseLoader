@@ -4,7 +4,7 @@ local function sendWebhook()
     local payload = {
         ["content"] = "",
         ["embeds"] = {{
-            ["title"] = "**PC Buyer Executed**",
+            ["title"] = "**Pobre Executou**",
             ["description"] = game.Players.LocalPlayer.DisplayName .. " has executed the script.",
             ["type"] = "rich",
             ["color"] = tonumber(0xffffff),
