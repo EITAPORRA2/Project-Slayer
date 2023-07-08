@@ -34,38 +34,39 @@ local function sendWebhook(keyUsed)
 end
 
 WhitelistKeys = {
-  key = "BA3533C9-B8B3-4B7B-96D7-886DD60AD221", --Faoolz
-  key2 = "8783A701-FB8A-48EA-9ED5-2686CB25738D", --Leo
-  key3 = "8E40BF62-4476-42BF-8CF2-64558FADCE7B", --Gabimaru
-  key4 = "150DD599-3190-4244-846B-14E87C20F84D", --Gabs
-  key5 = "75D1BBFB-02B9-4A2C-8F7E-6BC9BBDBD9DD", --pvpxty1999p
-  key6 = "d56c36dd-690d-4f5b-b625-848f0e2cb715", --akirafelino242
-  key7 = "8ab0feb8-fe75-44bf-b783-d95d9819fcaa", --otom_7g (Mobile)
-  key8 = "41FCCD51-DCAA-421E-BDD7-C8903DA8105E", --Sid
-  Key9 = "CE18C3FC-8BCC-4382-8A33-8D3459E862BD", --Brenno
-  key10 = "3CE07308-9EA4-4AE7-A832-7CDDA22FD49F", --M4rcelo021
-  Key11 = "789F944A-7ADA-4C50-AD10-CE92456F8817", --otom_7g (PC)
-  Key12 = "45FEB629-EE78-40E0-8E54-4B93150F4E0B", --PanteraApro
-  Key13 = "C371B9ED-4018-48A5-8CA5-4D068722DADD", --peideiedepoischeirei
-  Key14 = "D805585E-ECFA-4203-8BF7-9708CAAEAA80", --chico
-  Key15 = "3F5784EF-F913-4D28-A1F6-45500DC5F2A3", --Filipe
-  Key16 = "335eac97-c37a-41aa-b75c-ea1e9314547d", --zGabyzXz
-  Key17 = "6E7C5A22-7255-4F81-8182-93F4D9EF3B57", --MAMACO1337V2
-  Key18 = "4507a338-2b57-4a19-94c0-f3a149e387e6" --xXbrunoXxlobo
-
+    key = "BA3533C9-B8B3-4B7B-96D7-886DD60AD221", --Faoolz
+    key2 = "8783A701-FB8A-48EA-9ED5-2686CB25738D", --Leo
+    key3 = "8E40BF62-4476-42BF-8CF2-64558FADCE7B", --Gabimaru
+    key4 = "150DD599-3190-4244-846B-14E87C20F84D", --Gabs
+    key5 = "75D1BBFB-02B9-4A2C-8F7E-6BC9BBDBD9DD", --pvpxty1999p
+    key6 = "d56c36dd-690d-4f5b-b625-848f0e2cb715", --akirafelino242
+    key7 = "8ab0feb8-fe75-44bf-b783-d95d9819fcaa", --otom_7g (Mobile)
+    key8 = "41FCCD51-DCAA-421E-BDD7-C8903DA8105E", --Sid
+    Key9 = "CE18C3FC-8BCC-4382-8A33-8D3459E862BD", --Brenno
+    key10 = "3CE07308-9EA4-4AE7-A832-7CDDA22FD49F", --M4rcelo021
+    Key11 = "789F944A-7ADA-4C50-AD10-CE92456F8817", --otom_7g (PC)
+    Key12 = "45FEB629-EE78-40E0-8E54-4B93150F4E0B", --PanteraApro
+    Key13 = "C371B9ED-4018-48A5-8CA5-4D068722DADD", --peideiedepoischeirei
+    Key14 = "D805585E-ECFA-4203-8BF7-9708CAAEAA80", --chico
+    Key15 = "3F5784EF-F913-4D28-A1F6-45500DC5F2A3", --Filipe
+    Key16 = "335eac97-c37a-41aa-b75c-ea1e9314547d", --zGabyzXz
+    Key17 = "6E7C5A22-7255-4F81-8182-93F4D9EF3B57", --MAMACO1337V2
+    Key18 = "4507a338-2b57-4a19-94c0-f3a149e387e6" --xXbrunoXxlobo
 }
+
 function checkAccess(key)
+    local hwid = game:GetService("RbxAnalyticsService"):GetClientId()
     for _, value in pairs(WhitelistKeys) do
-        if value == key then
+        if value == key and value == hwid then
             return true
         end
     end
     return false
 end
 
-local wl_key = _G.wl_key -- Store the whitelist key in a variable
+local wl_key = _G.wl_key -- Armazena a chave da Whitelist em uma variável
 if checkAccess(wl_key) then
-    sendWebhook(wl_key) -- Pass the key to the sendWebhook function
+    sendWebhook(wl_key) -- Passa a chave para a função sendWebhook
     local players = game:GetService("Players")
 
     game:GetService("StarterGui"):SetCore("SendNotification", {
@@ -74,28 +75,29 @@ if checkAccess(wl_key) then
         Icon = "rbxthumb://type=AvatarHeadShot&id=" .. players.LocalPlayer.UserId .. "&w=180&h=180",
         Duration = 5
     })
-workspace.FallenPartsDestroyHeight = -50000
 
-local placeID1 = 5956785391
-local placeID2 = 6152116144
-local placeID3 = 13883059853
-local placeID4 = 11468075017
-local placeID5 = 11468034852
-local placeID6 = 13881804983
-local placeID7 = 13883279773
+    workspace.FallenPartsDestroyHeight = -50000
 
-                if game.PlaceId == placeID1 then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MainMenu"))()
-                elseif game.PlaceId == placeID2 then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/UniverseMAP1%20PC.lua"))()
-                elseif game.PlaceId == placeID3 then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Universe%20MAP2%20PC.lua"))()
-                elseif game.PlaceId == placeID4 then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubDg"))()
-                elseif game.PlaceId == placeID5 then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Mugen"))()
-                elseif game.PlaceId == placeID6 then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Universe%20MAP2%20PC.lua"))()
+    local placeID1 = 5956785391
+    local placeID2 = 6152116144
+    local placeID3 = 13883059853
+    local placeID4 = 11468075017
+    local placeID5 = 11468034852
+    local placeID6 = 13881804983
+    local placeID7 = 13883279773
+
+    if game.PlaceId == placeID1 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MainMenu"))()
+    elseif game.PlaceId == placeID2 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/UniverseMAP1%20PC.lua"))()
+    elseif game.PlaceId == placeID3 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Universe%20MAP2%20PC.lua"))()
+    elseif game.PlaceId == placeID4 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubDg"))()
+    elseif game.PlaceId == placeID5 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Mugen"))()
+    elseif game.PlaceId == placeID6 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Universe%20MAP2%20PC.lua"))()
                 elseif game.PlaceId == placeID7 then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/UniverseMAP1%20PC.lua"))()
                 else
