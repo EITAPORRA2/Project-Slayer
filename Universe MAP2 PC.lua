@@ -792,6 +792,27 @@ RightGroupBox4:AddToggle('BypassGKA', {
     end
 })
 
+local firing = false -- Variable to track the state
+
+RightGroupBox4:AddToggle('BypassGKA', {
+    Text = 'Snow Bypass',
+    Default = false,
+    Callback = function(state)
+        firing = state -- Update the firing state
+
+        if firing then -- Start the loop only if firing is true
+            while firing do -- Loop while firing is true
+                local ohString1 = "skil_ting_asd"
+                local ohInstance2 = game:GetService("Players").LocalPlayer
+                local ohString3 = "snow_breathing_frost_path"
+                local ohNumber4 = 5
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohString3, ohNumber4)
+                wait(15)
+            end
+        end
+    end
+})
+
 local toggle = false -- Variável para controlar o toggle
 
 local function attackLoop()
@@ -844,7 +865,7 @@ local function findMob1()
    return closestChild
 end
 
-local function attackLoop()
+local function attackLoop1()
     while toggle do
         local success, error = pcall(function()
             local ohString1 = "piercing_arrow_damage"
@@ -871,7 +892,41 @@ LeftGroupBox2:AddToggle('GKAarroWW', {
     Callback = function(value)
         toggle = value
         if toggle then
-            attackLoop() -- Inicia o loop
+            attackLoop1() -- Inicia o loop
+        end
+    end
+})
+
+local toggle = false -- Variável para controlar o toggle
+
+local function attackLoop2()
+    while toggle do
+        local success, error = pcall(function()
+            local ohString1 = "snow_breathing_frozen_desert_damage"
+            local ohInstance2 = game:GetService("Players").LocalPlayer
+            local ohNumber4 = 500
+            local closestMob = findMob1()
+
+            if closestMob then
+                local ohCFrame3 = closestMob.HumanoidRootPart.CFrame
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohNumber4)
+            else
+                print("Nenhum mob encontrado.")
+            end
+        end)
+        if not success then
+        end
+        wait(0.4)
+    end
+end
+
+LeftGroupBox2:AddToggle('GKAarroWW', {
+    Text = 'Snow Aura (All)',
+    Default = false,
+    Callback = function(value)
+        toggle = value
+        if toggle then
+            attackLoop2() -- Inicia o loop
         end
     end
 })
@@ -2071,6 +2126,37 @@ Test5:AddToggle('SoundGM', {
       end
    end    
 })
+
+Test5:AddToggle('SnowGM', {
+    Text = 'Invencible (Snow)',
+    Default = false, -- Default value (true / false)
+    Callback = function(state)
+       if state then
+          _G.SnowGM = true
+          while _G.SnowGM do
+            local ohString1 = "skil_ting_asd"
+            local ohInstance2 = game:GetService("Players").LocalPlayer
+            local ohString3 = "snow_breatihng_layers_frost"
+            local ohNumber4 = 1
+            
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+       wait(0.1)
+          end
+       else
+          _G.SnowGM = false
+          while _G.SnowGM do
+            local ohString1 = "skil_ting_asd"
+            local ohInstance2 = game:GetService("Players").LocalPlayer
+            local ohString3 = "snow_breatihng_layers_frost"
+            local ohNumber4 = 1
+            
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+          wait(0.1)
+          end
+       end
+    end    
+ })
+
 Test5:AddToggle('FlameGM', {
    Text = 'Invencible (Flame)',
    Default = false, -- Default value (true / false)
