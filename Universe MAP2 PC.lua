@@ -916,7 +916,7 @@ local function attackLoop2()
         end)
         if not success then
         end
-        wait(0.4)
+        wait(0.5)
     end
 end
 
