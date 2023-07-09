@@ -1250,84 +1250,6 @@ Teleports1:CreateButton({
     end
 })
 
-
-
-Misc:CreateButton({
-    Name = "GamePass Unlocker",
-    Callback = function()
-        local player = game.Players.LocalPlayer
-
-    local gamepass1 = Instance.new("StringValue")
-    local gamepass3 = Instance.new("StringValue")
-    local gamepass4 = Instance.new("StringValue")
-    local gamepass5 = Instance.new("StringValue")
-    gamepass1.Name = "18589360"
-    gamepass3.Name = "18710993"
-    gamepass4.Name = "19241624"
-    gamepass5.Name = "46503236"
-    gamepass1.Parent = player.gamepasses
-    gamepass3.Parent = player.gamepasses
-    gamepass4.Parent = player.gamepasses
-    gamepass5.Parent = player.gamepasses
-
-    --18589360 = Concentração Total Gamepass Z
-    --18710993 = Disable Uniform
-    --19241624 = Gourd Durability Viewer Z
-    --46503236 = Skip Spin Z
-
-    end
-})
-
-Misc:CreateButton({
-    Name = "Horse Guy (10 Sec)",
-    Callback = function()
-local ohString1 = "horseguy_txt"
-local ohString2 = "Horse guy"
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
-
-wait(10)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
-
-wait(0.5)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
-
-wait(0.5)
-
-game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
-    end
-})
-
-local shouldTeleport = false 
-
-local Toggle = Misc:CreateToggle({
-   Name = "Auto Rejoin",
-   CurrentValue = false,
-   Callback = function(enabled)
-       shouldTeleport = enabled
-   end,
-})
-
-repeat wait() until game.CoreGui:FindFirstChild('RobloxPromptGui')
-
-local lp, po, ts = game:GetService('Players').LocalPlayer, game.CoreGui.RobloxPromptGui.promptOverlay, game:GetService('TeleportService')
-
-po.ChildAdded:connect(function(a)
-    if a.Name == 'ErrorPrompt' then
-        repeat
-            if shouldTeleport then
-                ts:Teleport(5956785391)
-                wait(4)
-            else
-                break
-            end
-        until false
-    end
-end)
-
-
 Misc:CreateToggle({
     Name = "AutoCollect",
     Flag = "AutoCollect",
@@ -1780,6 +1702,54 @@ Misc:CreateButton({
 })
 
 Misc:CreateButton({
+    Name = "GamePass Unlocker",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+
+    local gamepass1 = Instance.new("StringValue")
+    local gamepass3 = Instance.new("StringValue")
+    local gamepass4 = Instance.new("StringValue")
+    local gamepass5 = Instance.new("StringValue")
+    gamepass1.Name = "18589360"
+    gamepass3.Name = "18710993"
+    gamepass4.Name = "19241624"
+    gamepass5.Name = "46503236"
+    gamepass1.Parent = player.gamepasses
+    gamepass3.Parent = player.gamepasses
+    gamepass4.Parent = player.gamepasses
+    gamepass5.Parent = player.gamepasses
+
+    --18589360 = Concentração Total Gamepass Z
+    --18710993 = Disable Uniform
+    --19241624 = Gourd Durability Viewer Z
+    --46503236 = Skip Spin Z
+
+    end
+})
+
+Misc:CreateButton({
+    Name = "Horse Guy (10 Sec)",
+    Callback = function()
+local ohString1 = "horseguy_txt"
+local ohString2 = "Horse guy"
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Do_Text:Fire(ohString1, ohString2)
+
+wait(10)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Cancel:Fire()
+
+wait(0.5)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Stop_talking_to_npc:Fire()
+
+wait(0.5)
+
+game:GetService("Players").LocalPlayer.PlayerGui.Npc_Dialogue.Canceld:Fire()
+    end
+})
+
+Misc:CreateButton({
    Name = "Reset",
    Callback = function()
     local args = {
@@ -1795,61 +1765,7 @@ Misc:CreateButton({
    end,
 })
 
-
- 
-Misc:CreateLabel("Buffs")
-
-local Button = Misc:CreateButton({
-    Name = "Wagon God",
-    Callback = function()
-        wait(0.2)
-
-        local player = game.Players.LocalPlayer
-        player.Character.HumanoidRootPart.CFrame = CFrame.new(222.136902, 281.832642, -1606.17798)
-
-        wait(0.8)
-
-        local player = game:GetService("Players").LocalPlayer
-
-        local ohString1 = "AddQuest"
-        local ohString2 = "Players." .. player.Name .. ".PlayerGui.Npc_Dialogue.LocalScript.Functions"
-        local ohNumber3 = 18455.7521223
-        local ohInstance4 = game:GetService("ReplicatedStorage").Player_Data[player.Name].Quest
-        local ohTable5 = {
-            ["List"] = {
-                [1] = {
-                    ["Name"] = "Deliver wagon",
-                    ["Progress"] = {
-                        [1] = 0,
-                        [2] = 1
-                    }
-                }
-            },
-            ["Current"] = "Deliver grandpa Wagwon's wagon"
-        }
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohString2, ohNumber3, ohInstance4, ohTable5)
-
-        wait(0.4)
-
-        local player = game.Players.LocalPlayer
-        local wagonName = player.Name .. "'s Wagon"
-        local wagon = player.Character:FindFirstChild(wagonName)
-        if wagon then
-            wagon:Destroy()
-        end
-
-        wait(0.2)
-
-        local player = game.Players.LocalPlayer
-        local playerGui = player.PlayerGui
-        local quest = playerGui.Menu.Quest
-
-        if quest then
-            quest:Destroy()
-        end
-    end,
-})
+Misc:CreateLabel("GodMode Demon")
 
 local ToggleSwampyEnabled = false
 local ToggleDreamEnabled = false
@@ -1996,8 +1912,62 @@ function toggleInvincibleShockWave()
     end
 end
 
+Misc:CreateLabel("GodMode Human/Any")
+
+local Button = Misc:CreateButton({
+    Name = "Wagon God",
+    Callback = function()
+        wait(0.2)
+
+        local player = game.Players.LocalPlayer
+        player.Character.HumanoidRootPart.CFrame = CFrame.new(222.136902, 281.832642, -1606.17798)
+
+        wait(0.8)
+
+        local player = game:GetService("Players").LocalPlayer
+
+        local ohString1 = "AddQuest"
+        local ohString2 = "Players." .. player.Name .. ".PlayerGui.Npc_Dialogue.LocalScript.Functions"
+        local ohNumber3 = 18455.7521223
+        local ohInstance4 = game:GetService("ReplicatedStorage").Player_Data[player.Name].Quest
+        local ohTable5 = {
+            ["List"] = {
+                [1] = {
+                    ["Name"] = "Deliver wagon",
+                    ["Progress"] = {
+                        [1] = 0,
+                        [2] = 1
+                    }
+                }
+            },
+            ["Current"] = "Deliver grandpa Wagwon's wagon"
+        }
+
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohString2, ohNumber3, ohInstance4, ohTable5)
+
+        wait(0.4)
+
+        local player = game.Players.LocalPlayer
+        local wagonName = player.Name .. "'s Wagon"
+        local wagon = player.Character:FindFirstChild(wagonName)
+        if wagon then
+            wagon:Destroy()
+        end
+
+        wait(0.2)
+
+        local player = game.Players.LocalPlayer
+        local playerGui = player.PlayerGui
+        local quest = playerGui.Menu.Quest
+
+        if quest then
+            quest:Destroy()
+        end
+    end,
+})
+
 local Toggle = Misc:CreateToggle({
-   Name = "Invencible(Scythe)",
+   Name = "Invencible (Scythe)",
    CurrentValue = false,
    Callback = function(enabled)
       if enabled then
@@ -2017,7 +1987,7 @@ game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireSer
 })
 
 local Toggle = Misc:CreateToggle({
-   Name = "Invencible(Water)",
+   Name = "Invencible (Water)",
    CurrentValue = false,
    Callback = function(enabled)
       if enabled then
@@ -2035,6 +2005,142 @@ local Toggle = Misc:CreateToggle({
       end
    end,
 })
+
+local Toggle = Misc:CreateToggle({
+   Name = "Invencible (Snow)",
+   CurrentValue = false,
+   Callback = function(enabled)
+      if enabled then
+         SnowGod = true
+         while SnowGod do
+            local ohString1 = "skil_ting_asd"
+            local ohInstance2 = game:GetService("Players").LocalPlayer
+            local ohString3 = "snow_breatihng_layers_frost"
+            local ohNumber4 = 1
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+            task.wait(0.5)
+         end
+      else
+         SnowGod = false
+      end
+   end,
+})
+
+local Toggle = Misc:CreateToggle({
+   Name = "Invencible (Flame)",
+   CurrentValue = false,
+   Callback = function(enabled)
+      if enabled then
+         FlameGod = true
+         while FlameGod do
+                   local args = {
+            [1] = "skil_ting_asd",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = "flame_breathing_flaming_eruption",
+            [4] = 1
+          }
+   
+         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer(unpack(args))
+            task.wait(0.5)
+         end
+      else
+         FlameGod = false
+      end
+   end,
+})
+
+local Toggle = Misc:CreateToggle({
+       Name = "Invencible (Beast)",
+   CurrentValue = false,
+   Callback = function(enabled)
+      if enabled then
+         BeastGod = true
+         while BeastGod do
+         local args = {
+            [1] = "skil_ting_asd",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = "Beast_breathing_devouring_slash",
+            [4] = 1
+          }
+   
+         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer(unpack(args))
+            task.wait(0.5)
+         end
+      else
+         BeastGod = false
+      end
+   end,
+})
+
+local Toggle = Misc:CreateToggle({
+       Name = "Invencible (Insect)",
+   CurrentValue = false,
+   Callback = function(enabled)
+      if enabled then
+         InsectGod = true
+         while InsectGod do
+         local args = {
+            [1] = "skil_ting_asd",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = "insect_breathing_dance_of_the_centipede",
+            [4] = 1
+          }
+   
+         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer(unpack(args))           task.wait(0.5)
+task.wait(0.5)
+        end
+      else
+         InsectGod = false
+      end
+   end,
+})
+
+local Toggle = Misc:CreateToggle({
+       Name = "Invencible (Wind)",
+   CurrentValue = false,
+   Callback = function(enabled)
+      if enabled then
+         WindGod = true
+         while WindGod do
+          local args = {
+            [1] = "skil_ting_asd",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = "Wind_breathing_black_wind_mountain_mist",
+            [4] = 1
+          }
+   
+         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer(unpack(args))
+task.wait(0.5)
+        end
+      else
+         WindGod = false
+      end
+   end,
+})
+
+local Toggle = Misc:CreateToggle({
+       Name = "Invencible (Sound)",
+   CurrentValue = false,
+   Callback = function(enabled)
+      if enabled then
+         SoundGod = true
+         while SoundGod do
+         local args = {
+            [1] = "skil_ting_asd",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = "sound_breathing_smoke_screen",
+            [4] = 1
+          }
+   
+         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer(unpack(args))
+task.wait(0.5)
+        end
+      else
+         SoundGod = false
+      end
+   end,
+})
+
 
 Misc:CreateToggle({
     Name = "GodMode (Kamado)",
@@ -2056,7 +2162,6 @@ end
 
 Misc:CreateToggle({
     Name = "Inf Breath Regen",
-    Flag = "Inf Breath Regen",
     Callback = function (bool)
         if bool then
             toggleActive = true
@@ -2079,7 +2184,6 @@ Misc:CreateToggle({
 
 Misc:CreateToggle({
     Name = "WarFans Buff",
-    Flag = "WarFans Buff",
     Callback = function (bool)
         toggleActivated = bool -- Atualiza o estado do toggle
 
@@ -2092,6 +2196,28 @@ Misc:CreateToggle({
     else
         running = false -- Interrompe o loop
         game:GetService("ReplicatedStorage").Remotes.war_Drums_remote:FireServer(false)
+    end
+    end
+})
+
+Misc:CreateToggle({
+    Name = "Furiosity Buff",
+    Callback = function (bool)
+        toggleActivated = bool -- Atualiza o estado do toggle
+
+    if toggleActivated then
+        running = true -- Inicia o loop
+        while running do -- Executa o loop enquanto running for verdadeiro
+local ohBoolean1 = true
+
+game:GetService("ReplicatedStorage").Remotes.clan_furiosity_add:FireServer(ohBoolean1)
+            wait(16.5)
+        end
+    else
+        running = false
+local ohBoolean1 = false
+
+game:GetService("ReplicatedStorage").Remotes.clan_furiosity_add:FireServer(ohBoolean1)
     end
     end
 })
@@ -2118,7 +2244,6 @@ Misc:CreateToggle({
 
 Misc:CreateToggle({
     Name = "GodSpeed (Human)",
-    Flag = "GodSpeed (Human)",
     Callback = function (bool)
         toggleActivated = bool -- Atualiza o estado do toggle
 
@@ -2130,7 +2255,7 @@ Misc:CreateToggle({
     end
 })
 
-Misc:CreateLabel("AutoSkil")
+Misc:CreateLabel("AutoSkill")
 
 local AutoSkill = Misc:CreateToggle({
     Name = "Enable Auto Skill",
@@ -2203,6 +2328,75 @@ local Toggle = Bypasses:CreateToggle({
         toggle = value
         if toggle then
             attackLoop() -- Inicia o loop
+        end
+    end,
+})
+
+local Toggle = Bypasses:CreateToggle({
+    Name = "Bypass Snow",
+    CurrentValue = false,
+    Callback = function(Value)
+        _G.bypass = Value
+ 
+        if _G.bypass then
+            while _G.bypass do
+                local ohString1 = "skil_ting_asd"
+                local ohInstance2 = game:GetService("Players").LocalPlayer
+                local ohString3 = "snow_breathing_frost_path"
+                local ohNumber4 = 5
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohString3, ohNumber4)
+                wait(15)
+            end
+        end
+    end,
+ })
+
+local toggle = false
+
+local function findMob1()
+    local largest = math.huge
+    local closestChild = nil
+    local hrp = character:WaitForChild("HumanoidRootPart")
+    for i, v in pairs(game:GetService("Workspace").Mobs:GetDescendants()) do
+        if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
+            local magnitude = (character.HumanoidRootPart.Position - v:GetBoundingBox().Position).magnitude
+            if magnitude < largest then
+                closestChild = v
+                largest = magnitude
+            end
+        end
+    end
+    return closestChild
+end
+
+local function attackLoop1()
+    while toggle do
+        local success, error = pcall(function()
+            local ohString1 = "snow_breathing_frozen_desert_damage"
+            local ohInstance2 = game:GetService("Players").LocalPlayer
+            local ohNumber4 = 500
+            local closestMob = findMob1()
+            if closestMob then
+                local ohCFrame3 = closestMob.HumanoidRootPart.CFrame
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohNumber4)
+            else
+                print("Nenhum mob encontrado.")
+            end
+        end)
+
+        if not success then
+        end
+        wait(0.5)
+    end
+end
+
+local Toggle = Bypasses:CreateToggle({
+    Name = "Snow Aura (All)",
+    CurrentValue = false,
+    Callback = function(value)
+        toggle = value
+        if toggle then
+            attackLoop1() -- Inicia o loop
         end
     end,
 })
