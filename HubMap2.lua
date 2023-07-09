@@ -75,9 +75,7 @@ local Window = Rayfield:CreateWindow({
     local AutoBoss = Window:CreateTab("Auto Farm Boss")
     local killauraTab = Window:CreateTab("KillAura")
     local Bypasses = Window:CreateTab("Bypass")
-    local webhook = Window:CreateTab("WebHooks")
     local Misc = Window:CreateTab("Misc")
-    local TeleportTween2 = Window:CreateTab("Tween TP")
     local Teleports2 = Window:CreateTab("Insta TP")
     
 local player = game:GetService("Players").LocalPlayer;
@@ -582,6 +580,26 @@ local Toggle = Bypasses:CreateToggle({
     end,
  })
 
+local Toggle = Bypasses:CreateToggle({
+    Name = "Bypass Snow",
+    CurrentValue = false,
+    Callback = function(Value)
+        _G.bypass = Value
+ 
+        if _G.bypass then
+            while _G.bypass do
+                local ohString1 = "skil_ting_asd"
+                local ohInstance2 = game:GetService("Players").LocalPlayer
+                local ohString3 = "snow_breathing_frost_path"
+                local ohNumber4 = 5
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohString3, ohNumber4)
+                wait(15)
+            end
+        end
+    end,
+ })
+
+
 local toggle = false -- Variável para controlar o toggle
 
 local function attackLoop()
@@ -662,6 +680,56 @@ local Toggle = Bypasses:CreateToggle({
         toggle = value
         if toggle then
             attackLoop() -- Inicia o loop
+        end
+    end,
+})
+
+local toggle = false
+
+local function findMob1()
+    local largest = math.huge
+    local closestChild = nil
+    local hrp = character:WaitForChild("HumanoidRootPart")
+    for i, v in pairs(game:GetService("Workspace").Mobs:GetDescendants()) do
+        if v:IsA("Model") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 then
+            local magnitude = (character.HumanoidRootPart.Position - v:GetBoundingBox().Position).magnitude
+            if magnitude < largest then
+                closestChild = v
+                largest = magnitude
+            end
+        end
+    end
+    return closestChild
+end
+
+local function attackLoop1()
+    while toggle do
+        local success, error = pcall(function()
+            local ohString1 = "snow_breathing_frozen_desert_damage"
+            local ohInstance2 = game:GetService("Players").LocalPlayer
+            local ohNumber4 = 500
+            local closestMob = findMob1()
+            if closestMob then
+                local ohCFrame3 = closestMob.HumanoidRootPart.CFrame
+                game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohCFrame3, ohNumber4)
+            else
+                print("Nenhum mob encontrado.")
+            end
+        end)
+
+        if not success then
+        end
+        wait(0.5)
+    end
+end
+
+local Toggle = Bypasses:CreateToggle({
+    Name = "Snow Aura (All)",
+    CurrentValue = false,
+    Callback = function(value)
+        toggle = value
+        if toggle then
+            attackLoop1() -- Inicia o loop
         end
     end,
 })
@@ -1287,703 +1355,6 @@ Teleports2:CreateButton({
 
 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_C:FireServer(ohString1, ohNumber2, ohString3, ohCFrame4, ohInstance5)
 
-TeleportTween2:CreateButton({
-    Name = "SoundCave",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(1816.21204, 486.852661, -2757.24072)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween2:CreateButton({
-    Name = "Devourer's Jaw",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(481.2453, 507.410645, -1868.00842)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween2:CreateButton({
-    Name = "Beast Cave",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(1644.35266, 299.606079, -350.906494)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween2:CreateButton({
-    Name = "Frozen Lake",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(2703, 675, -701)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween2:CreateButton({
-    Name = "Nomway Village",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(3562, 673, -2109)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween2:CreateButton({
-    Name = "Wop City",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(-31, 601, -431)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween2:CreateButton({
-    Name = "Cave 1",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(4222, 674, 582)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween2:CreateButton({
-    Name = "Cave 2",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(1183, 487, -1192)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween2:CreateButton({
-    Name = "Tsune Village",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(1214, 569, 77)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween2:CreateButton({
-    Name = "Akeza Cave",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(1933, 556, -142)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween2:CreateButton({
-    Name = "Wop Training Grounds",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(224, 597, 483)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween2:CreateButton({
-    Name = "Mugay Train",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(733, 500, 1056)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween2:CreateButton({
-    Name = "Mist Training",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(4328.71973, 672.657471, -566.535889)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween2:CreateButton({
-    Name = "Split Boulder",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(1257.22046, 497.445526, -271.497253)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-TeleportTween2:CreateButton({
-    Name = "Meditate",
-    Callback = function ()
-        local RunService = game:GetService("RunService")
-        local Players = game:GetService("Players")
-        local Player = Players.LocalPlayer
-        local Character = Player.Character
-        local HumanoidRootPart = Character.HumanoidRootPart
-
-        local TeleportSpeed = 250
-        local NextFrame = RunService.Heartbeat
-
-        local function ImprovedTeleport(Target)
-            if typeof(Target) == "Instance" and Target:IsA("BasePart") then
-                Target = Target.Position
-            elseif typeof(Target) == "CFrame" then
-                Target = Target.Position
-            end
-
-            local StartingPosition = HumanoidRootPart.Position
-            local PositionDelta = Target - StartingPosition
-            local StartTime = tick()
-            local TotalDuration = PositionDelta.Magnitude / TeleportSpeed
-
-            repeat
-                NextFrame:Wait()
-                local Delta = tick() - StartTime
-                local Progress = math.min(Delta / TotalDuration, 1)
-                local MappedPosition = StartingPosition + PositionDelta * Progress
-                HumanoidRootPart.Velocity = Vector3.new()
-                HumanoidRootPart.CFrame = CFrame.new(MappedPosition)
-            until (HumanoidRootPart.Position - Target).Magnitude <= TeleportSpeed / 2
-
-            HumanoidRootPart.Anchored = false
-            HumanoidRootPart.CFrame = CFrame.new(Target)
-        end
-
-        local targetPosition = Vector3.new(130.404846, 599.6427, 520.139404)
-
-        ImprovedTeleport(targetPosition)
-    end
-})
-
-local shouldTeleport = false 
-
-local Toggle = Misc:CreateToggle({
-   Name = "Auto Rejoin",
-   CurrentValue = false,
-   Callback = function(enabled)
-       shouldTeleport = enabled
-   end,
-})
-
-repeat wait() until game.CoreGui:FindFirstChild('RobloxPromptGui')
-
-local lp, po, ts = game:GetService('Players').LocalPlayer, game.CoreGui.RobloxPromptGui.promptOverlay, game:GetService('TeleportService')
-
-po.ChildAdded:connect(function(a)
-    if a.Name == 'ErrorPrompt' then
-        repeat
-            if shouldTeleport then
-                ts:Teleport(5956785391)
-                wait(4)
-            else
-                break
-            end
-        until false
-    end
-end)
-
-Misc:CreateButton({
-    Name = "GamePass Unlocker",
-    Callback = function()
-        local player = game.Players.LocalPlayer
-
-    local gamepass1 = Instance.new("StringValue")
-    local gamepass3 = Instance.new("StringValue")
-    local gamepass4 = Instance.new("StringValue")
-    local gamepass5 = Instance.new("StringValue")
-    gamepass1.Name = "18589360"
-    gamepass3.Name = "18710993"
-    gamepass4.Name = "19241624"
-    gamepass5.Name = "46503236"
-    gamepass1.Parent = player.gamepasses
-    gamepass3.Parent = player.gamepasses
-    gamepass4.Parent = player.gamepasses
-    gamepass5.Parent = player.gamepasses
-
-    --18589360 = Concentração Total Gamepass Z
-    --18710993 = Disable Uniform
-    --19241624 = Gourd Durability Viewer Z
-    --46503236 = Skip Spin Z
-
-    end
-})
 
 Misc:CreateToggle({
     Name = "AutoCollect",
@@ -2214,7 +1585,6 @@ local Toggle = Misc:CreateToggle({
     Callback = toggleScript,
 })
 
-
 local Toggle = Misc:CreateToggle({
     Name = "FPS Boost",
     CurrentValue = false,
@@ -2411,6 +1781,26 @@ Misc:CreateButton({
 })
 
 Misc:CreateButton({
+    Name = "GamePass Unlocker",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+
+    local gamepass1 = Instance.new("StringValue")
+    local gamepass3 = Instance.new("StringValue")
+    local gamepass4 = Instance.new("StringValue")
+    local gamepass5 = Instance.new("StringValue")
+    gamepass1.Name = "18589360"
+    gamepass3.Name = "18710993"
+    gamepass4.Name = "19241624"
+    gamepass5.Name = "46503236"
+    gamepass1.Parent = player.gamepasses
+    gamepass3.Parent = player.gamepasses
+    gamepass4.Parent = player.gamepasses
+    gamepass5.Parent = player.gamepasses
+    end
+})
+
+Misc:CreateButton({
    Name = "Reset",
    Callback = function()
     local args = {
@@ -2425,55 +1815,7 @@ Misc:CreateButton({
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("water_damage"):FireServer()
    end,
 })
-
-
-
-Misc:CreateLabel("Buffs")
-
-local Button = Misc:CreateButton({
-    Name = "Wagon God (Activator)",
-    Callback = function()
-        local player = game:GetService("Players").LocalPlayer
-
-        local ohString1 = "AddQuest"
-        local ohString2 = "Players." .. player.Name .. ".PlayerGui.Npc_Dialogue.LocalScript.Functions"
-        local ohNumber3 = 18455.7521223
-        local ohInstance4 = game:GetService("ReplicatedStorage").Player_Data[player.Name].Quest
-        local ohTable5 = {
-            ["List"] = {
-                [1] = {
-                    ["Name"] = "Deliver wagon",
-                    ["Progress"] = {
-                        [1] = 0,
-                        [2] = 1
-                    }
-                }
-            },
-            ["Current"] = "Deliver grandpa Wagwon's wagon"
-        }
-
-        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohString2, ohNumber3, ohInstance4, ohTable5)
-
-        wait(0.4)
-
-        local player = game.Players.LocalPlayer
-        local wagonName = player.Name .. "'s Wagon"
-        local wagon = player.Character:FindFirstChild(wagonName)
-        if wagon then
-            wagon:Destroy()
-        end
-
-        wait(0.2)
-
-        local player = game.Players.LocalPlayer
-        local playerGui = player.PlayerGui
-        local quest = playerGui.Menu.Quest
-
-        if quest then
-            quest:Destroy()
-        end
-    end,
-})
+Misc:CreateLabel("GodMode Demon")
 
 local ToggleSwampyEnabled = false
 local ToggleDreamEnabled = false
@@ -2620,6 +1962,53 @@ function toggleInvincibleShockWave()
     end
 end
 
+Misc:CreateLabel("GodMode Human/Any")
+
+local Button = Misc:CreateButton({
+    Name = "Wagon God (Activator)",
+    Callback = function()
+        local player = game:GetService("Players").LocalPlayer
+
+        local ohString1 = "AddQuest"
+        local ohString2 = "Players." .. player.Name .. ".PlayerGui.Npc_Dialogue.LocalScript.Functions"
+        local ohNumber3 = 18455.7521223
+        local ohInstance4 = game:GetService("ReplicatedStorage").Player_Data[player.Name].Quest
+        local ohTable5 = {
+            ["List"] = {
+                [1] = {
+                    ["Name"] = "Deliver wagon",
+                    ["Progress"] = {
+                        [1] = 0,
+                        [2] = 1
+                    }
+                }
+            },
+            ["Current"] = "Deliver grandpa Wagwon's wagon"
+        }
+
+        game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohString2, ohNumber3, ohInstance4, ohTable5)
+
+        wait(0.4)
+
+        local player = game.Players.LocalPlayer
+        local wagonName = player.Name .. "'s Wagon"
+        local wagon = player.Character:FindFirstChild(wagonName)
+        if wagon then
+            wagon:Destroy()
+        end
+
+        wait(0.2)
+
+        local player = game.Players.LocalPlayer
+        local playerGui = player.PlayerGui
+        local quest = playerGui.Menu.Quest
+
+        if quest then
+            quest:Destroy()
+        end
+    end,
+})
+
 local Toggle = Misc:CreateToggle({
    Name = "Invencible (Scythe)",
    CurrentValue = false,
@@ -2659,6 +2048,142 @@ local Toggle = Misc:CreateToggle({
       end
    end,
 })
+
+local Toggle = Misc:CreateToggle({
+   Name = "Invencible (Snow)",
+   CurrentValue = false,
+   Callback = function(enabled)
+      if enabled then
+         SnowGod = true
+         while SnowGod do
+            local ohString1 = "skil_ting_asd"
+            local ohInstance2 = game:GetService("Players").LocalPlayer
+            local ohString3 = "snow_breatihng_layers_frost"
+            local ohNumber4 = 1
+            game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireServer(ohString1, ohInstance2, ohString3, ohNumber4)
+            task.wait(0.5)
+         end
+      else
+         SnowGod = false
+      end
+   end,
+})
+
+local Toggle = Misc:CreateToggle({
+   Name = "Invencible (Flame)",
+   CurrentValue = false,
+   Callback = function(enabled)
+      if enabled then
+         FlameGod = true
+         while FlameGod do
+                   local args = {
+            [1] = "skil_ting_asd",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = "flame_breathing_flaming_eruption",
+            [4] = 1
+          }
+   
+         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer(unpack(args))
+            task.wait(0.5)
+         end
+      else
+         FlameGod = false
+      end
+   end,
+})
+
+local Toggle = Misc:CreateToggle({
+       Name = "Invencible (Beast)",
+   CurrentValue = false,
+   Callback = function(enabled)
+      if enabled then
+         BeastGod = true
+         while BeastGod do
+         local args = {
+            [1] = "skil_ting_asd",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = "Beast_breathing_devouring_slash",
+            [4] = 1
+          }
+   
+         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer(unpack(args))
+            task.wait(0.5)
+         end
+      else
+         BeastGod = false
+      end
+   end,
+})
+
+local Toggle = Misc:CreateToggle({
+       Name = "Invencible (Insect)",
+   CurrentValue = false,
+   Callback = function(enabled)
+      if enabled then
+         InsectGod = true
+         while InsectGod do
+         local args = {
+            [1] = "skil_ting_asd",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = "insect_breathing_dance_of_the_centipede",
+            [4] = 1
+          }
+   
+         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer(unpack(args))           task.wait(0.5)
+task.wait(0.5)
+        end
+      else
+         InsectGod = false
+      end
+   end,
+})
+
+local Toggle = Misc:CreateToggle({
+       Name = "Invencible (Wind)",
+   CurrentValue = false,
+   Callback = function(enabled)
+      if enabled then
+         WindGod = true
+         while WindGod do
+          local args = {
+            [1] = "skil_ting_asd",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = "Wind_breathing_black_wind_mountain_mist",
+            [4] = 1
+          }
+   
+         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer(unpack(args))
+task.wait(0.5)
+        end
+      else
+         WindGod = false
+      end
+   end,
+})
+
+local Toggle = Misc:CreateToggle({
+       Name = "Invencible (Sound)",
+   CurrentValue = false,
+   Callback = function(enabled)
+      if enabled then
+         SoundGod = true
+         while SoundGod do
+         local args = {
+            [1] = "skil_ting_asd",
+            [2] = game:GetService("Players").LocalPlayer,
+            [3] = "sound_breathing_smoke_screen",
+            [4] = 1
+          }
+   
+         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("To_Server"):WaitForChild("Handle_Initiate_S"):FireServer(unpack(args))
+task.wait(0.5)
+        end
+      else
+         SoundGod = false
+      end
+   end,
+})
+
 
 Misc:CreateToggle({
     Name = "GodMode (Kamado)",
@@ -2773,7 +2298,7 @@ Misc:CreateToggle({
     end
 })
 
-Misc:CreateLabel("AutoSkil")
+Misc:CreateLabel("AutoSkill")
 
 local AutoSkill = Misc:CreateToggle({
     Name = "Enable Auto Skill",
@@ -2863,187 +2388,9 @@ game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S:FireSer
         wait(0.55)
     end
 end
-
             local LP = game:GetService("Players").LocalPlayer
             local runLoop = false
             
             local function invokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
                 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_S_:InvokeServer(ohString1, ohInstance2, ohCFrame3, ohInstance4, ohNumber5, ohNumber6)
             end
-
-local url = "" -- Variável para armazenar o valor do webhook
-local isSendingEnabled = false -- Variável para controlar se o envio está habilitado ou não
-local itemDelay = 5 -- Atraso em segundos entre o envio de cada item
-local waitForPickup = true -- Defina como true se você quiser esperar o jogador pegar o item antes de enviar a mensagem
-
-local Webhook = webhook:CreateInput({
-    Name = "Webhook For Autoloot",
-    PlaceholderText = "WEBHOOK!!!",
-    OnEnter = false,
-    RemoveTextAfterFocusLost = false,
-    Callback = function(v)
-        url = v
-    end,
-})
-
-local Toggle = webhook:CreateToggle({
-    Name = "Drop WebHook",
-    CurrentValue = false,
-    Callback = function(enabled)
-        isSendingEnabled = enabled
-    end,
-})
-
-task.spawn(function()
-    while task.wait() do
-        pcall(function()
-            if isSendingEnabled then
-                -- Se o envio estiver habilitado, execute o código para enviar a mensagem no webhook
-                -- Verifique se 'url' possui um valor válido antes de enviar a mensagem
-                if url and url ~= "" then
-                    local player = game.Players.LocalPlayer
-                    local playerName = player.Name
-                    local userId = player.UserId
-                    local avatarUrl = string.format("https://thumbnails.roblox.com/v1/users/avatar?userIds=%d&size=180x180&format=Png&isCircular=true", userId)
-
-                    local lootChests = game:GetService("Workspace").Debree:GetDescendants()
-                    for _, chest in ipairs(lootChests) do
-                        if chest.Name == "Loot_Chest" and chest:FindFirstChild("Drops") then
-                            local remote = chest:WaitForChild("Add_To_Inventory")
-                            for _, drop in ipairs(chest.Drops:GetChildren()) do
-                                remote:InvokeServer(drop.Name)
-                                if waitForPickup then
-                                    -- Aguardar o jogador pegar o item antes de enviar a mensagem
-                                    repeat
-                                        task.wait()
-                                    until not drop:IsDescendantOf(player.Backpack) and not drop:IsDescendantOf(player.Character)
-                                end
-
-                                -- Enviar a mensagem no webhook
-                                local data = {
-                                    ["content"] = "Drop!!!",
-                                    ["embeds"] = {
-                                        {
-                                            ["title"] = "GAME DROPS!",
-                                            ["type"] = "rich",
-                                            ["color"] = tonumber(0x7269da),
-                                            ["fields"] = {
-                                                {
-                                                    ["name"] = "Drop:",
-                                                    ["value"] = "| "..drop.Name.." |",
-                                                    ["inline"] = true
-                                                },
-                                                {
-                                                    ["name"] = "Username",
-                                                    ["value"] = "|| "..playerName.." ||",
-                                                    ["inline"] = true
-                                                },
-                                            },
-                                            ["thumbnail"] = {
-                                                ["url"] = avatarUrl,
-                                            }
-                                        }
-                                    }
-                                }
-
-                                local headers = {
-                                    ["content-type"] = "application/json"
-                                }
-
-                                local httpService = game:GetService("HttpService")
-                                local jsonData = httpService:JSONEncode(data)
-
-                                local httpModule = http_request or request or HttpPost or syn.request
-                                local requestParams = {
-                                    Url = url,
-                                    Method = "POST",
-                                    Headers = headers,
-                                    Body = jsonData
-                                }
-
-                                httpModule(requestParams)
-
-                                -- Aguardar o atraso entre os envios de item
-                                task.wait(itemDelay)
-                            end
-                        end
-                    end
-                end
-            end
-        end)
-    end
-end)
-
-local HttpService = game:GetService("HttpService")
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-
-local Webhook = webhook:CreateInput({
-    Name = "Webhook",
-    PlaceholderText = "WEBHOOK!!!",
-    OnEnter = false,
-    RemoveTextAfterFocusLost = false,
-    Callback = function(v)
-        url = v
-    end,
-})
-
-local Toggle = webhook:CreateToggle({
-    Name = "Kick WebHook",
-    CurrentValue = false,
-    Callback = function(enabled)
-        isSendingEnabled = enabled
-    end,
-})
-
-local function CheckPlayerExpulsion()
-    local po = game.CoreGui.RobloxPromptGui.promptOverlay
-
-    po.ChildAdded:Connect(function(a)
-        if a.Name == 'ErrorPrompt' and isSendingEnabled and url then
-            -- O jogador local foi expulso do jogo
-            local playerName = player.Name
-            local userId = player.UserId
-            local avatarUrl = string.format("https://thumbnails.roblox.com/v1/users/avatar?userIds=%d&size=180x180&format=Png&isCircular=true", userId)
-
-            local data = {
-                ["content"] = "Estupido",
-                ["embeds"] = {
-                    {
-                        ["title"] = "Expulsão!",
-                        ["type"] = "rich",
-                        ["color"] = tonumber(0xFF0000),
-                        ["fields"] = {
-                            {
-                                ["name"] = "Username",
-                                ["value"] = "|| "..playerName.." ||",
-                                ["inline"] = true
-                            },
-                        },
-                        ["thumbnail"] = {
-                            ["url"] = avatarUrl,
-                        }
-                    }
-                }
-            }
-
-            local headers = {
-                ["content-type"] = "application/json"
-            }
-
-            local jsonData = HttpService:JSONEncode(data)
-
-            local httpModule = http_request or request or HttpPost or syn.request
-            local requestParams = {
-                Url = url,
-                Method = "POST",
-                Headers = headers,
-                Body = jsonData
-            }
-
-            httpModule(requestParams)
-        end
-    end)
-end
-
-spawn(CheckPlayerExpulsion)
