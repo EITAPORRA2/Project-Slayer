@@ -38,7 +38,8 @@ WhitelistKeys = {
     key2 = "8783A701-FB8A-48EA-9ED5-2686CB25738D", --Leo
     Key3 = "4507a338-2b57-4a19-94c0-f3a149e387e6", --Bruno
     Key4 = "ebdb3e8c-2d03-48c2-8714-9ad1feb9199e", --Henrique
-    Key5 = "335eac97-c37a-41aa-b75c-ea1e9314547d" --Melissa
+    Key5 = "335eac97-c37a-41aa-b75c-ea1e9314547d", --Melissa
+    key6 = "ebdb3e8c-2d03-48c2-8714-9ad1feb9199e" --Henrique3020101 (Mongol que tomou ban)
 
 }
 
