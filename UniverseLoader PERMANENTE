@@ -51,7 +51,8 @@ WhitelistKeys = {
     Key15 = "335eac97-c37a-41aa-b75c-ea1e9314547d", --Melissa
     Key16 = "6E7C5A22-7255-4F81-8182-93F4D9EF3B57", --Lucas
     Key17 = "4507a338-2b57-4a19-94c0-f3a149e387e6", --Bruno
-    Key18 = "DA12DA52-E4BD-4EAF-8329-5982E4DD5013" --Daniel Da Gazeficação
+    Key18 = "DA12DA52-E4BD-4EAF-8329-5982E4DD5013", --Daniel Da Gazeficação
+    key19 = "C008EF11-7296-489A-AE35-03280F145DDB" --TANJIRO KAMADO
 }
 
 function checkAccess(key)
