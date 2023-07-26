@@ -79,15 +79,6 @@ if checkAccess(wl_key) then
     sendWebhook(wl_key) -- Passa a chave para a função sendWebhook
     local players = game:GetService("Players")
 
-    game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = "Welcome!",
-        Text = "Granted Access To, " .. players.LocalPlayer.DisplayName,
-        Icon = "rbxthumb://type=AvatarHeadShot&id=" .. players.LocalPlayer.UserId .. "&w=180&h=180",
-        Duration = 5
-    })
-
-    workspace.FallenPartsDestroyHeight = -50000
-
     local placeID1 = 5956785391
     local placeID2 = 6152116144
     local placeID3 = 13883059853
@@ -95,6 +86,7 @@ if checkAccess(wl_key) then
     local placeID5 = 11468034852
     local placeID6 = 13881804983
     local placeID7 = 13883279773
+    local placeID8 = 2753915549
 
     if game.PlaceId == placeID1 then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MainMenu"))()
@@ -108,9 +100,10 @@ if checkAccess(wl_key) then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Mugen"))()
     elseif game.PlaceId == placeID6 then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Universe%20MAP2%20PC.lua"))()
-                elseif game.PlaceId == placeID7 then
+    elseif game.PlaceId == placeID7 then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/UniverseMAP1%20PC.lua"))()
+    elseif game.PlaceId == placeID8 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/Blox%20Fruits%20Universe"))()
                 else
                     error("Place ID inválido.")
-                end
                 end
