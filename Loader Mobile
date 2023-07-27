@@ -45,9 +45,8 @@ WhitelistKeys = {
 
 
 function checkAccess(key)
-    local hwid = game:GetService("RbxAnalyticsService"):GetClientId()
     for _, value in pairs(WhitelistKeys) do
-        if value == key and value == hwid then
+        if value == key then
             return true
         end
     end
