@@ -70,9 +70,6 @@ if checkAccess(wl_key) then
         Icon = "rbxthumb://type=AvatarHeadShot&id=" .. players.LocalPlayer.UserId .. "&w=180&h=180",
         Duration = 5
     })
-
-    workspace.FallenPartsDestroyHeight = -50000
-
 local placeID1 = 5956785391
 local placeID2 = 6152116144
 local placeID3 = 13883059853
@@ -80,6 +77,8 @@ local placeID4 = 11468075017
 local placeID5 = 11468034852
 local placeID6 = 13881804983
 local placeID7 = 13883279773
+local placeID8 = 6299805723
+
 
                 if game.PlaceId == placeID1 then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MainMenu"))()
@@ -95,6 +94,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Sl
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap2.lua"))()
                 elseif game.PlaceId == placeID7 then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubMap1.lua"))()
+                elseif game.PlaceId == placeID8 then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Anime-Fighters/main/Anime%20Fighters%20Main"))()
                 else
                     error("Place ID inválido.")
                 end
