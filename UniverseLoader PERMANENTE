@@ -56,7 +56,8 @@ WhitelistKeys = {
     key20 = "F15A4802-087C-45FF-B3DE-20A2C3E7BEF1", --Senju
     key21 = "A23912CE-D7D1-42A0-B74F-4E94F1603500", --Sonin
     Key22 = "33529B34-E0CA-4D60-B423-05C3158996A7", --Oirlonsio Xernous
-    Key22 = "ShadowCria" --ShadowCria
+    Key22 = "ShadowCria", --ShadowCria
+    Key23 - "7854509C-7B28-459C-A280-ED5A4E72360E" --Musashi
 }
 
 function checkAccess(key)
