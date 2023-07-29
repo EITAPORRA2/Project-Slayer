@@ -100,11 +100,11 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Sl
                 elseif game.PlaceId == placeID8 then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Anime-Fighters/main/Anime%20Fighters%20Main"))()
                 elseif game.PlaceId == placeID9 then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/Blox%20Fruits%20Universe"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/BloxFruits%20Universe%20Mobile"))()
                 elseif game.PlaceId == placeID10 then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/Blox%20Fruits%20Universe"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/BloxFruits%20Universe%20Mobile"))()
                  elseif game.PlaceId == placeID11 then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/Blox%20Fruits%20Universe"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/BloxFruits%20Universe%20Mobile"))()
                 else
                 error("Place ID inválido.")
                 end
