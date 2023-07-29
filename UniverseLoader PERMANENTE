@@ -89,6 +89,7 @@ if checkAccess(wl_key) then
     local placeID8 = 2753915549
     local placeID9 = 4442272183
     local placeID10 = 7449423635
+    local placeID11 = 6299805723
 
     if game.PlaceId == placeID1 then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MainMenu"))()
@@ -110,6 +111,9 @@ if checkAccess(wl_key) then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/Blox%20Fruits%20Universe"))()
     elseif game.PlaceId == placeID10 then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/Blox%20Fruits%20Universe"))()
+    elseif game.PlaceId == placeID11 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Anime-Fighters/main/Anime%20Fighters%20Main"))()
+
                 else
                     error("Place ID inválido.")
                 end
