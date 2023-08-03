@@ -94,6 +94,7 @@ if checkAccess(wl_key) then
     local placeID12 = 301549746
     local placeID13 = 1480424328
     local placeID14 = 1869597719
+    local placeID15 = 443406476
 
     if game.PlaceId == placeID1 then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MainMenu"))()
@@ -123,6 +124,8 @@ if checkAccess(wl_key) then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Aimbot-WallHack/main/Aimbot%20Loader"))()
     elseif game.PlaceId == placeID14 then
         loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Aimbot-WallHack/main/Aimbot%20Loader"))()
+    elseif game.PlaceId == placeID15 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/ProjectLazarus/main/Project%20Lazarus%20Main"))()
                 else
                 error("Place ID inválido.")
                 end
