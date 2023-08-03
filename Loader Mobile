@@ -81,6 +81,7 @@ local placeID8 = 6299805723
 local placeID9 = 2753915549
 local placeID10 = 4442272183
 local placeID11 = 7449423635
+local placeID12 = 443406476
 
 
                 if game.PlaceId == placeID1 then
@@ -105,6 +106,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/BloxFruits%20Universe%20Mobile"))()
                  elseif game.PlaceId == placeID11 then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/BloxFruits%20Universe%20Mobile"))()
+                 elseif game.PlaceId == placeID12 then
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/ProjectLazarus/main/Project%20Lazarus%20Main"))()
                 else
                 error("Place ID inválido.")
                 end
