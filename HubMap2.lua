@@ -447,21 +447,6 @@ end
            end)
        end
     end)
-        
-    spawn(function()
-       while task.wait() do
-          if AutoCollectChest then
-                    for _, v in pairs(game:GetService("Workspace").Debree:GetChildren()) do
-                       if v.Name == "Loot_Chest" then
-                          for _, c in pairs(v:FindFirstChild("Drops"):GetChildren()) do
-                            local args = { [1] = c.Name }
-                                v["Add_To_Inventory"]:InvokeServer(unpack(args))
-                         end
-                     end
-                 end
-            end
-         end
-    end)
 
 spawn(function()
     while task.wait() do
@@ -1356,28 +1341,46 @@ Teleports2:CreateButton({
 game:GetService("ReplicatedStorage").Remotes.To_Server.Handle_Initiate_C:FireServer(ohString1, ohNumber2, ohString3, ohCFrame4, ohInstance5)
 
 
+local Debree = Workspace:WaitForChild("Debree")
+
+local OSTPRKGL = false
 Misc:CreateToggle({
     Name = "AutoCollect",
     CurrentValue = false,
     Callback = function(Value)
-        getgenv().AutoCollectChest = Value
+        OSTPRKGL = Value
+
+        if OSTPRKGL then
+            local connection
+
+            connection = Debree.ChildAdded:Connect(function(v)
+                if v.Name == "Loot_Chest" then 
+                    local Remote = v:WaitForChild("Add_To_Inventory")
+                    local Drops = v:WaitForChild("Drops")  
+                    repeat 
+                        for i,v in next, Drops:GetChildren() do 
+                            Remote:InvokeServer(v.Name)
+                        end
+                        task.wait(0.25)
+                    until not v.Parent
+                end
+            end)
+
+            -- Quando a coleta automática for desativada, desconectamos a função do evento
+            local disconnectSignal
+            disconnectSignal = Misc:CreateToggle({
+                Name = "DisconnectAutoCollect",
+                CurrentValue = false,
+                Callback = function(Value)
+                    if not Value then
+                        connection:Disconnect()
+                        disconnectSignal:Destroy()
+                    end
+                end,
+            })
+        end
     end,
 })
-
-spawn(function()
-    while task.wait() do
-        if getgenv().AutoCollectChest then
-            for _, v in pairs(game:GetService("Workspace").Debree:GetChildren()) do
-                if v.Name == "Loot_Chest" then
-                    for _, c in pairs(v:FindFirstChild("Drops"):GetChildren()) do
-                        local args = { [1] = c.Name }
-                        v["Add_To_Inventory"]:InvokeServer(unpack(args))
-                    end
-                end
-            end
-        end
-    end
-end)
 
 Misc:CreateToggle({
     Name = "Inf Stamina",
