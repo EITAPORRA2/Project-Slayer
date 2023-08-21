@@ -360,21 +360,6 @@
 		
 	spawn(function()
 	   while task.wait() do
-	      if AutoCollectChest then
-	                for _, v in pairs(game:GetService("Workspace").Debree:GetChildren()) do
-	                   if v.Name == "Loot_Chest" then
-	                      for _, c in pairs(v:FindFirstChild("Drops"):GetChildren()) do
-	                        local args = { [1] = c.Name }
-	                            v["Add_To_Inventory"]:InvokeServer(unpack(args))
-	                     end
-	                 end
-	             end
-	        end
-	     end
-	end)
-	
-	spawn(function()
-	   while task.wait() do
 	      if AutoEatSouls then
 	         for i,v in pairs(game:GetService("Workspace").Debree:GetChildren()) do
 	            if v.Name == "Soul" then
@@ -867,14 +852,38 @@ LeftGroupBox2:AddToggle('GKAarroWW', {
     end
 })
 	
-	RightGroupBox4:AddToggle('AutoCollectChestv1', {
-	    Text = 'Auto Collect Chest',
-	    Default = false, -- Default value (true / false)
-	    Callback = function(value)
-	      getgenv().AutoCollectChest = value
-	    end
-	})
-	
+local OSTPRKGL = false
+local connection
+local Debree = Workspace:WaitForChild("Debree")
+
+RightGroupBox4:AddToggle('AutoCollectChestv1', {
+    Text = 'Auto Collect Chest',
+    Default = false, -- Default value (true / false)
+    Callback = function(value)
+        OSTPRKGL = value
+
+        if OSTPRKGL then
+
+            connection = Debree.ChildAdded:Connect(function(v)
+                if v.Name == "Loot_Chest" then 
+                    local Remote = v:WaitForChild("Add_To_Inventory")
+                    local Drops = v:WaitForChild("Drops")  
+                    repeat 
+                        for i,v in next, Drops:GetChildren() do 
+                            Remote:InvokeServer(v.Name)
+                        end
+                        task.wait(0.25)
+                    until not v.Parent
+                end
+            end)
+        else
+            if connection then
+                connection:Disconnect()
+            end
+        end
+    end
+})
+
 	spawn(function()
 	    while task.wait() do
 	        if getgenv().AutoBlock then
