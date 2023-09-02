@@ -97,35 +97,35 @@ if checkAccess(wl_key) then
     local placeID15 = 443406476
 
     if game.PlaceId == placeID1 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MainMenu"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MainMenu.lua"))()
     elseif game.PlaceId == placeID2 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/UniverseMAP1%20PC.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MAP1PC.lua"))()
     elseif game.PlaceId == placeID3 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Universe%20MAP2%20PC.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MAP2PC.lua"))()
     elseif game.PlaceId == placeID4 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubDg"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/HubDungeon.lua"))()
     elseif game.PlaceId == placeID5 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Mugen"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Mugen.lua"))()
     elseif game.PlaceId == placeID6 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/Universe%20MAP2%20PC.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MAP2PC.lua"))()
     elseif game.PlaceId == placeID7 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/UniverseMAP1%20PC.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Project-Slayer/main/MAP1PC.lua"))()
     elseif game.PlaceId == placeID8 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/Blox%20Fruits%20Universe"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/BloxFruits.lua"))()
     elseif game.PlaceId == placeID9 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/Blox%20Fruits%20Universe"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/BloxFruits.lua"))()
     elseif game.PlaceId == placeID10 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/Blox%20Fruits%20Universe"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/BloxFruits/main/BloxFruits.lua"))()
     elseif game.PlaceId == placeID11 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Anime-Fighters/main/Anime%20Fighters%20Main"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Anime-Fighters/main/AnimeFighters.lua"))()
     elseif game.PlaceId == placeID12 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Counter-Blox/main/CounterBlox%20Universe"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Counter-Blox/main/CounterBlox.lua"))()
     elseif game.PlaceId == placeID13 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Counter-Blox/main/CounterBlox%20Universe"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Counter-Blox/main/CounterBlox.lua"))()
     elseif game.PlaceId == placeID14 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Counter-Blox/main/CounterBlox%20Universe"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/Counter-Blox/main/CounterBlox.lua"))()
     elseif game.PlaceId == placeID15 then
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/ProjectLazarus/main/Project%20Lazarus%20Main"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EITAPORRA2/ProjectLazarus/main/ProjectLazarus.lua"))()
                 else
                 error("Place ID inválido.")
                 end
