@@ -57,7 +57,13 @@ WhitelistKeys = {
     key21 = "4DE61MN4KWLNB1LDO2ZC", --Sonin
     Key22 = "ESRRB72FAYW0RN7OYWAL", --Oirlonsio Xernous
     Key23 = "65HZXPO8YSYO4B2AGR8K", --ShadowCria
-    Key24 = "T6ES58SOGWCIX27LIY8S" --Musashi
+    Key24 = "T6ES58SOGWCIX27LIY8S", --Musashi
+--Mobiles
+    key25 = "4507a338-2b57-4a19-94c0-f3a149e387e6", --Bruno
+    key26 = "ebdb3e8c-2d03-48c2-8714-9ad1feb9199e", --Henrique
+    key27 = "7a3a238a-a4d9-44cf-b6c5-a6f9e74908f8", --Melissa
+    key28 = "879c6da4-3831-4d40-bc75-838690922262", --gustavo
+    key29 = "8783A701-FB8A-48EA-9ED5-2686CB25738D" --Menocadu
 }
 
 function checkAccess(key)
