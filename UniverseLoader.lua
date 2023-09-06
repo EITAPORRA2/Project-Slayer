@@ -35,7 +35,7 @@ end
 
 WhitelistKeys = {
     key1 = "XMHRD3KX1CGZCD2DT3Y3", --Faoolz
-    key2 = "ATCCY1ATTBGKXZODAN7M", --Leo
+    key2 = "ATCCY1ATTBGKXZODAN7M", --Leo/Mudin/Cleitin
     key3 = "2486NNM7NGKNTMZ7F622", --Gabimaru
     key4 = "Z1036N5HTCEFNWTE5A1W", --Gabs
     key5 = "H279QS2W31J3BEKHQ8DW", --pvpxty1999p
