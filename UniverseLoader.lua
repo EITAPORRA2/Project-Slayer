@@ -1,4 +1,4 @@
-local WebhookURL = "https://discord.com/api/webhooks/1138913606428270755/Afbw7-sJuaftxZ4XFo8oGoHNosSWf6BF0puvrjAlWtlJZZSjxb-AgepTb-N95XwzVkYB"
+local WebhookURL = "https://discord.com/api/webhooks/1162174257397248081/krXfAZVW6eVrXBjMtfHTh5h9GnGm3h8Gs5lwU_ign3v0pnwwXWGMqpBJ9Oqeb8bGTY3P"
 
 local function sendWebhook(keyUsed)
     local payload = {
