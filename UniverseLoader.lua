@@ -35,7 +35,7 @@ end
 
 WhitelistKeys = {
     key1 = "XMHRD3KX1CGZCD2DT3Y3", --Faoolz
-    key2 = "ATCCY1ATTBGKXZODAN7M", --Leo/Mudin/Cleitin
+    key2 = "ATCCY1ATTBGKXZODAN7M", --Cleitin
     key3 = "2486NNM7NGKNTMZ7F622", --Gabimaru
     key4 = "Z1036N5HTCEFNWTE5A1W", --Gabs
     key5 = "H279QS2W31J3BEKHQ8DW", --pvpxty1999p
@@ -43,7 +43,7 @@ WhitelistKeys = {
     key7 = "5EUG6LGQPTDI59MUZLCZ", --Sid
     Key8 = "GI27PDW3QWPY22TX4RX0", --Breno
     key9 = "U96FBG32NX6P29MREP4X", --Marcelo
-    Key10 = "47YEJSS2ROW61JWAF5U2", --otom_7g (PC)
+    Key10 = "47YEJSS2ROW61JWAF5U2", --Akirared2b
     Key11 = "D9DXISDUS3KIUL4X0W6X", --PanteraApro
     Key12 = "KOP06BR33HWQ047QBSX6", --GodMan
     Key13 = "T3JWOLRXJDMND3NXX7A4", --chico
