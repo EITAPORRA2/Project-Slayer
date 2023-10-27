@@ -34,36 +34,36 @@ local function sendWebhook(keyUsed)
 end
 
 WhitelistKeys = {
-    key1 = "XMHRD3KX1CGZCD2DT3Y3", --Faoolz
-    key2 = "ATCCY1ATTBGKXZODAN7M", --Cleitin
-    key3 = "2486NNM7NGKNTMZ7F622", --Gabimaru
-    key4 = "Z1036N5HTCEFNWTE5A1W", --Gabs
-    key5 = "H279QS2W31J3BEKHQ8DW", --pvpxty1999p
-    key6 = "GJB913D4QJKIL5XANNOO", --akirafelino242
-    key7 = "5EUG6LGQPTDI59MUZLCZ", --Sid
-    Key8 = "GI27PDW3QWPY22TX4RX0", --Breno
-    key9 = "U96FBG32NX6P29MREP4X", --Marcelo
-    Key10 = "47YEJSS2ROW61JWAF5U2", --Akirared2b
-    Key11 = "D9DXISDUS3KIUL4X0W6X", --PanteraApro
-    Key12 = "KOP06BR33HWQ047QBSX6", --GodMan
-    Key13 = "T3JWOLRXJDMND3NXX7A4", --chico
-    Key14 = "9H44S77IEXPYP1DH90M3", --Miguel
-    Key15 = "7HPDI6QBUG9JJEWK4O53", --Melissa
-    Key16 = "9U3Z7IMXUDCMQZRWD51H", --Lucas
-    Key17 = "Q51ANX7WJE4UOSNNTJ5Q", --Bruno
-    Key18 = "0I7GH64DZGOE4331Q2QB", --Daniel Da Gazeficação
-    key19 = "6HFN18FCLXNEUG3777C6", --TANJIRO KAMADO
-    key20 = "Y3O16UZ6BEA6B6MFQMQS", --Senju
-    key21 = "4DE61MN4KWLNB1LDO2ZC", --Sonin
-    Key22 = "ESRRB72FAYW0RN7OYWAL", --Oirlonsio Xernous
-    Key23 = "65HZXPO8YSYO4B2AGR8K", --ShadowCria
-    Key24 = "T6ES58SOGWCIX27LIY8S", --Musashi
+    --key1 = "XMHRD3KX1CGZCD2DT3Y3", --Faoolz
+    --key2 = "ATCCY1ATTBGKXZODAN7M", --Cleitin
+   -- key3 = "2486NNM7NGKNTMZ7F622", --Gabimaru
+    --key4 = "Z1036N5HTCEFNWTE5A1W", --Gabs
+    --key5 = "H279QS2W31J3BEKHQ8DW", --pvpxty1999p
+   -- key6 = "GJB913D4QJKIL5XANNOO", --akirafelino242
+   -- key7 = "5EUG6LGQPTDI59MUZLCZ", --Sid
+   -- Key8 = "GI27PDW3QWPY22TX4RX0", --Breno
+   -- key9 = "U96FBG32NX6P29MREP4X", --Marcelo
+   -- Key10 = "47YEJSS2ROW61JWAF5U2", --Akirared2b
+  --  Key11 = "D9DXISDUS3KIUL4X0W6X", --PanteraApro
+   -- Key12 = "KOP06BR33HWQ047QBSX6", --GodMan
+  --  Key13 = "T3JWOLRXJDMND3NXX7A4", --chico
+ --   Key14 = "9H44S77IEXPYP1DH90M3", --Miguel
+  --  Key15 = "7HPDI6QBUG9JJEWK4O53", --Melissa
+ --   Key16 = "9U3Z7IMXUDCMQZRWD51H", --Lucas
+ --   Key17 = "Q51ANX7WJE4UOSNNTJ5Q", --Bruno
+ --   Key18 = "0I7GH64DZGOE4331Q2QB", --Daniel Da Gazeficação
+ --   key19 = "6HFN18FCLXNEUG3777C6", --TANJIRO KAMADO
+  --  key20 = "Y3O16UZ6BEA6B6MFQMQS", --Senju
+  --  key21 = "4DE61MN4KWLNB1LDO2ZC", --Sonin
+ --   Key22 = "ESRRB72FAYW0RN7OYWAL", --Oirlonsio Xernous
+ --   Key23 = "65HZXPO8YSYO4B2AGR8K", --ShadowCria
+ --   Key24 = "T6ES58SOGWCIX27LIY8S", --Musashi
 --Mobiles
-    key25 = "4507a338-2b57-4a19-94c0-f3a149e387e6", --Bruno
-    key26 = "ebdb3e8c-2d03-48c2-8714-9ad1feb9199e", --Henrique
-    key27 = "7a3a238a-a4d9-44cf-b6c5-a6f9e74908f8", --Melissa
-    key28 = "879c6da4-3831-4d40-bc75-838690922262", --gustavo
-    key29 = "8783A701-FB8A-48EA-9ED5-2686CB25738D" --Menocadu
+   -- key25 = "4507a338-2b57-4a19-94c0-f3a149e387e6", --Bruno
+   -- key26 = "ebdb3e8c-2d03-48c2-8714-9ad1feb9199e", --Henrique
+ --   key27 = "7a3a238a-a4d9-44cf-b6c5-a6f9e74908f8", --Melissa
+  --  key28 = "879c6da4-3831-4d40-bc75-838690922262", --gustavo
+ --   key29 = "8783A701-FB8A-48EA-9ED5-2686CB25738D" --Menocadu
 }
 
 function checkAccess(key)
